@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Explore"
+        android:id="@+id/explore"
+        android:icon="@drawable/baseline_search_24"/>
+    <item android:title="MyListings"
+        android:id="@+id/myListings"
+        android:icon="@drawable/baseline_home_24"/>
+    <item android:title="Account"
+        android:id="@+id/account"
+        android:icon="@drawable/baseline_account_circle_24"/>
+</menu>
