@@ -7,7 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ListingAdapter(private val listings:ArrayList<Listing>) :RecyclerView.Adapter<ListingAdapter.ListingViewHolder>(){
+class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<ListingAdapter.ListingViewHolder>(){
 
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val ivListingImg : ImageView = itemView.findViewById(R.id.ivListingImg)
@@ -15,6 +15,11 @@ class ListingAdapter(private val listings:ArrayList<Listing>) :RecyclerView.Adap
     }
 
     var onItemClick : ((Listing) -> Unit)? = null
+
+    fun setFilteredList(listings: ArrayList<Listing>){
+        this.listings = listings
+        notifyDataSetChanged()
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListingViewHolder {
