@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mco.databinding.FragmentExploreBinding
 
@@ -15,6 +16,8 @@ class ExploreFragment : Fragment() {
     private var _binding: FragmentExploreBinding? = null
     private val binding: FragmentExploreBinding get() = _binding!!
     private lateinit var rvSearchResults: RecyclerView
+    private lateinit var listings : ArrayList<Listing>
+    private lateinit var listingAdapter: ListingAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,9 +38,20 @@ class ExploreFragment : Fragment() {
 
         rvSearchResults= view.findViewById(R.id.rvSearchResults)
 
-        rvSearchResults.adapter
         rvSearchResults.setHasFixedSize(true)
-        rvSearchResults.layoutManager = GridLayoutManager(this.activity, 2)
+        rvSearchResults.layoutManager = LinearLayoutManager(this.activity)
+
+        listings = ArrayList()
+
+        listings.add(Listing(R.drawable.bed, "Green Residence"))
+        listings.add(Listing(R.drawable.bed, "Green Residence"))
+        listings.add(Listing(R.drawable.bed, "Green Residence"))
+        listings.add(Listing(R.drawable.bed, "Green Residence"))
+        listings.add(Listing(R.drawable.bed, "Green Residence"))
+
+        listingAdapter = ListingAdapter(listings)
+        rvSearchResults.adapter = listingAdapter
+
 
     }
 
