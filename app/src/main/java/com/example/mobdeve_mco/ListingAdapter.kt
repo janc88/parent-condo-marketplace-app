@@ -14,6 +14,9 @@ class ListingAdapter(private val listings:ArrayList<Listing>) :RecyclerView.Adap
         val tvListingTitle : TextView = itemView.findViewById(R.id.tvListingTitle)
     }
 
+    var onItemClick : ((Listing) -> Unit)? = null
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListingViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.listing_card, parent, false)
         return ListingViewHolder(view)
@@ -27,5 +30,10 @@ class ListingAdapter(private val listings:ArrayList<Listing>) :RecyclerView.Adap
         val listing = listings[position]
         holder.ivListingImg.setImageResource(listing.image)
         holder.tvListingTitle.text = listing.title
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(listing)
+        }
+
     }
 }

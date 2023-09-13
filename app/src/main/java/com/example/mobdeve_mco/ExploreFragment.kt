@@ -1,5 +1,6 @@
 package com.example.mobdeve_mco
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -44,13 +45,19 @@ class ExploreFragment : Fragment() {
         listings = ArrayList()
 
         listings.add(Listing(R.drawable.bed, "Green Residence"))
-        listings.add(Listing(R.drawable.bed, "Green Residence"))
-        listings.add(Listing(R.drawable.bed, "Green Residence"))
-        listings.add(Listing(R.drawable.bed, "Green Residence"))
-        listings.add(Listing(R.drawable.bed, "Green Residence"))
+        listings.add(Listing(R.drawable.bed, "Green Residence2"))
+        listings.add(Listing(R.drawable.bed, "Green Residence3"))
+        listings.add(Listing(R.drawable.bed, "Green Residence4"))
+        listings.add(Listing(R.drawable.bed, "Green Residence5"))
 
         listingAdapter = ListingAdapter(listings)
         rvSearchResults.adapter = listingAdapter
+
+        listingAdapter.onItemClick = {
+            val intent = Intent(this.activity, ListingActivity::class.java)
+            intent.putExtra("listing", it)
+            startActivity(intent)
+        }
 
 
     }
