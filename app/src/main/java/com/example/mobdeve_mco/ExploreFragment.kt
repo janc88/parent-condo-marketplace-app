@@ -12,6 +12,8 @@ import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.denzcoskun.imageslider.ImageSlider
+import com.denzcoskun.imageslider.models.SlideModel
 import com.example.mobdeve_mco.databinding.FragmentExploreBinding
 import java.util.Locale
 
@@ -41,6 +43,7 @@ class ExploreFragment : Fragment() {
         binding.btnDLSU.setOnClickListener {
             Toast.makeText(requireContext(), "DLSU", Toast.LENGTH_SHORT).show()
         }
+
 
         rvSearchResults= view.findViewById(R.id.rvSearchResults)
         svExplore = view.findViewById(R.id.svExplore)

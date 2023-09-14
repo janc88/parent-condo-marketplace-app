@@ -83,5 +83,19 @@
     </androidx.recyclerview.widget.RecyclerView>
 
 
+<!--    <com.denzcoskun.imageslider.ImageSlider-->
+<!--        android:id="@+id/image_slider"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="300dp"-->
+<!--        app:iss_auto_cycle="true"-->
+<!--        app:iss_delay="1000"-->
+<!--        app:iss_period="1000"-->
+<!--        app:iss_placeholder="@drawable/bed"-->
+<!--        app:iss_selected_dot="@drawable/default_selected_dot"-->
+<!--        app:iss_text_align="CENTER"-->
+<!--        app:iss_unselected_dot="@drawable/default_unselected_dot"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
