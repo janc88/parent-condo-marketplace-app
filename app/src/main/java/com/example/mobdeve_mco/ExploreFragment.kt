@@ -27,6 +27,8 @@ class ExploreFragment : Fragment() {
     private lateinit var listingAdapter: ListingAdapter
     private lateinit var svExplore : SearchView
 
+    private lateinit var imageList : ArrayList<Int>
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -53,11 +55,18 @@ class ExploreFragment : Fragment() {
 
         listings = ArrayList()
 
-        listings.add(Listing(R.drawable.bed, "Green Residence"))
-        listings.add(Listing(R.drawable.bed, "Green Residence2"))
-        listings.add(Listing(R.drawable.bed, "Green Residence3"))
-        listings.add(Listing(R.drawable.bed, "Green Residence4"))
-        listings.add(Listing(R.drawable.bed, "Green Residence5"))
+        imageList = ArrayList()
+
+        imageList.add(R.drawable.bed)
+        imageList.add(R.drawable.bed)
+        imageList.add(R.drawable.bed)
+        imageList.add(R.drawable.bed)
+
+        listings.add(Listing(R.drawable.bed, imageList, "Green Residence"))
+        listings.add(Listing(R.drawable.bed, imageList, "Green Residence2"))
+        listings.add(Listing(R.drawable.bed, imageList, "Green Residence3"))
+        listings.add(Listing(R.drawable.bed, imageList, "Green Residence4"))
+        listings.add(Listing(R.drawable.bed, imageList, "Green Residence5"))
 
         listingAdapter = ListingAdapter(listings)
         rvSearchResults.adapter = listingAdapter

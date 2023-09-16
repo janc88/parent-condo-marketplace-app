@@ -6,11 +6,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.denzcoskun.imageslider.ImageSlider
+import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.models.SlideModel
 
 class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<ListingAdapter.ListingViewHolder>(){
 
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-        val ivListingImg : ImageView = itemView.findViewById(R.id.ivListingImg)
+//        val ivListingImg : ImageView = itemView.findViewById(R.id.ivListingImg)
+        val imageSlider : ImageSlider = itemView.findViewById(R.id.imageSlider)
         val tvListingTitle : TextView = itemView.findViewById(R.id.tvListingTitle)
     }
 
@@ -33,7 +37,14 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
         val listing = listings[position]
-        holder.ivListingImg.setImageResource(listing.image)
+
+        val imageList = ArrayList<SlideModel>()
+
+        for(image in listing.imageList){
+            imageList.add(SlideModel(image, ScaleTypes.CENTER_CROP))
+        }
+
+        holder.imageSlider.setImageList(imageList)
         holder.tvListingTitle.text = listing.title
 
         holder.itemView.setOnClickListener {

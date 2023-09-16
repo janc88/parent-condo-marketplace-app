@@ -6,16 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ListingActivity">
 
-    <ImageView
-        android:id="@+id/ivListingImg"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
+    <com.denzcoskun.imageslider.ImageSlider
+        android:id="@+id/imageSlider"
+        android:layout_width="wrap_content"
+        android:layout_height="220dp"
+        app:iss_placeholder="@drawable/bed"
+        app:iss_selected_dot="@drawable/default_selected_dot"
+        app:iss_unselected_dot="@drawable/default_unselected_dot"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/bed" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvListingTitle"
@@ -25,5 +25,7 @@
         android:text="Green Residences"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivListingImg" />
+        app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
