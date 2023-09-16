@@ -4,16 +4,14 @@ import android.os.Parcel
 import android.os.Parcelable
 import com.denzcoskun.imageslider.models.SlideModel
 
-data class Listing(val coverImg:Int, val imageList:ArrayList<Int>, val title:String) : Parcelable {
+data class Listing(val imageList:ArrayList<Int>, val title:String) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
         parcel.createIntArray()?.toCollection(ArrayList()) ?: ArrayList(),
         parcel.readString()!!
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(coverImg)
         parcel.writeIntArray(imageList.toIntArray())
         parcel.writeString(title)
     }

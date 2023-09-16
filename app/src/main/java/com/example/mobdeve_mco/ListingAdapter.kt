@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -13,7 +14,6 @@ import com.denzcoskun.imageslider.models.SlideModel
 class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<ListingAdapter.ListingViewHolder>(){
 
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-//        val ivListingImg : ImageView = itemView.findViewById(R.id.ivListingImg)
         val imageSlider : ImageSlider = itemView.findViewById(R.id.imageSlider)
         val tvListingTitle : TextView = itemView.findViewById(R.id.tvListingTitle)
     }
@@ -50,6 +50,5 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(listing)
         }
-
     }
 }

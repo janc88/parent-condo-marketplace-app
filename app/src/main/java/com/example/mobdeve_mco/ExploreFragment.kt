@@ -62,11 +62,11 @@ class ExploreFragment : Fragment() {
         imageList.add(R.drawable.bed)
         imageList.add(R.drawable.bed)
 
-        listings.add(Listing(R.drawable.bed, imageList, "Green Residence"))
-        listings.add(Listing(R.drawable.bed, imageList, "Green Residence2"))
-        listings.add(Listing(R.drawable.bed, imageList, "Green Residence3"))
-        listings.add(Listing(R.drawable.bed, imageList, "Green Residence4"))
-        listings.add(Listing(R.drawable.bed, imageList, "Green Residence5"))
+        listings.add(Listing(imageList, "Green Residence"))
+        listings.add(Listing(imageList, "Green Residence2"))
+        listings.add(Listing(imageList, "Green Residence3"))
+        listings.add(Listing(imageList, "Green Residence4"))
+        listings.add(Listing(imageList, "Green Residence5"))
 
         listingAdapter = ListingAdapter(listings)
         rvSearchResults.adapter = listingAdapter
