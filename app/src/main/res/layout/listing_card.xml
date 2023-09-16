@@ -12,16 +12,18 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.denzcoskun.imageslider.ImageSlider
-            android:id="@+id/imageSlider"
-            android:layout_width="match_parent"
-            android:layout_height="315dp"
-            app:iss_placeholder="@drawable/bed"
-            app:iss_selected_dot="@drawable/default_selected_dot"
-            app:iss_unselected_dot="@drawable/default_unselected_dot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="315dp"
+                app:iss_placeholder="@drawable/bed"
+                app:iss_selected_dot="@drawable/default_selected_dot"
+                app:iss_unselected_dot="@drawable/default_unselected_dot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         <TextView
             android:id="@+id/tvListingTitle"

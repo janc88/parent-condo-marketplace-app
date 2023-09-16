@@ -3,12 +3,12 @@ package com.example.mobdeve_mco
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 
 class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<ListingAdapter.ListingViewHolder>(){
@@ -16,6 +16,9 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val imageSlider : ImageSlider = itemView.findViewById(R.id.imageSlider)
         val tvListingTitle : TextView = itemView.findViewById(R.id.tvListingTitle)
+        fun setImageSliderClickListener(itemClickListener: ItemClickListener) {
+            imageSlider.setItemClickListener(itemClickListener)
+        }
     }
 
     var onItemClick : ((Listing) -> Unit)? = null
@@ -46,6 +49,17 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
 
         holder.imageSlider.setImageList(imageList)
         holder.tvListingTitle.text = listing.title
+
+        holder.setImageSliderClickListener(object : ItemClickListener {
+            override fun onItemSelected(position: Int) {
+                onItemClick?.invoke(listing)
+            }
+
+            override fun doubleClick(position: Int) {
+
+            }
+        })
+
 
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(listing)
