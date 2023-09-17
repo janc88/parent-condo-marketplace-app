@@ -62,11 +62,11 @@ class ExploreFragment : Fragment() {
         imageList.add(R.drawable.bed)
         imageList.add(R.drawable.bed)
 
-        listings.add(Listing(imageList, "Green Residence"))
-        listings.add(Listing(imageList, "Green Residence2"))
-        listings.add(Listing(imageList, "Green Residence3"))
-        listings.add(Listing(imageList, "Green Residence4"))
-        listings.add(Listing(imageList, "Green Residence5"))
+        listings.add(Listing(imageList, "1BR 25sqm fully furnished", 15000, "Green Residences", "DLSU"))
+        listings.add(Listing(imageList, "3BR 45sqm top floor", 25000, "Taft Residences", "UP"))
+        listings.add(Listing(imageList, "fully furnished", 10000, "Archers Place", "ADMU"))
+        listings.add(Listing(imageList, "room for rent", 9000, "Green Residences", "DLSU"))
+        listings.add(Listing(imageList, "big room near UST", 12000, "UST Residences", "UST"))
 
         listingAdapter = ListingAdapter(listings)
         rvSearchResults.adapter = listingAdapter

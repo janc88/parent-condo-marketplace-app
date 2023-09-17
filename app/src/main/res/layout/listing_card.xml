@@ -29,43 +29,67 @@
             android:layout_height="wrap_content">
 
             <TextView
+                android:id="@+id/tvProperty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/cereal_bold"
+                android:paddingLeft="5dp"
+                android:text="Green Residences"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
                 android:id="@+id/tvListingTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:paddingBottom="3dp"
                 android:text="24sqm 1BR unit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintTop_toBottomOf="@id/tvProperty"
+                app:layout_constraintVertical_bias="0.0"
+            />
 
             <TextView
                 android:id="@+id/tvUniversity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginLeft="7dp"
                 android:text="DLSU"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/border_dlsu"
+                android:textColor="@color/dlsu_color"
+                android:fontFamily="@font/cereal_bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvProperty" />
+                app:layout_constraintTop_toBottomOf="@id/tvListingTitle"
+                app:layout_constraintStart_toStartOf="parent" />
+
 
             <TextView
-                android:id="@+id/tvProperty"
+                android:id="@+id/tvPerMonth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
-                android:text="Green Residences"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvListingTitle" />
+                android:layout_margin="10dp"
+                android:text="a month"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:text="15,000 a month"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="3dp"
+                android:fontFamily="@font/cereal_extra_bold"
+                android:text="15,000"
+                app:layout_constraintEnd_toStartOf="@id/tvPerMonth"
                 app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

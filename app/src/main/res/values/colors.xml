@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dlsu_color">#087830</color>
+    <color name="admu_color">#003A6C</color>
+    <color name="ust_color">#FEC00F</color>
+    <color name="up_color">#7B1113</color>
 </resources>
