@@ -4,5 +4,6 @@
         <item name="android:textSize">@dimen/bottom_navigation_text_size</item>
         <item name="android:maxWidth">@dimen/bottom_navigation_icon_size</item>
         <item name="android:maxHeight">@dimen/bottom_navigation_icon_size</item>
+        <item name="android:background">@color/white</item>
     </style>
 </resources>
