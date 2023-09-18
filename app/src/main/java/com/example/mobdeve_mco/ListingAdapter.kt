@@ -48,7 +48,7 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
         val imageList = ArrayList<SlideModel>()
 
         for(image in listing.imageList){
-            imageList.add(SlideModel(image, ScaleTypes.CENTER_CROP))
+            imageList.add(SlideModel(image, ScaleTypes.FIT))
         }
 
         holder.imageSlider.setImageList(imageList)
