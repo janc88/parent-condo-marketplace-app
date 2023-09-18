@@ -42,9 +42,9 @@ class ExploreFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnDLSU.setOnClickListener {
-            Toast.makeText(requireContext(), "DLSU", Toast.LENGTH_SHORT).show()
-        }
+//        binding.btnDLSU.setOnClickListener {
+//            Toast.makeText(requireContext(), "DLSU", Toast.LENGTH_SHORT).show()
+//        }
 
 
         rvSearchResults= view.findViewById(R.id.rvSearchResults)

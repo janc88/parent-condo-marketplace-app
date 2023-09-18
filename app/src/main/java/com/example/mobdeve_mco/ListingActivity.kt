@@ -1,13 +1,18 @@
 package com.example.mobdeve_mco
 
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
-import android.transition.Slide
-import android.widget.ImageView
+import android.view.View
+import android.view.Window
+import android.view.WindowInsetsController
+import android.view.WindowManager
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+
 
 class ListingActivity : AppCompatActivity() {
 
@@ -33,5 +38,11 @@ class ListingActivity : AppCompatActivity() {
 
             imageSlider.setImageList(imageList)
         }
+
+        val window = this.window
+
+        window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        window.statusBarColor = ContextCompat.getColor(this, R.color.white)
+
     }
 }

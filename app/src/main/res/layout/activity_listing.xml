@@ -9,7 +9,7 @@
     <com.denzcoskun.imageslider.ImageSlider
         android:id="@+id/imageSlider"
         android:layout_width="wrap_content"
-        android:layout_height="210dp"
+        android:layout_height="230dp"
         app:iss_placeholder="@drawable/bed"
         app:iss_selected_dot="@drawable/default_selected_dot"
         app:iss_unselected_dot="@drawable/default_unselected_dot"
