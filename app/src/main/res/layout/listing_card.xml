@@ -15,17 +15,27 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.denzcoskun.imageslider.ImageSlider
-            android:id="@+id/imageSlider"
-            android:layout_width="match_parent"
-            android:layout_height="325dp"
-            app:iss_placeholder="@drawable/bed"
-            app:iss_corner_radius="@integer/custom_corner_radius"
-            app:iss_selected_dot="@drawable/default_selected_dot"
-            app:iss_unselected_dot="@drawable/default_unselected_dot"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:cardElevation="0dp">
+
+            <com.denzcoskun.imageslider.ImageSlider
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="325dp"
+                app:iss_placeholder="@drawable/bed"
+
+                app:iss_selected_dot="@drawable/default_selected_dot"
+                app:iss_unselected_dot="@drawable/default_unselected_dot"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.cardview.widget.CardView>
+
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -46,11 +56,10 @@
 
             <TextView
                 android:id="@+id/tvListingTitle"
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="3dp"
                 android:paddingBottom="3dp"
                 android:text="24sqm 1BR unit"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -82,8 +91,9 @@
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_margin="9dp"
                 android:text="a month"
+                android:textSize="15dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,10 +102,11 @@
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="9dp"
                 android:layout_marginRight="3dp"
                 android:fontFamily="@font/cereal_extra_bold"
                 android:text="15,000"
+                android:textSize="15dp"
                 app:layout_constraintEnd_toStartOf="@id/tvPerMonth"
                 app:layout_constraintTop_toTopOf="parent" />
 
