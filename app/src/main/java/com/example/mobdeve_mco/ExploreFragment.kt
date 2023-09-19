@@ -6,14 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SearchView.OnQueryTextListener
+import android.widget.Button
+import android.widget.CompoundButton
 import android.widget.Toast
+import android.widget.ToggleButton
 import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.denzcoskun.imageslider.ImageSlider
-import com.denzcoskun.imageslider.models.SlideModel
 import com.example.mobdeve_mco.databinding.FragmentExploreBinding
 import java.util.Locale
 
@@ -26,8 +25,14 @@ class ExploreFragment : Fragment() {
     private lateinit var listings : ArrayList<Listing>
     private lateinit var listingAdapter: ListingAdapter
     private lateinit var svExplore : SearchView
+    private lateinit var btnDLSU : ToggleButton
+    private lateinit var btnADMU : ToggleButton
+    private lateinit var btnUP : ToggleButton
+    private lateinit var btnUST : ToggleButton
 
     private lateinit var imageList : ArrayList<Int>
+
+    private var selectedUniversity: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,11 +46,6 @@ class ExploreFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-//        binding.btnDLSU.setOnClickListener {
-//            Toast.makeText(requireContext(), "DLSU", Toast.LENGTH_SHORT).show()
-//        }
-
 
         rvSearchResults= view.findViewById(R.id.rvSearchResults)
         svExplore = view.findViewById(R.id.svExplore)
@@ -83,19 +83,62 @@ class ExploreFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                filterList(newText)
+                searchList(newText)
                 return true
             }
         })
 
+        btnDLSU = view.findViewById(R.id.btnDLSU)
+        btnADMU = view.findViewById(R.id.btnADMU)
+        btnUST = view.findViewById(R.id.btnUST)
+        btnUP = view.findViewById(R.id.btnUP)
 
+
+        val toggleButtons = listOf(btnDLSU, btnADMU, btnUST, btnUP)
+
+        for (button in toggleButtons) {
+            button.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+                override fun onCheckedChanged(compoundButton: CompoundButton?, isChecked: Boolean) {
+                    if (isChecked) {
+                        for (otherButton in toggleButtons) {
+                            if (otherButton != compoundButton) {
+                                otherButton.isChecked = false
+                            }
+                        }
+                        selectedUniversity = button.text.toString()
+                        button.setTextColor(resources.getColor(R.color.red))
+                        filterList(selectedUniversity)
+                    } else {
+                        selectedUniversity = null
+                        button.setTextColor(resources.getColor(R.color.black))
+                        listingAdapter.setFilteredList(listings)
+                    }
+                }
+            })
+        }
     }
 
-    private fun filterList(newText: String?) {
-        if(newText != null){
+    private fun filterList(filter: String?) {
+        if(filter != null){
             val filteredList = ArrayList<Listing>()
             for(i in listings){
-                if(i.title.lowercase(Locale.ROOT).contains(newText)){
+                if(i.university.contains(filter)){
+                    filteredList.add(i)
+                }
+            }
+            if(filteredList.isEmpty()){
+                Toast.makeText(this.activity, "No matches found", Toast.LENGTH_SHORT).show()
+            }else{
+                listingAdapter.setFilteredList(filteredList)
+            }
+        }
+    }
+
+    private fun searchList(searchQuery: String?) {
+        if(searchQuery != null){
+            val filteredList = ArrayList<Listing>()
+            for(i in listings){
+                if(i.title.lowercase(Locale.ROOT).contains(searchQuery)){
                     filteredList.add(i)
                 }
             }
