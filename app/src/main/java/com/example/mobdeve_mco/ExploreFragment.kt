@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.CompoundButton
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mco.databinding.FragmentExploreBinding
@@ -30,6 +32,7 @@ class ExploreFragment : Fragment() {
     private lateinit var btnADMU : ToggleButton
     private lateinit var btnUP : ToggleButton
     private lateinit var btnUST : ToggleButton
+    private lateinit var tvNoFound: TextView
 
     private lateinit var imageList : ArrayList<Int>
 
@@ -84,7 +87,7 @@ class ExploreFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                searchList(newText)
+                searchAndFilterList(newText)
                 return true
             }
         })
@@ -93,6 +96,8 @@ class ExploreFragment : Fragment() {
         btnADMU = view.findViewById(R.id.btnADMU)
         btnUST = view.findViewById(R.id.btnUST)
         btnUP = view.findViewById(R.id.btnUP)
+
+        tvNoFound = view.findViewById(R.id.tvNoFound)
 
 
         val toggleButtons = listOf(btnDLSU, btnADMU, btnUST, btnUP)
@@ -109,49 +114,41 @@ class ExploreFragment : Fragment() {
                         selectedUniversity = button.text.toString()
                         button.setTextColor(resources.getColor(R.color.red))
                         button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
-                        filterList(selectedUniversity)
+                        searchAndFilterList(svExplore.query.toString())
                     } else {
                         selectedUniversity = null
                         button.setTextColor(resources.getColor(R.color.gray))
                         button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal)
-                        listingAdapter.setFilteredList(listings)
+                        searchAndFilterList(svExplore.query.toString())
                     }
                 }
             })
         }
     }
 
-    private fun filterList(filter: String?) {
-        if(filter != null){
-            val filteredList = ArrayList<Listing>()
-            for(i in listings){
-                if(i.university.contains(filter)){
-                    filteredList.add(i)
-                }
+    private fun searchAndFilterList(query: String?) {
+        val filteredList = ArrayList<Listing>()
+
+        for (i in listings) {
+            val universityFilterPassed = selectedUniversity == null || i.university.contains(selectedUniversity!!)
+            val searchQueryPassed = query.isNullOrBlank() || i.title.lowercase(Locale.ROOT).contains(query)
+
+            if (universityFilterPassed && searchQueryPassed) {
+                filteredList.add(i)
             }
-            if(filteredList.isEmpty()){
-                Toast.makeText(this.activity, "No matches found", Toast.LENGTH_SHORT).show()
-            }else{
-                listingAdapter.setFilteredList(filteredList)
-            }
+        }
+
+        if (filteredList.isEmpty()) {
+            showResults(false)
+        } else {
+            listingAdapter.setFilteredList(filteredList)
+            showResults(true)
         }
     }
 
-    private fun searchList(searchQuery: String?) {
-        if(searchQuery != null){
-            val filteredList = ArrayList<Listing>()
-            for(i in listings){
-                if(i.title.lowercase(Locale.ROOT).contains(searchQuery)){
-                    filteredList.add(i)
-                }
-            }
-
-            if(filteredList.isEmpty()){
-                Toast.makeText(this.activity, "No data found", Toast.LENGTH_SHORT).show()
-            }else{
-                listingAdapter.setFilteredList(filteredList)
-            }
-        }
+    private fun showResults(show: Boolean){
+        tvNoFound.isVisible = !show
+        rvSearchResults.isVisible = show
     }
 
     override fun onDestroyView() {
