@@ -20,8 +20,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.explore -> replaceFragment(ExploreFragment())
                 R.id.myListings -> replaceFragment(MyListingsFragment())
-//                R.id.account -> replaceFragment(AccountFragment())
-                R.id.account -> replaceFragment(LoggedOutFragment())
+                R.id.account -> replaceFragment(AccountFragment())
 
                 else ->{
 

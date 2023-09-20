@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import com.example.mobdeve_mco.databinding.FragmentLoggedOutBinding
 
 
@@ -35,7 +36,29 @@ class LoggedOutFragment : Fragment() {
         btnSignUp = view.findViewById<Button>(R.id.btnSignUp);
         btnSignUp.paintFlags = btnSignUp.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 
+
+        btnSignUp.setOnClickListener {
+            replaceFragment(SignUpFragment())
+        }
+
+        btnLogIn = view.findViewById<Button>(R.id.btnLogIn)
+
+        btnLogIn.setOnClickListener {
+            replaceFragment(LogInFragment())
+        }
+
     }
+
+    private fun replaceFragment(fragment : Fragment){
+
+        val fragmentManager = (activity as FragmentActivity).supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.frame_layout,fragment)
+        fragmentTransaction.addToBackStack(null)
+        fragmentTransaction.commit()
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()

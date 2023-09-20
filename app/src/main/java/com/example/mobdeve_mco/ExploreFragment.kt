@@ -11,6 +11,7 @@ import android.widget.CompoundButton
 import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.appcompat.widget.SearchView
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mco.databinding.FragmentExploreBinding
@@ -107,10 +108,12 @@ class ExploreFragment : Fragment() {
                         }
                         selectedUniversity = button.text.toString()
                         button.setTextColor(resources.getColor(R.color.red))
+                        button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
                         filterList(selectedUniversity)
                     } else {
                         selectedUniversity = null
-                        button.setTextColor(resources.getColor(R.color.black))
+                        button.setTextColor(resources.getColor(R.color.gray))
+                        button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal)
                         listingAdapter.setFilteredList(listings)
                     }
                 }
