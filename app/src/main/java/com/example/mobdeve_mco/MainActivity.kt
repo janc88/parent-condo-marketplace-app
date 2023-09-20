@@ -4,9 +4,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.mobdeve_mco.databinding.ActivityMainBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
+
+    private lateinit var bottomNavigationView : BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -14,7 +17,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         replaceFragment(ExploreFragment())
 
-        binding.bottomNavigationView.setOnItemSelectedListener {
+        bottomNavigationView = findViewById(R.id.bottomNavigationView)
+
+        bottomNavigationView.setOnItemSelectedListener {
 
             when(it.itemId){
 
@@ -29,6 +34,23 @@ class MainActivity : AppCompatActivity() {
 
             true
 
+        }
+
+        val fragmentTag = intent.getStringExtra("accountFragment")
+
+        if (fragmentTag != null) {
+            val fragmentManager = supportFragmentManager
+            val fragmentTransaction = fragmentManager.beginTransaction()
+
+            when (fragmentTag) {
+                "LoggedOutFragment" -> {
+                    val fragment = LoggedOutFragment()
+                    fragmentTransaction.replace(R.id.frame_layout, fragment)
+                    bottomNavigationView.selectedItemId = R.id.account
+                }
+
+            }
+            fragmentTransaction.commit()
         }
 
     }

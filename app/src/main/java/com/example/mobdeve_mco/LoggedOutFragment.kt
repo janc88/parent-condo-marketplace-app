@@ -1,5 +1,6 @@
 package com.example.mobdeve_mco
 
+import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.example.mobdeve_mco.databinding.FragmentLoggedOutBinding
 
 
@@ -38,26 +38,18 @@ class LoggedOutFragment : Fragment() {
 
 
         btnSignUp.setOnClickListener {
-            replaceFragment(SignUpFragment())
+            val intent = Intent(activity, SignUpActivity::class.java)
+            startActivity(intent)
         }
 
         btnLogIn = view.findViewById<Button>(R.id.btnLogIn)
 
         btnLogIn.setOnClickListener {
-            replaceFragment(LogInFragment())
+            val intent = Intent(activity, LoginActivity::class.java)
+            startActivity(intent)
         }
 
     }
-
-    private fun replaceFragment(fragment : Fragment){
-
-        val fragmentManager = (activity as FragmentActivity).supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.frame_layout,fragment)
-        fragmentTransaction.addToBackStack(null)
-        fragmentTransaction.commit()
-    }
-
 
 
     override fun onDestroyView() {
