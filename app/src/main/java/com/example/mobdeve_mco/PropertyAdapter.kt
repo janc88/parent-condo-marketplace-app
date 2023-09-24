@@ -25,7 +25,7 @@ class PropertyAdapter(private var properties:ArrayList<Property>) :RecyclerView.
         }
     }
 
-    var onItemClick : ((Listing) -> Unit)? = null
+    var onItemClick : ((Property) -> Unit)? = null
 
     fun setFilteredList(properties:ArrayList<Property>){
         this.properties = properties
@@ -63,20 +63,20 @@ class PropertyAdapter(private var properties:ArrayList<Property>) :RecyclerView.
         holder.tvUniversity.text = property.university
         holder.tvUniversity.setUniversityStyle(property.university)
 
-//        holder.setImageSliderClickListener(object : ItemClickListener {
-//            override fun onItemSelected(position: Int) {
-//                onItemClick?.invoke(property)
-//            }
-//
-//            override fun doubleClick(position: Int) {
-//
-//            }
-//        })
-//
-//
-//        holder.itemView.setOnClickListener {
-//            onItemClick?.invoke(property)
-//        }
+        holder.setImageSliderClickListener(object : ItemClickListener {
+            override fun onItemSelected(position: Int) {
+                onItemClick?.invoke(property)
+            }
+
+            override fun doubleClick(position: Int) {
+
+            }
+        })
+
+
+        holder.itemView.setOnClickListener {
+            onItemClick?.invoke(property)
+        }
     }
 
     private fun Int.formatPrice(): String {

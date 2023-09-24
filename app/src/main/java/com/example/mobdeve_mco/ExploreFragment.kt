@@ -77,27 +77,12 @@ class ExploreFragment : Fragment() {
         propertyAdapter = PropertyAdapter(properties)
         rvSearchResults.adapter = propertyAdapter
 
-//        propertyAdapter.onItemClick = {
-//            val intent = Intent(this.activity, ListingActivity::class.java)
-//            intent.putExtra("listing", it)
-//            startActivity(intent)
-//        }
+        propertyAdapter.onItemClick = {
+            val intent = Intent(this.activity, PropertyActivity::class.java)
+            intent.putExtra("property", it)
+            startActivity(intent)
+        }
 
-
-//        listings.add(Listing(imageList, "1BR 25sqm fully furnished", 15000, "Green Residences", "DLSU"))
-//        listings.add(Listing(imageList, "3BR 45sqm top floor", 25000, "Taft Residences", "UP"))
-//        listings.add(Listing(imageList, "fully furnished", 10000, "Archers Place", "ADMU"))
-//        listings.add(Listing(imageList, "room for rent", 9000, "Green Residences", "DLSU"))
-//        listings.add(Listing(imageList, "big room near UST", 12000, "UST Residences", "UST"))
-//
-//        listingAdapter = ListingAdapter(listings)
-//        rvSearchResults.adapter = listingAdapter
-//
-//        listingAdapter.onItemClick = {
-//            val intent = Intent(this.activity, ListingActivity::class.java)
-//            intent.putExtra("listing", it)
-//            startActivity(intent)
-//        }
 
 //        svExplore.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
 //            override fun onQueryTextSubmit(query: String?): Boolean {

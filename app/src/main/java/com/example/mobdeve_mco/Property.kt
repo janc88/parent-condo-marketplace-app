@@ -27,12 +27,12 @@ data class Property(val imageList:ArrayList<Int>, val name:String, val highestPr
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<Listing> {
-        override fun createFromParcel(parcel: Parcel): Listing {
-            return Listing(parcel)
+    companion object CREATOR : Parcelable.Creator<Property> {
+        override fun createFromParcel(parcel: Parcel): Property {
+            return Property(parcel)
         }
 
-        override fun newArray(size: Int): Array<Listing?> {
+        override fun newArray(size: Int): Array<Property?> {
             return arrayOfNulls(size)
         }
     }
