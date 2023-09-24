@@ -3,7 +3,6 @@ package com.example.mobdeve_mco
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -16,8 +15,8 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
 
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val imageSlider : ImageSlider = itemView.findViewById(R.id.imageSlider)
-        val tvListingTitle : TextView = itemView.findViewById(R.id.tvListingTitle)
-        val tvPrice : TextView = itemView.findViewById(R.id.tvPrice)
+        val tvListingTitle : TextView = itemView.findViewById(R.id.tvAddress)
+        val tvPrice : TextView = itemView.findViewById(R.id.tvPriceRange)
         val tvProperty : TextView = itemView.findViewById(R.id.tvProperty)
         val tvUniversity : TextView = itemView.findViewById(R.id.tvUniversity)
         fun setImageSliderClickListener(itemClickListener: ItemClickListener) {

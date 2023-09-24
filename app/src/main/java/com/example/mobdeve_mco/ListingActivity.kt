@@ -1,10 +1,6 @@
 package com.example.mobdeve_mco
 
-import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.view.Window
-import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -25,7 +21,7 @@ class ListingActivity : AppCompatActivity() {
 
         val listing = intent.getParcelableExtra<Listing>("listing")
         if(listing != null) {
-            tvListingTitle = findViewById(R.id.tvListingTitle)
+            tvListingTitle = findViewById(R.id.tvAddress)
             imageSlider = findViewById(R.id.imageSlider)
 
             tvListingTitle.text = listing.title
