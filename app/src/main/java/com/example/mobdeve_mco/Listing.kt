@@ -2,7 +2,6 @@ package com.example.mobdeve_mco
 
 import android.os.Parcel
 import android.os.Parcelable
-import com.denzcoskun.imageslider.models.SlideModel
 
 data class Listing(val imageList:ArrayList<Int>, val title:String, val price:Int, val property: String, val university: String) : Parcelable {
     constructor(parcel: Parcel) : this(

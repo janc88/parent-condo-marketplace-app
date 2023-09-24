@@ -25,8 +25,10 @@ class ExploreFragment : Fragment() {
     private val binding: FragmentExploreBinding get() = _binding!!
 
     private lateinit var rvSearchResults: RecyclerView
-    private lateinit var listings : ArrayList<Listing>
-    private lateinit var listingAdapter: ListingAdapter
+//    private lateinit var listings : ArrayList<Listing>
+    private lateinit var properties : ArrayList<Property>
+//    private lateinit var listingAdapter: ListingAdapter
+    private lateinit var propertyAdapter: PropertyAdapter
     private lateinit var svExplore : SearchView
     private lateinit var btnDLSU : ToggleButton
     private lateinit var btnADMU : ToggleButton
@@ -57,7 +59,8 @@ class ExploreFragment : Fragment() {
         rvSearchResults.setHasFixedSize(true)
         rvSearchResults.layoutManager = LinearLayoutManager(this.activity)
 
-        listings = ArrayList()
+//        listings = ArrayList()
+        properties = ArrayList()
 
         imageList = ArrayList()
 
@@ -66,31 +69,46 @@ class ExploreFragment : Fragment() {
         imageList.add(R.drawable.bed)
         imageList.add(R.drawable.bed)
 
-        listings.add(Listing(imageList, "1BR 25sqm fully furnished", 15000, "Green Residences", "DLSU"))
-        listings.add(Listing(imageList, "3BR 45sqm top floor", 25000, "Taft Residences", "UP"))
-        listings.add(Listing(imageList, "fully furnished", 10000, "Archers Place", "ADMU"))
-        listings.add(Listing(imageList, "room for rent", 9000, "Green Residences", "DLSU"))
-        listings.add(Listing(imageList, "big room near UST", 12000, "UST Residences", "UST"))
+        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU"))
+        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU"))
+        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU"))
+        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU"))
 
-        listingAdapter = ListingAdapter(listings)
-        rvSearchResults.adapter = listingAdapter
+        propertyAdapter = PropertyAdapter(properties)
+        rvSearchResults.adapter = propertyAdapter
 
-        listingAdapter.onItemClick = {
-            val intent = Intent(this.activity, ListingActivity::class.java)
-            intent.putExtra("listing", it)
-            startActivity(intent)
-        }
+//        propertyAdapter.onItemClick = {
+//            val intent = Intent(this.activity, ListingActivity::class.java)
+//            intent.putExtra("listing", it)
+//            startActivity(intent)
+//        }
 
-        svExplore.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
-            }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                searchAndFilterList(newText)
-                return true
-            }
-        })
+//        listings.add(Listing(imageList, "1BR 25sqm fully furnished", 15000, "Green Residences", "DLSU"))
+//        listings.add(Listing(imageList, "3BR 45sqm top floor", 25000, "Taft Residences", "UP"))
+//        listings.add(Listing(imageList, "fully furnished", 10000, "Archers Place", "ADMU"))
+//        listings.add(Listing(imageList, "room for rent", 9000, "Green Residences", "DLSU"))
+//        listings.add(Listing(imageList, "big room near UST", 12000, "UST Residences", "UST"))
+//
+//        listingAdapter = ListingAdapter(listings)
+//        rvSearchResults.adapter = listingAdapter
+//
+//        listingAdapter.onItemClick = {
+//            val intent = Intent(this.activity, ListingActivity::class.java)
+//            intent.putExtra("listing", it)
+//            startActivity(intent)
+//        }
+
+//        svExplore.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String?): Boolean {
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String?): Boolean {
+//                searchAndFilterList(newText)
+//                return true
+//            }
+//        })
 
         btnDLSU = view.findViewById(R.id.btnDLSU)
         btnADMU = view.findViewById(R.id.btnADMU)
@@ -102,49 +120,49 @@ class ExploreFragment : Fragment() {
 
         val toggleButtons = listOf(btnDLSU, btnADMU, btnUST, btnUP)
 
-        for (button in toggleButtons) {
-            button.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-                override fun onCheckedChanged(compoundButton: CompoundButton?, isChecked: Boolean) {
-                    if (isChecked) {
-                        for (otherButton in toggleButtons) {
-                            if (otherButton != compoundButton) {
-                                otherButton.isChecked = false
-                            }
-                        }
-                        selectedUniversity = button.text.toString()
-                        button.setTextColor(resources.getColor(R.color.red))
-                        button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
-                        searchAndFilterList(svExplore.query.toString())
-                    } else {
-                        selectedUniversity = null
-                        button.setTextColor(resources.getColor(R.color.gray))
-                        button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal)
-                        searchAndFilterList(svExplore.query.toString())
-                    }
-                }
-            })
-        }
+//        for (button in toggleButtons) {
+//            button.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+//                override fun onCheckedChanged(compoundButton: CompoundButton?, isChecked: Boolean) {
+//                    if (isChecked) {
+//                        for (otherButton in toggleButtons) {
+//                            if (otherButton != compoundButton) {
+//                                otherButton.isChecked = false
+//                            }
+//                        }
+//                        selectedUniversity = button.text.toString()
+//                        button.setTextColor(resources.getColor(R.color.red))
+//                        button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
+//                        searchAndFilterList(svExplore.query.toString())
+//                    } else {
+//                        selectedUniversity = null
+//                        button.setTextColor(resources.getColor(R.color.gray))
+//                        button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal)
+//                        searchAndFilterList(svExplore.query.toString())
+//                    }
+//                }
+//            })
+//        }
     }
 
-    private fun searchAndFilterList(query: String?) {
-        val filteredList = ArrayList<Listing>()
-
-        for (i in listings) {
-            val universityFilterPassed = selectedUniversity == null || i.university.contains(selectedUniversity!!)
-            val searchQueryPassed = query.isNullOrBlank() || i.title.lowercase(Locale.ROOT).contains(query)
-
-            if (universityFilterPassed && searchQueryPassed) {
-                filteredList.add(i)
-            }
-        }
-
-        if (filteredList.isEmpty()) {
-            showResults(false)
-        } else {
-            listingAdapter.setFilteredList(filteredList)
-            showResults(true)
-        }
-    }
+//    private fun searchAndFilterList(query: String?) {
+//        val filteredList = ArrayList<Listing>()
+//
+//        for (i in listings) {
+//            val universityFilterPassed = selectedUniversity == null || i.university.contains(selectedUniversity!!)
+//            val searchQueryPassed = query.isNullOrBlank() || i.title.lowercase(Locale.ROOT).contains(query)
+//
+//            if (universityFilterPassed && searchQueryPassed) {
+//                filteredList.add(i)
+//            }
+//        }
+//
+//        if (filteredList.isEmpty()) {
+//            showResults(false)
+//        } else {
+//            listingAdapter.setFilteredList(filteredList)
+//            showResults(true)
+//        }
+//    }
 
     private fun showResults(show: Boolean){
         tvNoFound.isVisible = !show
