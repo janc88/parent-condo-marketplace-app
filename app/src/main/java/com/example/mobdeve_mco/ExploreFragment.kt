@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mco.databinding.FragmentExploreBinding
 import java.util.Locale
+import com.example.mobdeve_mco.Amenity
 
 
 class ExploreFragment : Fragment() {
@@ -69,10 +70,25 @@ class ExploreFragment : Fragment() {
         imageList.add(R.drawable.bed)
         imageList.add(R.drawable.bed)
 
-        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU"))
-        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU"))
-        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU"))
-        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU"))
+        val amenitiesMap = mapOf(
+            Amenity.SWIMMING_POOL to false,
+            Amenity.GYM to false,
+            Amenity.PARKING to false,
+            Amenity.WIFI to true,
+            Amenity.ELEVATORS to true,
+            Amenity.FIRE_ALARM to true,
+            Amenity.SECURITY to false,
+            Amenity.GENERATOR to true,
+            Amenity.CCTV to true,
+            Amenity.WATER_TANK to true,
+            Amenity.MAILROOM to true
+        )
+
+        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU", amenitiesMap))
+
+        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU", amenitiesMap))
+        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU", amenitiesMap))
+        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU", amenitiesMap))
 
         propertyAdapter = PropertyAdapter(properties)
         rvSearchResults.adapter = propertyAdapter

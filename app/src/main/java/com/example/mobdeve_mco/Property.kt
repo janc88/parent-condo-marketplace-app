@@ -3,14 +3,17 @@ package com.example.mobdeve_mco
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Property(val imageList:ArrayList<Int>, val name:String, val highestPrice:Int, val lowestPrice:Int, val numListings:Int, val university: String) : Parcelable {
+
+
+data class Property(val imageList:ArrayList<Int>, val name:String, val highestPrice:Int, val lowestPrice:Int, val numListings:Int, val university: String, val amenities: Map<Amenity, Boolean>) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.createIntArray()?.toCollection(ArrayList()) ?: ArrayList(),
         parcel.readString()!!,
         parcel.readInt(),
         parcel.readInt(),
         parcel.readInt(),
-        parcel.readString()!!
+        parcel.readString()!!,
+        readAmenitiesFromParcel(parcel)
     ) {
     }
 
@@ -21,6 +24,7 @@ data class Property(val imageList:ArrayList<Int>, val name:String, val highestPr
         parcel.writeInt(lowestPrice)
         parcel.writeInt(numListings)
         parcel.writeString(university)
+        writeAmenitiesToParcel(amenities, parcel)
     }
 
     override fun describeContents(): Int {
@@ -34,6 +38,25 @@ data class Property(val imageList:ArrayList<Int>, val name:String, val highestPr
 
         override fun newArray(size: Int): Array<Property?> {
             return arrayOfNulls(size)
+        }
+
+        private fun readAmenitiesFromParcel(parcel: Parcel): Map<Amenity, Boolean> {
+            val amenityMap = mutableMapOf<Amenity, Boolean>()
+            val amenityNames = Amenity.values().map { it.name }
+
+            for (amenityName in amenityNames) {
+                amenityMap[Amenity.valueOf(amenityName)] = parcel.readByte() != 0.toByte()
+            }
+
+            return amenityMap
+        }
+
+        private fun writeAmenitiesToParcel(amenities: Map<Amenity, Boolean>, parcel: Parcel) {
+            val amenityNames = Amenity.values().map { it.name }
+
+            for (amenityName in amenityNames) {
+                parcel.writeByte(if (amenities[Amenity.valueOf(amenityName)] == true) 1 else 0)
+            }
         }
     }
 }
