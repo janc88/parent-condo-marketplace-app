@@ -48,6 +48,9 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var tvDescription : TextView
 
     private lateinit var btnShowMore: Button
+    private lateinit var btnSeeAll: Button
+
+
     private var isExpanded = false
 
     override fun onMapReady(map: GoogleMap) {
@@ -102,6 +105,9 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
         tvDescription = findViewById(R.id.tvDescription)
 
+        btnShowMore = findViewById(R.id.btnShowMore)
+        btnSeeAll = findViewById(R.id.btnSeeAll)
+
 
         for (amenity in Amenity.values()) {
             val textView = getTextViewForAmenity(amenity)
@@ -111,8 +117,9 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
             }
         }
 
-        btnShowMore = findViewById(R.id.btnShowMore);
         btnShowMore.paintFlags = btnShowMore.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        btnSeeAll.paintFlags = btnSeeAll.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
 
         btnShowMore.setOnClickListener {
             isExpanded = !isExpanded
