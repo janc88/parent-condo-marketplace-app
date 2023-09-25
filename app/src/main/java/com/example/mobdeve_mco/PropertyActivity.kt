@@ -6,8 +6,10 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableString
+import android.text.TextUtils
 import android.text.style.StyleSpan
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -15,9 +17,18 @@ import androidx.core.content.res.ResourcesCompat
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.MapsInitializer
+import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 
 
-class PropertyActivity : AppCompatActivity() {
+class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
+
+    private lateinit var googleMap: GoogleMap
 
     private lateinit var tvName : TextView
     private lateinit var imageSlider : ImageSlider
@@ -34,9 +45,27 @@ class PropertyActivity : AppCompatActivity() {
     private lateinit var tvPool : TextView
     private lateinit var tvWifi : TextView
 
+    private lateinit var tvDescription : TextView
+
+    private lateinit var btnShowMore: Button
+    private var isExpanded = false
+
+    override fun onMapReady(map: GoogleMap) {
+        googleMap = map
+
+        val location = LatLng(37.7749, -122.4194) // San Francisco coordinates
+        googleMap.addMarker(MarkerOptions().position(location).title("Marker in San Francisco"))
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_property)
+
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.mapFragment) as SupportMapFragment
+        mapFragment.getMapAsync(this)
+
+
 
         val property = intent.getParcelableExtra<Property>("property")
         if(property != null) {
@@ -71,12 +100,31 @@ class PropertyActivity : AppCompatActivity() {
         tvPool = findViewById(R.id.tvPool)
         tvWifi = findViewById(R.id.tvWifi)
 
+        tvDescription = findViewById(R.id.tvDescription)
+
 
         for (amenity in Amenity.values()) {
             val textView = getTextViewForAmenity(amenity)
             val amenityAvailable = property?.amenities?.get(amenity) ?: false
             if (!amenityAvailable) {
                 textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            }
+        }
+
+        btnShowMore = findViewById(R.id.btnShowMore);
+        btnShowMore.paintFlags = btnShowMore.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+
+        btnShowMore.setOnClickListener {
+            isExpanded = !isExpanded
+
+            if (isExpanded) {
+                tvDescription.maxLines = Integer.MAX_VALUE
+                tvDescription.ellipsize = null
+                btnShowMore.text = "Show Less"
+            } else {
+                tvDescription.maxLines = 3
+                tvDescription.ellipsize = TextUtils.TruncateAt.END
+                btnShowMore.text = "Show More"
             }
         }
 
