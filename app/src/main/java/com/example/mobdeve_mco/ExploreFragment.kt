@@ -1,5 +1,6 @@
 package com.example.mobdeve_mco
 
+import DummyData
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -26,9 +27,7 @@ class ExploreFragment : Fragment() {
     private val binding: FragmentExploreBinding get() = _binding!!
 
     private lateinit var rvSearchResults: RecyclerView
-//    private lateinit var listings : ArrayList<Listing>
-    private lateinit var properties : ArrayList<Property>
-//    private lateinit var listingAdapter: ListingAdapter
+
     private lateinit var propertyAdapter: PropertyAdapter
     private lateinit var svExplore : SearchView
     private lateinit var btnDLSU : ToggleButton
@@ -37,7 +36,7 @@ class ExploreFragment : Fragment() {
     private lateinit var btnUST : ToggleButton
     private lateinit var tvNoFound: TextView
 
-    private lateinit var imageList : ArrayList<Int>
+
 
     private var selectedUniversity: String? = null
 
@@ -60,37 +59,9 @@ class ExploreFragment : Fragment() {
         rvSearchResults.setHasFixedSize(true)
         rvSearchResults.layoutManager = LinearLayoutManager(this.activity)
 
-//        listings = ArrayList()
-        properties = ArrayList()
 
-        imageList = ArrayList()
 
-        imageList.add(R.drawable.bed)
-        imageList.add(R.drawable.bed)
-        imageList.add(R.drawable.bed)
-        imageList.add(R.drawable.bed)
-
-        val amenitiesMap = mapOf(
-            Amenity.SWIMMING_POOL to false,
-            Amenity.GYM to false,
-            Amenity.PARKING to false,
-            Amenity.WIFI to true,
-            Amenity.ELEVATORS to true,
-            Amenity.FIRE_ALARM to true,
-            Amenity.SECURITY to false,
-            Amenity.GENERATOR to true,
-            Amenity.CCTV to true,
-            Amenity.WATER_TANK to true,
-            Amenity.MAILROOM to true
-        )
-
-        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU", amenitiesMap))
-
-        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU", amenitiesMap))
-        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU", amenitiesMap))
-        properties.add(Property(imageList, "Green Residences", 25000, 15000, 24, "DLSU", amenitiesMap))
-
-        propertyAdapter = PropertyAdapter(properties)
+        propertyAdapter = PropertyAdapter(DummyData.propertyList)
         rvSearchResults.adapter = propertyAdapter
 
         propertyAdapter.onItemClick = {
