@@ -385,6 +385,7 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:maxLines="5"
+                        android:lineSpacingExtra="3dp"
                         android:text="Located right beside De La Salle University in Manila, Green Residences Taft gives you a great place to live out the best parts of college life: a stress-free, easy, and fun one that every college student should experience. Packed with unique amenities including a commercial center at the ground floor, function rooms and open areas abound- for those student get-togethers and cram sessions, and to unwind, the game room, gym and pool await." />
 
                     <Button
@@ -402,6 +403,7 @@
                         android:minWidth="0dp"
                         android:minHeight="0dp"
                         android:padding="0dp"
+                        android:layout_marginTop="3dp"
                         android:text="Show More"
                         android:textAllCaps="false"
                         android:textColor="@android:color/black"
@@ -527,7 +529,7 @@
                             android:orientation="horizontal">
 
                             <LinearLayout
-                                android:layout_width="120dp"
+                                android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
                                 android:orientation="vertical">
@@ -538,8 +540,8 @@
                                     app:cardCornerRadius="10dp">
 
                                     <ImageView
-                                        android:layout_width="120dp"
-                                        android:layout_height="120dp"
+                                        android:layout_width="140dp"
+                                        android:layout_height="140dp"
                                         android:scaleType="centerCrop"
                                         android:src="@drawable/bed" />
                                 </androidx.cardview.widget.CardView>
@@ -555,7 +557,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="120dp"
+                                android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
                                 android:orientation="vertical">
@@ -566,8 +568,8 @@
                                     app:cardCornerRadius="10dp">
 
                                     <ImageView
-                                        android:layout_width="120dp"
-                                        android:layout_height="120dp"
+                                        android:layout_width="140dp"
+                                        android:layout_height="140dp"
                                         android:scaleType="centerCrop"
                                         android:src="@drawable/bed" />
                                 </androidx.cardview.widget.CardView>
@@ -583,7 +585,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="120dp"
+                                android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
                                 android:orientation="vertical">
@@ -594,8 +596,8 @@
                                     app:cardCornerRadius="10dp">
 
                                     <ImageView
-                                        android:layout_width="120dp"
-                                        android:layout_height="120dp"
+                                        android:layout_width="140dp"
+                                        android:layout_height="140dp"
                                         android:scaleType="centerCrop"
                                         android:src="@drawable/bed" />
                                 </androidx.cardview.widget.CardView>
@@ -611,7 +613,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="120dp"
+                                android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
                                 android:orientation="vertical">
@@ -622,8 +624,8 @@
                                     app:cardCornerRadius="10dp">
 
                                     <ImageView
-                                        android:layout_width="120dp"
-                                        android:layout_height="120dp"
+                                        android:layout_width="140dp"
+                                        android:layout_height="140dp"
                                         android:scaleType="centerCrop"
                                         android:src="@drawable/bed" />
                                 </androidx.cardview.widget.CardView>
@@ -639,7 +641,7 @@
                             </LinearLayout>
 
                             <LinearLayout
-                                android:layout_width="120dp"
+                                android:layout_width="140dp"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
@@ -649,8 +651,8 @@
                                     app:cardCornerRadius="10dp">
 
                                     <ImageView
-                                        android:layout_width="120dp"
-                                        android:layout_height="120dp"
+                                        android:layout_width="140dp"
+                                        android:layout_height="140dp"
                                         android:scaleType="centerCrop"
                                         android:src="@drawable/bed" />
                                 </androidx.cardview.widget.CardView>
@@ -715,6 +717,7 @@
                 android:fontFamily="@font/cereal_bold"
                 android:text="P15,000 to P25,000"
                 android:textSize="16dp"
+                android:layout_marginBottom="4dp"
                 android:textColor="@color/black"
                 />
 
@@ -728,10 +731,10 @@
 
 
         <Button
-            android:id="@+id/footerButton"
+            android:id="@+id/btnSeeListings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="See all"
+            android:text="See Listings"
             android:textAllCaps="false"
             android:padding="13dp"
             />
