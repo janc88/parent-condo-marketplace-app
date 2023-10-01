@@ -1,5 +1,6 @@
 package com.example.mobdeve_mco
 
+import android.content.Intent
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Build
@@ -49,6 +50,7 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var btnShowMore: Button
     private lateinit var btnSeeAll: Button
+    private lateinit var btnSeeListings: Button
 
 
     private var isExpanded = false
@@ -107,6 +109,7 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
         btnShowMore = findViewById(R.id.btnShowMore)
         btnSeeAll = findViewById(R.id.btnSeeAll)
+        btnSeeListings = findViewById(R.id.btnSeeListings)
 
 
         for (amenity in Amenity.values()) {
@@ -133,6 +136,15 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
                 tvDescription.ellipsize = TextUtils.TruncateAt.END
                 btnShowMore.text = "Show More"
             }
+        }
+
+        btnSeeListings.setOnClickListener{
+            val intent = Intent(this, ListingsActivity::class.java)
+            if(property != null){
+                intent.putExtra("listingIds", property.listingIds)
+                intent.putExtra("propertyName", property.name)
+            }
+            startActivity(intent)
         }
 
 

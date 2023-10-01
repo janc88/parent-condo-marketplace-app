@@ -23,6 +23,7 @@ class LoginActivity : AppCompatActivity() {
         btnSignUp.setOnClickListener {
             val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         ivClose = findViewById(R.id.ivClose)
@@ -30,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(this, MainActivity::class.java)
             intent.putExtra("accountFragment", "LoggedOutFragment") // Replace with the actual fragment information
             startActivity(intent)
+            finish()
         }
     }
 
