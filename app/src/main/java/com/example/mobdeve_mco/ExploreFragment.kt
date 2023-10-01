@@ -71,16 +71,16 @@ class ExploreFragment : Fragment() {
         }
 
 
-//        svExplore.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
-//            override fun onQueryTextSubmit(query: String?): Boolean {
-//                return false
-//            }
-//
-//            override fun onQueryTextChange(newText: String?): Boolean {
-//                searchAndFilterList(newText)
-//                return true
-//            }
-//        })
+        svExplore.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                searchAndFilterList(newText)
+                return true
+            }
+        })
 
         btnDLSU = view.findViewById(R.id.btnDLSU)
         btnADMU = view.findViewById(R.id.btnADMU)
@@ -92,49 +92,49 @@ class ExploreFragment : Fragment() {
 
         val toggleButtons = listOf(btnDLSU, btnADMU, btnUST, btnUP)
 
-//        for (button in toggleButtons) {
-//            button.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
-//                override fun onCheckedChanged(compoundButton: CompoundButton?, isChecked: Boolean) {
-//                    if (isChecked) {
-//                        for (otherButton in toggleButtons) {
-//                            if (otherButton != compoundButton) {
-//                                otherButton.isChecked = false
-//                            }
-//                        }
-//                        selectedUniversity = button.text.toString()
-//                        button.setTextColor(resources.getColor(R.color.red))
-//                        button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
-//                        searchAndFilterList(svExplore.query.toString())
-//                    } else {
-//                        selectedUniversity = null
-//                        button.setTextColor(resources.getColor(R.color.gray))
-//                        button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal)
-//                        searchAndFilterList(svExplore.query.toString())
-//                    }
-//                }
-//            })
-//        }
+        for (button in toggleButtons) {
+            button.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+                override fun onCheckedChanged(compoundButton: CompoundButton?, isChecked: Boolean) {
+                    if (isChecked) {
+                        for (otherButton in toggleButtons) {
+                            if (otherButton != compoundButton) {
+                                otherButton.isChecked = false
+                            }
+                        }
+                        selectedUniversity = button.text.toString()
+                        button.setTextColor(resources.getColor(R.color.red))
+                        button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
+                        searchAndFilterList(svExplore.query.toString())
+                    } else {
+                        selectedUniversity = null
+                        button.setTextColor(resources.getColor(R.color.gray))
+                        button.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal)
+                        searchAndFilterList(svExplore.query.toString())
+                    }
+                }
+            })
+        }
     }
 
-//    private fun searchAndFilterList(query: String?) {
-//        val filteredList = ArrayList<Listing>()
-//
-//        for (i in listings) {
-//            val universityFilterPassed = selectedUniversity == null || i.university.contains(selectedUniversity!!)
-//            val searchQueryPassed = query.isNullOrBlank() || i.title.lowercase(Locale.ROOT).contains(query)
-//
-//            if (universityFilterPassed && searchQueryPassed) {
-//                filteredList.add(i)
-//            }
-//        }
-//
-//        if (filteredList.isEmpty()) {
-//            showResults(false)
-//        } else {
-//            listingAdapter.setFilteredList(filteredList)
-//            showResults(true)
-//        }
-//    }
+    private fun searchAndFilterList(query: String?) {
+        val filteredList = ArrayList<Property>()
+
+        for (i in DummyData.propertyList) {
+            val universityFilterPassed = selectedUniversity == null || i.university.contains(selectedUniversity!!)
+            val searchQueryPassed = query.isNullOrBlank() || i.name.lowercase(Locale.ROOT).contains(query)
+
+            if (universityFilterPassed && searchQueryPassed) {
+                filteredList.add(i)
+            }
+        }
+
+        if (filteredList.isEmpty()) {
+            showResults(false)
+        } else {
+            propertyAdapter.setFilteredList(filteredList)
+            showResults(true)
+        }
+    }
 
     private fun showResults(show: Boolean){
         tvNoFound.isVisible = !show

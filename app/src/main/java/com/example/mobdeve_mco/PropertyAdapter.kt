@@ -60,6 +60,8 @@ class PropertyAdapter(private var properties:ArrayList<Property>) :RecyclerView.
         val formattedPriceRange = "$formattedLowestPrice - $formattedHighestPrice"
 
         holder.tvPriceRange.text = formattedPriceRange
+        holder.tvAddress.text = property.address
+        holder.tvNumListings.text = "${property.numListings} listings available"
         holder.tvUniversity.text = property.university
         holder.tvUniversity.setUniversityStyle(property.university)
 

@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
@@ -44,7 +45,10 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var tvSecurity : TextView
     private lateinit var tvPool : TextView
     private lateinit var tvWifi : TextView
-
+    private lateinit var tvPriceRange : TextView
+    private lateinit var tvNumListings : TextView
+    private lateinit var tvAddress : TextView
+    private lateinit var tvNoFound: TextView
     private lateinit var tvDescription : TextView
 
     private lateinit var btnShowMore: Button
@@ -102,6 +106,16 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
             startActivity(intent)
         }
 
+        if (property.listingIds.isNullOrEmpty()) {
+            tvNoFound.isVisible = true
+            rvFeaturedListings.isVisible = false
+            btnSeeAll.isVisible = false
+        } else {
+            tvNoFound.isVisible = false
+            rvFeaturedListings.isVisible = true
+        }
+
+
 
         val window = this.window
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -126,12 +140,11 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun getFeaturedListings(): ArrayList<Listing> {
         val result = ArrayList<Listing>()
         val shuffledListings = DummyData.listingList.shuffled()
-        val maxCount = minOf(5, shuffledListings.size)
-
+        val filteredListings = shuffledListings.filter { property.listingIds.contains(it.id) }
+        val maxCount = minOf(5, filteredListings.size)
         for (i in 0 until maxCount) {
-            result.add(shuffledListings[i])
+            result.add(filteredListings[i])
         }
-
         return result
     }
 
@@ -154,6 +167,10 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         btnShowMore = findViewById(R.id.btnShowMore)
         btnSeeAll = findViewById(R.id.btnSeeAll)
         btnSeeListings = findViewById(R.id.btnSeeListings)
+        tvPriceRange = findViewById(R.id.tvPriceRange)
+        tvNumListings = findViewById(R.id.tvNumListings)
+        tvAddress = findViewById(R.id.tvAddress)
+        tvNoFound = findViewById(R.id.tvNoFound)
     }
 
     private fun init(){
@@ -177,6 +194,14 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         latitude = property.latitude
         btnShowMore.paintFlags = btnShowMore.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         btnSeeAll.paintFlags = btnSeeAll.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        tvPriceRange.text = "${property.lowestPrice.formatPrice()} - ${property.highestPrice.formatPrice()}"
+        tvNumListings.text = "${property.numListings.toString()} Listings available"
+        tvAddress.text = property.address
+    }
+
+    private fun Int.formatPrice(): String {
+        val formatter = java.text.DecimalFormat("#,###")
+        return "₱" + formatter.format(this.toLong())
     }
 
     private fun handleShowMore(){
