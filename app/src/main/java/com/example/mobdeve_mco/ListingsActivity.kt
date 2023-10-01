@@ -4,7 +4,9 @@ import DummyData
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import androidx.appcompat.widget.SearchView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -15,7 +17,8 @@ class ListingsActivity : AppCompatActivity() {
     private lateinit var listings: ArrayList<Listing>
     private lateinit var rvSearchResults: RecyclerView
     private lateinit var listingAdapter: ListingAdapter
-    private lateinit var svExplore: SearchView
+    private lateinit var tvPropertyName: TextView
+    private lateinit var btnBack: CardView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +30,10 @@ class ListingsActivity : AppCompatActivity() {
 
         listings = getListings()
 
+        tvPropertyName = findViewById(R.id.tvPropertyName)
+        tvPropertyName.text = propertyName
+
         rvSearchResults= findViewById(R.id.rvSearchResults)
-        svExplore = findViewById(R.id.svExplore)
 
         rvSearchResults.setHasFixedSize(true)
         rvSearchResults.layoutManager = LinearLayoutManager(this)
@@ -42,7 +47,10 @@ class ListingsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
+        btnBack = findViewById(R.id.btnBack)
+        btnBack.setOnClickListener{
+            onBackPressed()
+        }
 
 
 

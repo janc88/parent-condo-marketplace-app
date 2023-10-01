@@ -24,6 +24,8 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
         }
     }
 
+
+
     var onItemClick : ((Listing) -> Unit)? = null
 
     fun setFilteredList(listings: ArrayList<Listing>){

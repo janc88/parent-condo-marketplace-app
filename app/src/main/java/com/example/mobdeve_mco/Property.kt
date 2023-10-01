@@ -5,10 +5,26 @@ import android.os.Parcelable
 
 
 
-data class Property(val id:Int, val imageList:ArrayList<Int>, val name:String, val highestPrice:Int, val lowestPrice:Int, val numListings:Int, val university: String, val amenities: Map<Amenity, Boolean>, val listingIds:ArrayList<Int>) : Parcelable {
+data class Property(val id:Int,
+                    val imageList:ArrayList<Int>,
+                    val description: String,
+                    val name:String,
+                    val longitude: Double,
+                    val latitude: Double,
+                    val address: String,
+                    val highestPrice:Int,
+                    val lowestPrice:Int,
+                    val numListings:Int,
+                    val university: String,
+                    val amenities: Map<Amenity, Boolean>,
+                    val listingIds:ArrayList<Int>) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.createIntArray()?.toCollection(ArrayList()) ?: ArrayList(),
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readDouble(),
+        parcel.readDouble(),
         parcel.readString()!!,
         parcel.readInt(),
         parcel.readInt(),
@@ -22,7 +38,11 @@ data class Property(val id:Int, val imageList:ArrayList<Int>, val name:String, v
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
         parcel.writeIntArray(imageList.toIntArray())
+        parcel.writeString(description)
         parcel.writeString(name)
+        parcel.writeDouble(longitude)
+        parcel.writeDouble(latitude)
+        parcel.writeString(address)
         parcel.writeInt(highestPrice)
         parcel.writeInt(lowestPrice)
         parcel.writeInt(numListings)
