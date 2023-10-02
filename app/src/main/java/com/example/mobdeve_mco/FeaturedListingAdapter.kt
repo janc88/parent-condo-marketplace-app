@@ -17,6 +17,7 @@ class FeaturedListingAdapter(private var listings:ArrayList<Listing>) :RecyclerV
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val ivImage : ImageView = itemView.findViewById(R.id.ivImage)
         val tvTitle : TextView = itemView.findViewById(R.id.tvTitle)
+        val tvPrice : TextView = itemView.findViewById(R.id.tvPrice)
     }
 
 
@@ -38,6 +39,7 @@ class FeaturedListingAdapter(private var listings:ArrayList<Listing>) :RecyclerV
 
         holder.tvTitle.text = listing.title
         holder.ivImage.setImageResource(listing.imageList[0])
+        holder.tvPrice.text = listing.price.formatPrice()
 
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(listing)

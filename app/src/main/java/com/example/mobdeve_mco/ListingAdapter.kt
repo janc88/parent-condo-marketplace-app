@@ -10,6 +10,7 @@ import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
+import com.example.mobdeve_mco.formatPrice
 
 class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<ListingAdapter.ListingViewHolder>(){
 
@@ -75,10 +76,6 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
         }
     }
 
-    private fun Int.formatPrice(): String {
-        val formatter = java.text.DecimalFormat("#,###")
-        return "₱" + formatter.format(this.toLong())
-    }
 
     private fun TextView.setUniversityStyle(university: String) {
         val backgroundResource = when (university) {

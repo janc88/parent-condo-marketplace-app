@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ListingActivity">
 
     <com.denzcoskun.imageslider.ImageSlider
@@ -13,19 +14,16 @@
         app:iss_placeholder="@drawable/bed"
         app:iss_selected_dot="@drawable/default_selected_dot"
         app:iss_unselected_dot="@drawable/default_unselected_dot"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+     />
 
     <TextView
         android:id="@+id/tvListingTitle"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="298dp"
         android:text="Green Residences"
         android:textSize="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageSlider" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
