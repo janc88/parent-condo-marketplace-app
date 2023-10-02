@@ -32,26 +32,17 @@ class ListingActivity : AppCompatActivity() {
 
     private lateinit var rvSimilarListings: RecyclerView
 
+    private lateinit var listing: Listing
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listing)
 
-        val listing = intent.getParcelableExtra<Listing>("listing")
-        if(listing != null) {
-            tvListingTitle = findViewById(R.id.tvListingTitle)
-            imageSlider = findViewById(R.id.imageSlider)
+        listing = intent.getParcelableExtra<Listing>("listing")!!
 
-            tvListingTitle.text = listing.title
-
-            val imageList = ArrayList<SlideModel>()
-
-            for(image in listing.imageList){
-                imageList.add(SlideModel(image, ScaleTypes.CENTER_CROP))
-            }
-
-            imageSlider.setImageList(imageList)
-        }
+        bindViews()
+        init()
 
         val window = this.window
 
@@ -60,7 +51,33 @@ class ListingActivity : AppCompatActivity() {
 
     }
 
+    private fun bindViews(){
+        tvListingTitle = findViewById(R.id.tvListingTitle)
+        imageSlider = findViewById(R.id.imageSlider)
+        tvPropertyNameTop = findViewById(R.id.tvPropertyNameTop)
+        tvSqm = findViewById(R.id.tvSqm)
+        tvFurnished = findViewById(R.id.tvFurnished)
+        tvBedroom = findViewById(R.id.tvBedroom)
+        tvFloor = findViewById(R.id.tvFloor)
+        tvBathroom = findViewById(R.id.tvBathroom)
+        tvBalcony = findViewById(R.id.tvBalcony)
+        tvOwner = findViewById(R.id.tvOwner)
+        tvOwnerJoined = findViewById(R.id.tvOwnerJoined)
+        tvPropertyNameBottom = findViewById(R.id.tvPropertyNameBottom)
+        tvAddress = findViewById(R.id.tvAddress)
+        rvSimilarListings = findViewById(R.id.rvSimilarListings)
+    }
+
     private fun init(){
+        tvListingTitle.text = listing.title
+
+        val imageList = ArrayList<SlideModel>()
+        for(image in listing.imageList){
+            imageList.add(SlideModel(image, ScaleTypes.CENTER_CROP))
+        }
+        imageSlider.setImageList(imageList)
+
+        tvPropertyNameTop.text = listing.property
 
     }
 }

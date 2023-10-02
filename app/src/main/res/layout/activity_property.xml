@@ -479,7 +479,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="20dp"
                     android:orientation="vertical">
 
                     <LinearLayout
@@ -550,8 +549,6 @@
         android:layout_height="1dp"
         android:background="#20000000"
         android:layout_above="@+id/footerLayout"/>
-
-
 
     <LinearLayout
         android:id="@+id/footerLayout"

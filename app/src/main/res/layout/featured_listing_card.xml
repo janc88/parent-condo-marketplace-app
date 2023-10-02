@@ -43,7 +43,6 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:fontFamily="@font/cereal_bold"
                 android:text="25,000" />
         </LinearLayout>
 
