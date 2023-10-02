@@ -1,15 +1,25 @@
 package com.example.mobdeve_mco
 
+import DummyData
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.GridLayout
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 
 class ListingActivity : AppCompatActivity() {
@@ -34,8 +44,14 @@ class ListingActivity : AppCompatActivity() {
     private lateinit var tvStudioType : TextView
 
     private lateinit var rvSimilarListings: RecyclerView
+    private lateinit var glAmenities: GridLayout
 
     private lateinit var listing: Listing
+    private lateinit var similarListings: ArrayList<Listing>
+    private lateinit var user: User
+    private lateinit var property: Property
+
+    private lateinit var featuredListingAdapter: FeaturedListingAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,6 +87,7 @@ class ListingActivity : AppCompatActivity() {
         rvSimilarListings = findViewById(R.id.rvSimilarListings)
         tvStudioType = findViewById(R.id.tvStudioType)
         tvDescription = findViewById(R.id.tvDescription)
+        glAmenities = findViewById(R.id.glAmenities)
     }
 
     private fun init(){
@@ -116,8 +133,85 @@ class ListingActivity : AppCompatActivity() {
         tvOwner.text = "Temp owner"
         tvDateJoined.text = "Joined Temp 2022"
         tvDescription.text = listing.description
+        user = getUser(listing.ownerId)
+        tvOwner.text = "${user.firstname} ${user.lastname}"
+        tvDateJoined.text = "Joined in ${formatDateJoined(user.dateAccountCreated)}"
 
+        property = getProperty(listing.propertyId)
+        setupRecyclerView()
+        addAmenitiesToGridLayout(this, glAmenities, property.amenities)
     }
+
+    private fun setupRecyclerView(){
+        rvSimilarListings.setHasFixedSize(true)
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        rvSimilarListings.layoutManager = layoutManager
+
+        similarListings = getSimilarListings(8, property.listingIds, listing.id)
+
+        featuredListingAdapter = FeaturedListingAdapter(similarListings)
+        rvSimilarListings.adapter = featuredListingAdapter
+
+        featuredListingAdapter.onItemClick = {
+            val intent = Intent(this, ListingActivity::class.java)
+            intent.putExtra("listing", it)
+            startActivity(intent)
+        }
+    }
+
+    fun addAmenitiesToGridLayout(context: Context, gridLayout: GridLayout, amenitiesMap: Map<Amenity, Boolean>) {
+        val maxAmenities = 6
+
+        var addedAmenities = 0
+
+        for ((amenity, isAvailable) in amenitiesMap) {
+            if (!isAvailable) {
+                continue
+            }
+
+
+
+            val amenityText = if (amenity == Amenity.CCTV) "CCTV" else amenity.name.capitalizeAndReplaceUnderscore()
+
+            val itemLayout = LinearLayout(context)
+            itemLayout.orientation = LinearLayout.HORIZONTAL
+
+            val imageView = ImageView(context)
+            imageView.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            imageView.setImageResource(R.drawable.ic_check)
+
+            val textView = TextView(context)
+            textView.layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            textView.text = amenityText
+            textView.textSize = 12f
+
+            itemLayout.addView(imageView)
+            itemLayout.addView(textView)
+
+            val params = GridLayout.LayoutParams()
+            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+            itemLayout.layoutParams = params
+
+            gridLayout.addView(itemLayout)
+
+            addedAmenities++
+            if (addedAmenities >= maxAmenities) {
+                break
+            }
+        }
+    }
+
+    fun formatDateJoined(date: Date): String {
+        val sdf = SimpleDateFormat("MMMM yyyy", Locale.US)
+        return sdf.format(date)
+    }
+
 
     fun formatFloor(floor: Int): String {
         return when {

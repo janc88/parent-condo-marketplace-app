@@ -86,13 +86,13 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         bindViews()
         init()
 
-        rvFeaturedListings= findViewById(R.id.rvFeaturedListings)
+        rvFeaturedListings = findViewById(R.id.rvFeaturedListings)
 
         rvFeaturedListings.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvFeaturedListings.layoutManager = layoutManager
 
-        featuredListings = getFeaturedListings()
+        featuredListings = getRandomListings(5, property.listingIds)
 
         featuredListingAdapter = FeaturedListingAdapter(featuredListings)
         rvFeaturedListings.adapter = featuredListingAdapter
@@ -134,16 +134,7 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    private fun getFeaturedListings(): ArrayList<Listing> {
-        val result = ArrayList<Listing>()
-        val shuffledListings = DummyData.listingList.shuffled()
-        val filteredListings = shuffledListings.filter { property.listingIds.contains(it.id) }
-        val maxCount = minOf(5, filteredListings.size)
-        for (i in 0 until maxCount) {
-            result.add(filteredListings[i])
-        }
-        return result
-    }
+
 
 
     private fun bindViews(){
