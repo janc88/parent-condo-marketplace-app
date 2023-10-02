@@ -103,7 +103,7 @@
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/cereal_extra_bold"
+                        android:fontFamily="@font/cereal_bold"
                         android:text="15,000 - 25,000"
                         android:textSize="15dp"
                         android:gravity="end"

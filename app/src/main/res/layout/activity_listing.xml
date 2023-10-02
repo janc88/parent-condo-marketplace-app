@@ -63,9 +63,10 @@
                     android:id="@+id/tvListingTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/cereal_bold"
+                    android:fontFamily="@font/cereal_extra_bold"
                     android:text="1BR Fully furnished"
                     android:textColor="@color/black"
+                        android:layout_marginBottom="3dp"
                     android:textSize="24dp" />
 
                     <LinearLayout
@@ -112,7 +113,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/cereal_extra_bold"
+                        android:fontFamily="@font/cereal_bold"
                         android:text="Details"
                         android:textColor="@color/black"
                         android:textSize="18dp"
@@ -263,7 +264,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/cereal_extra_bold"
+                            android:fontFamily="@font/cereal_bold"
                             android:text="Property Owner"
                             android:textColor="@color/black"
                             android:textSize="18dp"
@@ -300,7 +301,7 @@
                                         android:layout_height="wrap_content"
                                         android:text="Arturo Caronongan"
                                         android:fontFamily="@font/cereal_bold"
-                                        android:textColor="@color/black"/>
+                                        />
                                     <TextView
                                         android:id="@+id/tvOwnerJoined"
                                         android:layout_width="wrap_content"
@@ -365,7 +366,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="18dp"
-                        android:fontFamily="@font/cereal_extra_bold"
+                        android:fontFamily="@font/cereal_bold"
                         android:text="Description"
                         android:textColor="@color/black"
                         android:textSize="18dp" />
@@ -394,7 +395,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/cereal_extra_bold"
+                        android:fontFamily="@font/cereal_bold"
                         android:text="Your Condo"
                         android:textColor="@color/black"
                         android:layout_marginBottom="18dp"
@@ -425,7 +426,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Green Residences"
-                                android:textColor="@color/black"
                                 android:fontFamily="@font/cereal_bold"
                                 android:textSize="15dp">
 
@@ -473,7 +473,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
-                        android:fontFamily="@font/cereal_extra_bold"
+                        android:fontFamily="@font/cereal_bold"
                         android:gravity="start"
                         android:text="Similar Listings"
                         android:textColor="@color/black"
