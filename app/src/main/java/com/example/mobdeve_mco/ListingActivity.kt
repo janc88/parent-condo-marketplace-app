@@ -5,6 +5,7 @@ import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -23,11 +24,14 @@ class ListingActivity : AppCompatActivity() {
     private lateinit var tvFloor : TextView
     private lateinit var tvBathroom : TextView
     private lateinit var tvBalcony : TextView
+    private lateinit var tvDescription : TextView
 
     private lateinit var tvOwner : TextView
-    private lateinit var tvOwnerJoined : TextView
+    private lateinit var tvDateJoined : TextView
     private lateinit var tvPropertyNameBottom : TextView
     private lateinit var tvAddress : TextView
+
+    private lateinit var tvStudioType : TextView
 
     private lateinit var rvSimilarListings: RecyclerView
 
@@ -61,10 +65,12 @@ class ListingActivity : AppCompatActivity() {
         tvBathroom = findViewById(R.id.tvBathroom)
         tvBalcony = findViewById(R.id.tvBalcony)
         tvOwner = findViewById(R.id.tvOwner)
-        tvOwnerJoined = findViewById(R.id.tvDateJoined)
+        tvDateJoined = findViewById(R.id.tvDateJoined)
         tvPropertyNameBottom = findViewById(R.id.tvPropertyNameBottom)
         tvAddress = findViewById(R.id.tvAddress)
         rvSimilarListings = findViewById(R.id.rvSimilarListings)
+        tvStudioType = findViewById(R.id.tvStudioType)
+        tvDescription = findViewById(R.id.tvDescription)
     }
 
     private fun init(){
@@ -77,6 +83,48 @@ class ListingActivity : AppCompatActivity() {
         imageSlider.setImageList(imageList)
 
         tvPropertyNameTop.text = listing.property
+        tvListingTitle.text = listing.title
+        tvStudioType.isVisible = listing.isStudioType
+        tvSqm.text = "${listing.area} sqm"
 
+        if(listing.isFurnished){
+            tvFurnished.text = "Furnished"
+        }else{
+            tvFurnished.text = "Unfurnished"
+        }
+
+        if(listing.numBedroom > 1){
+            tvBedroom.text = "${listing.numBedroom} Bedrooms"
+        }else{
+            tvBedroom.text = "1 Bedroom"
+        }
+
+        tvFloor.text = formatFloor(listing.floor)
+
+        if(listing.numBathroom > 1){
+            tvBathroom.text = "${listing.numBathroom} Bathrooms"
+        }else{
+            tvBathroom.text = "1 Bathroom"
+        }
+
+        if(listing.balcony){
+            tvBalcony.text = "Balcony"
+        }else{
+            tvBalcony.text = "No Balcony"
+        }
+
+        tvOwner.text = "Temp owner"
+        tvDateJoined.text = "Joined Temp 2022"
+        tvDescription.text = listing.description
+
+    }
+
+    fun formatFloor(floor: Int): String {
+        return when {
+            floor % 10 == 1 && floor % 100 != 11 -> "${floor}st floor"
+            floor % 10 == 2 && floor % 100 != 12 -> "${floor}nd floor"
+            floor % 10 == 3 && floor % 100 != 13 -> "${floor}rd floor"
+            else -> "${floor}th floor"
+        }
     }
 }

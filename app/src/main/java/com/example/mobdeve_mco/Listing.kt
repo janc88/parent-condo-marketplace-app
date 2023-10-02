@@ -3,7 +3,24 @@ package com.example.mobdeve_mco
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Listing(val id:Int, val imageList:ArrayList<Int>, val title:String, val price:Int, val property: String, val propertyId: Int, val university: String) : Parcelable {
+data class Listing(val id:Int,
+                   val imageList:ArrayList<Int>,
+                   val title:String,
+                   val price:Int,
+                   val property: String,
+                   val propertyId: Int,
+                   val university: String,
+
+                   val area: Double,
+                   val isFurnished: Boolean,
+                   val isStudioType: Boolean,
+                   val numBedroom: Int,
+                   val numBathroom: Int,
+                   val floor: Int,
+                   val balcony: Boolean,
+                   val ownerId: Int,
+                   val description: String,
+    ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.createIntArray()?.toCollection(ArrayList()) ?: ArrayList(),
@@ -11,7 +28,17 @@ data class Listing(val id:Int, val imageList:ArrayList<Int>, val title:String, v
         parcel.readInt(),
         parcel.readString()!!,
         parcel.readInt(),
-        parcel.readString()!!
+        parcel.readString()!!,
+
+        parcel.readDouble(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readInt(),
+        parcel.readString()!!,
     ) {
     }
 
@@ -23,6 +50,16 @@ data class Listing(val id:Int, val imageList:ArrayList<Int>, val title:String, v
         parcel.writeString(property)
         parcel.writeInt(propertyId)
         parcel.writeString(university)
+
+        parcel.writeDouble(area)
+        parcel.writeByte(if (isFurnished) 1 else 0)
+        parcel.writeByte(if (isStudioType) 1 else 0)
+        parcel.writeInt(numBedroom)
+        parcel.writeInt(numBathroom)
+        parcel.writeInt(floor)
+        parcel.writeByte(if (balcony) 1 else 0)
+        parcel.writeInt(ownerId)
+        parcel.writeString(description)
     }
 
     override fun describeContents(): Int {
