@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="15dp"
     tools:context=".ListingsActivity">
 
     <LinearLayout
@@ -18,11 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="23dp"
-            android:layout_marginRight="23dp">
+            android:gravity="center_vertical">
             <androidx.cardview.widget.CardView
                 android:id="@+id/btnBack"
                 android:layout_width="wrap_content"
