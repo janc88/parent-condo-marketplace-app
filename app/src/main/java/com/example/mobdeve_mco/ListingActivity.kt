@@ -6,7 +6,6 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
@@ -62,7 +61,7 @@ class ListingActivity : AppCompatActivity() {
         tvBathroom = findViewById(R.id.tvBathroom)
         tvBalcony = findViewById(R.id.tvBalcony)
         tvOwner = findViewById(R.id.tvOwner)
-        tvOwnerJoined = findViewById(R.id.tvOwnerJoined)
+        tvOwnerJoined = findViewById(R.id.tvDateJoined)
         tvPropertyNameBottom = findViewById(R.id.tvPropertyNameBottom)
         tvAddress = findViewById(R.id.tvAddress)
         rvSimilarListings = findViewById(R.id.rvSimilarListings)

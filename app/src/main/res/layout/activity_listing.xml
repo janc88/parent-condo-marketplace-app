@@ -275,9 +275,9 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <LinearLayout
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="1"
+                                android:layout_weight="2"
                                 android:orientation="horizontal">
                                 <androidx.cardview.widget.CardView
                                     android:layout_width="wrap_content"
@@ -303,15 +303,15 @@
                                         android:fontFamily="@font/cereal_bold"
                                         />
                                     <TextView
-                                        android:id="@+id/tvOwnerJoined"
+                                        android:id="@+id/tvDateJoined"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:text="Joined 5 months ago"/>
+                                        android:text="Joined August 2023"/>
                                 </LinearLayout>
                             </LinearLayout>
                             <LinearLayout
                                 android:layout_weight="1"
-                                android:layout_width="match_parent"
+                                android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:gravity="right|center_vertical"
                                 android:orientation="horizontal">
@@ -396,7 +396,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/cereal_bold"
-                        android:text="Your Condo"
+                        android:text="Condominium"
                         android:textColor="@color/black"
                         android:layout_marginBottom="18dp"
                         android:textSize="18dp" />
@@ -420,37 +420,157 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:orientation="vertical"
-                            android:layout_marginLeft="10dp">
-                            <TextView
-                                android:id="@+id/tvPropertyNameBottom"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Green Residences"
-                                android:fontFamily="@font/cereal_bold"
-                                android:textSize="15dp">
 
-                            </TextView>
+                            android:layout_marginLeft="10dp">
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="15dp"
-                                    android:layout_height="15dp"
-                                    android:src="@drawable/ic_location"
-                                    android:layout_gravity="center_vertical"
-                                    />
+                                android:layout_marginBottom="9dp"
+                                android:layout_marginLeft="3dp"
+                                android:orientation="vertical">
                                 <TextView
-                                    android:id="@+id/tvAddress"
+                                    android:id="@+id/tvPropertyNameBottom"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="1234 Taft Avenue"
-                                    android:maxLines="1"
-                                    android:ellipsize="end"
-                                    android:layout_gravity="center_vertical"
-                                    />
+                                    android:text="Green Residences"
+                                    android:fontFamily="@font/cereal_bold"
+                                    android:textSize="15dp">
+
+                                </TextView>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="15dp"
+                                        android:layout_height="15dp"
+                                        android:src="@drawable/ic_location"
+                                        android:layout_gravity="center_vertical"
+                                        />
+                                    <TextView
+                                        android:id="@+id/tvAddress"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="1234 Taft Avenue"
+                                        android:maxLines="1"
+                                        android:ellipsize="end"
+                                        android:layout_gravity="center_vertical"
+                                        />
+                                </LinearLayout>
+
                             </LinearLayout>
+
+                            <GridLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:columnCount="2"
+                                android:rowCount="3"
+                                android:useDefaultMargins="true"
+                                android:layout_gravity="end">
+                                <LinearLayout
+                                    android:layout_columnWeight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_check"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Swimming Pool"
+                                        android:textSize="12dp"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_columnWeight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_check"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Gym"
+                                        android:textSize="12dp"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_columnWeight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_check"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Security"
+                                        android:textSize="12dp"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_columnWeight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_check"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Wifi"
+                                        android:textSize="12dp"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_columnWeight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_check"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="CCTV"
+                                        android:textSize="12dp"/>
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_columnWeight="1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:src="@drawable/ic_check"/>
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Elevator"
+                                        android:textSize="12dp"/>
+                                </LinearLayout>
+
+                            </GridLayout>
 
                         </LinearLayout>
                     </LinearLayout>

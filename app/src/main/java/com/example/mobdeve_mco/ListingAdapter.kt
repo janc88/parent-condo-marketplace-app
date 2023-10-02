@@ -16,10 +16,7 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
 
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val imageSlider : ImageSlider = itemView.findViewById(R.id.imageSlider)
-        val tvListingTitle : TextView = itemView.findViewById(R.id.tvListingTitle)
         val tvPrice : TextView = itemView.findViewById(R.id.tvPrice)
-        val tvProperty : TextView = itemView.findViewById(R.id.tvProperty)
-        val tvUniversity : TextView = itemView.findViewById(R.id.tvUniversity)
         fun setImageSliderClickListener(itemClickListener: ItemClickListener) {
             imageSlider.setItemClickListener(itemClickListener)
         }
@@ -54,11 +51,7 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
         }
 
         holder.imageSlider.setImageList(imageList)
-        holder.tvListingTitle.text = listing.title
         holder.tvPrice.text = listing.price.formatPrice()
-        holder.tvUniversity.text = listing.university
-        holder.tvUniversity.setUniversityStyle(listing.university)
-        holder.tvProperty.text = listing.property
 
         holder.setImageSliderClickListener(object : ItemClickListener {
             override fun onItemSelected(position: Int) {
@@ -74,32 +67,6 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(listing)
         }
-    }
-
-
-    private fun TextView.setUniversityStyle(university: String) {
-        val backgroundResource = when (university) {
-            "DLSU" -> R.drawable.border_dlsu
-            "UST" -> R.drawable.border_ust
-            "UP" -> R.drawable.border_up
-            "ADMU" -> R.drawable.border_admu
-
-            else -> R.drawable.border_dlsu
-        }
-
-        val textColorResId = when (university) {
-            "DLSU" -> R.color.dlsu_color
-            "UST" -> R.color.ust_color
-            "UP" -> R.color.up_color
-            "ADMU" -> R.color.admu_color
-
-            else -> R.color.black
-        }
-
-        val textColor = ContextCompat.getColor(context, textColorResId)
-
-        setBackgroundResource(backgroundResource)
-        setTextColor(textColor)
     }
 
 }
