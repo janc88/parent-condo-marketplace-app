@@ -15,8 +15,8 @@ class PropertyAdapter(private var properties:ArrayList<Property>) :RecyclerView.
 
     class PropertyViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val imageSlider : ImageSlider = itemView.findViewById(R.id.imageSlider)
-        val tvAddress : TextView = itemView.findViewById(R.id.tvAddress)
-        val tvPriceRange : TextView = itemView.findViewById(R.id.tvPriceRange)
+        val tvAddress : TextView = itemView.findViewById(R.id.tvListingTitle)
+        val tvPriceRange : TextView = itemView.findViewById(R.id.tvPrice)
         val tvProperty : TextView = itemView.findViewById(R.id.tvProperty)
         val tvUniversity : TextView = itemView.findViewById(R.id.tvUniversity)
         val tvNumListings : TextView = itemView.findViewById(R.id.tvNumListings)

@@ -21,7 +21,7 @@ class ListingActivity : AppCompatActivity() {
 
         val listing = intent.getParcelableExtra<Listing>("listing")
         if(listing != null) {
-            tvListingTitle = findViewById(R.id.tvAddress)
+            tvListingTitle = findViewById(R.id.tvListingTitle)
             imageSlider = findViewById(R.id.imageSlider)
 
             tvListingTitle.text = listing.title

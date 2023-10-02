@@ -1,12 +1,9 @@
 package com.example.mobdeve_mco
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Paint
-import android.graphics.Rect
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.TextView
@@ -167,9 +164,9 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         btnShowMore = findViewById(R.id.btnShowMore)
         btnSeeAll = findViewById(R.id.btnSeeAll)
         btnSeeListings = findViewById(R.id.btnSeeListings)
-        tvPriceRange = findViewById(R.id.tvPriceRange)
+        tvPriceRange = findViewById(R.id.tvPrice)
         tvNumListings = findViewById(R.id.tvNumListings)
-        tvAddress = findViewById(R.id.tvAddress)
+        tvAddress = findViewById(R.id.tvListingTitle)
         tvNoFound = findViewById(R.id.tvNoFound)
     }
 
