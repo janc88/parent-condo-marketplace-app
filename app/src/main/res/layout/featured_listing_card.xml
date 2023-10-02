@@ -35,6 +35,7 @@
                 android:ellipsize="end"
                 android:textColor="@color/black"
                 android:maxLines="1"
+                android:fontFamily="@font/cereal_bold"
                 android:text="1BR room fully furnished" />
             <TextView
                 android:id="@+id/tvPrice"
@@ -42,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:fontFamily="@font/cereal_bold"
                 android:text="25,000" />
         </LinearLayout>
 
