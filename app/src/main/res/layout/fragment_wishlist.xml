@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="15dp"
+    android:layout_marginLeft="@dimen/frame_margin"
+    android:layout_marginRight="@dimen/frame_margin"
+    android:layout_marginTop="20dp"
     tools:context=".MyListingsFragment">
 
     <LinearLayout
@@ -21,7 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Your Wishlist"
+            android:text="Wishlist"
             android:textColor="@color/black"
             android:textSize="26dp"
             android:fontFamily="@font/cereal_bold"/>
