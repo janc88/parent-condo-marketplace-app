@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<MyListingAdapter.ListingViewHolder>(){
 
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+
         val ivImage : ImageView = itemView.findViewById(R.id.ivImage)
         val tvPrice : TextView = itemView.findViewById(R.id.tvPrice)
         val tvNumBedroom : TextView = itemView.findViewById(R.id.tvNumBedroom)
@@ -25,8 +26,6 @@ class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ad
         val btnMarkAsRented: Button = itemView.findViewById(R.id.btnMarkAsRented)
         val tvIsRented: TextView = itemView.findViewById(R.id.tvIsRented)
 
-        val mainCard: LinearLayout = itemView.findViewById(R.id.mainCard)
-        val imgCard: CardView = itemView.findViewById(R.id.imgCard)
 
     }
 

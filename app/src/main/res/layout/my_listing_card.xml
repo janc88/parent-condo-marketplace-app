@@ -1,178 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/mainCard"
-    android:layout_width="150dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="30dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
-    <androidx.cardview.widget.CardView
-        android:id="@+id/imgCard"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        app:cardCornerRadius="10dp"
-        android:layout_marginBottom="4dp"
-        app:cardElevation="0dp">
+        android:layout_height="wrap_content">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/imgCard"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:cardCornerRadius="15dp"
+            app:cardElevation="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
-            <ImageView
-                android:id="@+id/ivImage"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/bed"
-                android:scaleType="centerCrop"/>
+                android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/tvIsRented"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="#80000000"
-                android:text="RENTED"
-                android:textColor="#FFFFFF"
-                android:paddingLeft="10dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textSize="12dp"/>
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+                <ImageView
+                    android:id="@+id/ivImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bed" />
 
+                <TextView
+                    android:id="@+id/tvIsRented"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="#80000000"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="RENTED"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12dp" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/tvPropertyName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Green Residences"
-            android:textColor="@color/black"
-            android:fontFamily="@font/cereal_extra_bold"
-            android:maxLines="1"
-            android:ellipsize="end"/>
-        <TextView
-            android:id="@+id/tvPrice"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/cereal_bold"
-            android:text="P25,000"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <LinearLayout
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@+id/imgCard"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+            <TextView
+                android:id="@+id/tvPropertyName"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_listingcard_bedroom"/>
-                <TextView
-                    android:id="@+id/tvNumBedroom"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:text="1"/>
-            </LinearLayout>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" >
-            </Space>
-
+                android:text="Green Residences"
+                android:textColor="@color/black"
+                android:fontFamily="@font/cereal_extra_bold"
+                android:maxLines="1"
+                android:ellipsize="end"/>
+            <TextView
+                android:id="@+id/tvPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/cereal_bold"
+                android:text="P25,000"/>
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_listingcard_bathroom"/>
-                <TextView
-                    android:id="@+id/tvNumBathroom"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:text="1"/>
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_listingcard_bedroom"/>
+                    <TextView
+                        android:id="@+id/tvNumBedroom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13dp"
+                        android:text="1"/>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" >
+                </Space>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_listingcard_bathroom"/>
+                    <TextView
+                        android:id="@+id/tvNumBathroom"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13dp"
+                        android:text="1"/>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" >
+                </Space>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_listingcard_area"/>
+                    <TextView
+                        android:id="@+id/tvArea"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13dp"
+                        android:text="24"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13dp"
+                        android:text="m\u00B2"/>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" >
+                </Space>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/ic_floor"/>
+                    <TextView
+                        android:id="@+id/tvFloor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="13dp"
+                        android:text="15th"/>
+
+                </LinearLayout>
             </LinearLayout>
 
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" >
-            </Space>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+
+
+
+            <Button
+                android:id="@+id/btnMarkAsRented"
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_listingcard_area"/>
-                <TextView
-                    android:id="@+id/tvArea"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:text="24"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:text="m\u00B2"/>
-            </LinearLayout>
-
-            <Space
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_weight="1" >
-            </Space>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="18dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/ic_floor"/>
-                <TextView
-                    android:id="@+id/tvFloor"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13dp"
-                    android:text="15th"/>
-
-            </LinearLayout>
+                android:textAllCaps="false"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:minHeight="0dp"
+                android:minWidth="0dp"
+                android:textColor="@color/black"
+                android:background="@drawable/rented_button"
+                android:text="Mark as rented"/>
         </LinearLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-
-        <Button
-            android:id="@+id/btnMarkAsRented"
-            android:layout_marginTop="4dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:insetTop="0dp"
-            android:insetBottom="0dp"
-            android:minHeight="0dp"
-            android:minWidth="0dp"
-            android:textColor="@color/black"
-            android:background="@drawable/rented_button"
-            android:text="Mark as rented"/>
-    </LinearLayout>
 
 </LinearLayout>
