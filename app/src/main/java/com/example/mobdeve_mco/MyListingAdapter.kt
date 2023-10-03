@@ -1,30 +1,33 @@
 package com.example.mobdeve_mco
 
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
+import androidx.cardview.widget.CardView
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
-import com.denzcoskun.imageslider.ImageSlider
-import com.denzcoskun.imageslider.constants.ScaleTypes
-import com.denzcoskun.imageslider.interfaces.ItemClickListener
-import com.denzcoskun.imageslider.models.SlideModel
-import com.example.mobdeve_mco.formatPrice
 
-class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<ListingAdapter.ListingViewHolder>(){
+
+class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<MyListingAdapter.ListingViewHolder>(){
 
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-        val imageSlider : ImageSlider = itemView.findViewById(R.id.imageSlider)
+        val ivImage : ImageView = itemView.findViewById(R.id.ivImage)
         val tvPrice : TextView = itemView.findViewById(R.id.tvPrice)
         val tvNumBedroom : TextView = itemView.findViewById(R.id.tvNumBedroom)
         val tvNumBathroom : TextView = itemView.findViewById(R.id.tvNumBathroom)
         val tvArea : TextView = itemView.findViewById(R.id.tvArea)
         val tvFloor : TextView = itemView.findViewById(R.id.tvFloor)
+        val btnMarkAsRented: Button = itemView.findViewById(R.id.btnMarkAsRented)
+        val tvIsRented: TextView = itemView.findViewById(R.id.tvIsRented)
 
-        fun setImageSliderClickListener(itemClickListener: ItemClickListener) {
-            imageSlider.setItemClickListener(itemClickListener)
-        }
+        val mainCard: LinearLayout = itemView.findViewById(R.id.mainCard)
+        val imgCard: CardView = itemView.findViewById(R.id.imgCard)
+
     }
 
 
@@ -38,7 +41,7 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListingViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.listing_card, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.my_listing_card, parent, false)
         return ListingViewHolder(view)
     }
 
@@ -49,33 +52,21 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
     override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
         val listing = listings[position]
 
-        val imageList = ArrayList<SlideModel>()
-
-        for(image in listing.imageList){
-            imageList.add(SlideModel(image, ScaleTypes.CENTER_CROP))
+        if(!listing.isRented){
+            holder.tvIsRented.isVisible = false
         }
-
-        holder.imageSlider.setImageList(imageList)
+        holder.ivImage.setImageResource(listing.imageList[0])
         holder.tvPrice.text = listing.price.formatPrice()
         holder.tvNumBedroom.text = listing.numBedroom.toString()
         holder.tvNumBathroom.text = listing.numBathroom.toString()
         holder.tvArea.text = listing.area.toString()
-        holder.tvFloor.text = "${formatFloor(listing.floor)} floor"
+        holder.tvFloor.text = formatFloor(listing.floor)
 
-        holder.setImageSliderClickListener(object : ItemClickListener {
-            override fun onItemSelected(position: Int) {
-                onItemClick?.invoke(listing)
-            }
+        holder.btnMarkAsRented.setOnClickListener{
 
-            override fun doubleClick(position: Int) {
-
-            }
-        })
-
-
-        holder.itemView.setOnClickListener {
-            onItemClick?.invoke(listing)
         }
+
+
     }
 
 }

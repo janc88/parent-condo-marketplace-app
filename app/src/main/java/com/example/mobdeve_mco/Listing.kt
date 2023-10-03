@@ -20,6 +20,8 @@ data class Listing(val id:Int,
                    val balcony: Boolean,
                    val ownerId: Int,
                    val description: String,
+
+                    val isRented: Boolean,
     ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
@@ -39,6 +41,7 @@ data class Listing(val id:Int,
         parcel.readByte() != 0.toByte(),
         parcel.readInt(),
         parcel.readString()!!,
+        parcel.readByte() != 0.toByte(),
     ) {
     }
 
@@ -60,6 +63,7 @@ data class Listing(val id:Int,
         parcel.writeByte(if (balcony) 1 else 0)
         parcel.writeInt(ownerId)
         parcel.writeString(description)
+        parcel.writeByte(if (isRented) 1 else 0)
     }
 
     override fun describeContents(): Int {

@@ -125,6 +125,7 @@ object DummyData {
             false,
             30,
             "Great location very near DLSU. FUlly furnished",
+            false,
         ) ,
         Listing(
             21,
@@ -143,6 +144,7 @@ object DummyData {
             false,
             30,
             "Great location very near DLSU. FUlly furnished",
+            true,
         ) ,
         Listing(
             22,
@@ -161,6 +163,7 @@ object DummyData {
             false,
             30,
             "Great location very near DLSU. FUlly furnished",
+            false,
         ) ,
         Listing(
             23,
@@ -179,6 +182,7 @@ object DummyData {
             false,
             30,
             "Great location very near DLSU. FUlly furnished",
+            false,
         ) ,
     )
 

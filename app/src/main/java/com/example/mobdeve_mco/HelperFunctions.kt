@@ -1,8 +1,10 @@
 package com.example.mobdeve_mco
 
 import DummyData
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 fun Int.formatPrice(): String {
     val formatter = java.text.DecimalFormat("#,###")
@@ -37,6 +39,21 @@ fun getProperty(propertyId: Int): Property {
         }
     }
     return property!!
+}
+
+fun formatDateJoined(date: Date): String {
+    val sdf = SimpleDateFormat("MMMM yyyy", Locale.US)
+    return sdf.format(date)
+}
+
+
+fun formatFloor(floor: Int): String {
+    return when {
+        floor % 10 == 1 && floor % 100 != 11 -> "${floor}st"
+        floor % 10 == 2 && floor % 100 != 12 -> "${floor}nd"
+        floor % 10 == 3 && floor % 100 != 13 -> "${floor}rd"
+        else -> "${floor}th"
+    }
 }
 
 fun getRandomListings(maxNum: Int, listingIds:ArrayList<Int>): ArrayList<Listing> {

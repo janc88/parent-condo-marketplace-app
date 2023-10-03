@@ -208,18 +208,5 @@ class ListingActivity : AppCompatActivity() {
         }
     }
 
-    fun formatDateJoined(date: Date): String {
-        val sdf = SimpleDateFormat("MMMM yyyy", Locale.US)
-        return sdf.format(date)
-    }
 
-
-    fun formatFloor(floor: Int): String {
-        return when {
-            floor % 10 == 1 && floor % 100 != 11 -> "${floor}st floor"
-            floor % 10 == 2 && floor % 100 != 12 -> "${floor}nd floor"
-            floor % 10 == 3 && floor % 100 != 13 -> "${floor}rd floor"
-            else -> "${floor}th floor"
-        }
-    }
 }
