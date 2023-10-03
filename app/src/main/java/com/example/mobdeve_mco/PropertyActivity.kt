@@ -66,10 +66,11 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
-
+        val zoomLevel = 16.0f
         val location = LatLng(latitude!!, longitude!!)
+        val cameraUpdate = CameraUpdateFactory.newLatLngZoom(location, zoomLevel)
         googleMap.addMarker(MarkerOptions().position(location).title(""))
-        googleMap.moveCamera(CameraUpdateFactory.newLatLng(location))
+        googleMap.animateCamera(cameraUpdate)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

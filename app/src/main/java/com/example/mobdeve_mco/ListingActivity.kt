@@ -40,6 +40,7 @@ class ListingActivity : AppCompatActivity() {
     private lateinit var tvDateJoined : TextView
     private lateinit var tvPropertyNameBottom : TextView
     private lateinit var tvAddress : TextView
+    private lateinit var tvPrice : TextView
 
     private lateinit var tvStudioType : TextView
 
@@ -88,6 +89,7 @@ class ListingActivity : AppCompatActivity() {
         tvStudioType = findViewById(R.id.tvStudioType)
         tvDescription = findViewById(R.id.tvDescription)
         glAmenities = findViewById(R.id.glAmenities)
+        tvPrice = findViewById(R.id.tvPrice)
     }
 
     private fun init(){
@@ -136,6 +138,7 @@ class ListingActivity : AppCompatActivity() {
         user = getUser(listing.ownerId)
         tvOwner.text = "${user.firstname} ${user.lastname}"
         tvDateJoined.text = "Joined in ${formatDateJoined(user.dateAccountCreated)}"
+        tvPrice.text = listing.price.formatPrice()
 
         property = getProperty(listing.propertyId)
         setupRecyclerView()
@@ -168,8 +171,6 @@ class ListingActivity : AppCompatActivity() {
             if (!isAvailable) {
                 continue
             }
-
-
 
             val amenityText = if (amenity == Amenity.CCTV) "CCTV" else amenity.name.capitalizeAndReplaceUnderscore()
 
