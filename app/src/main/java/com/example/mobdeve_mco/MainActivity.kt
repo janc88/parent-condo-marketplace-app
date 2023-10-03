@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.explore -> replaceFragment(ExploreFragment())
                 R.id.myListings -> replaceFragment(MyListingsFragment())
                 R.id.account -> replaceFragment(AccountFragment())
-
+                R.id.wishlist -> replaceFragment(WishlistFragment())
                 else ->{
 
                 }
