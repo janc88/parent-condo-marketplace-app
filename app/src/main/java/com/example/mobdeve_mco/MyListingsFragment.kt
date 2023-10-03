@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mco.databinding.FragmentMyListingsBinding
 
@@ -32,13 +33,17 @@ class MyListingsFragment : Fragment() {
         rvMyListings = view.findViewById(R.id.rvMyListings)
 
 
-        val layoutManager = GridLayoutManager(context, 2)
+        val layoutManager = object : GridLayoutManager(context, 2) {
+            override fun checkLayoutParams(lp: RecyclerView.LayoutParams): Boolean {
+                lp.width = width / 2 - 35
+                return true
+            }
+        }
 
         rvMyListings.layoutManager = layoutManager
 
         val myListingsAdapter = MyListingAdapter(DummyData.listingList)
         rvMyListings.adapter = myListingsAdapter
-
 
     }
 
