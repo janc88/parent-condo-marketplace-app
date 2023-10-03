@@ -1,6 +1,7 @@
 package com.example.mobdeve_mco
 
 import DummyData
+import android.content.Intent
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.LayoutInflater
@@ -44,12 +45,17 @@ class MyListingsFragment : Fragment() {
         val myListingsAdapter = MyListingAdapter(DummyData.listingList)
         rvMyListings.adapter = myListingsAdapter
 
+        myListingsAdapter.onItemClick = {
+            val intent = Intent(this.activity, ListingActivity::class.java)
+            intent.putExtra("listing", it)
+            startActivity(intent)
+        }
 
 
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        _binding = null
+//    }
 }

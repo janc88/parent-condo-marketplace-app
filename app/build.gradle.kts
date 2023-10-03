@@ -51,4 +51,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     implementation("com.github.denzcoskun:ImageSlideshow:0.1.2")
     implementation("com.google.android.gms:play-services-maps:18.1.0")
+    implementation("com.google.android.material:material:1.3.0-alpha03")
+
 }

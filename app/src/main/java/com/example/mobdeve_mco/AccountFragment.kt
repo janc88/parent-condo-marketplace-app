@@ -39,9 +39,9 @@ class AccountFragment : Fragment() {
         fragmentTransaction.commit()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        _binding = null
+//    }
 
 }

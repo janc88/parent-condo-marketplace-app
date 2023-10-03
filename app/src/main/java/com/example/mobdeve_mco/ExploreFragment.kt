@@ -141,10 +141,10 @@ class ExploreFragment : Fragment() {
         rvSearchResults.isVisible = show
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
+//    override fun onDestroyView() {
+//        super.onDestroyView()
+//        _binding = null
+//    }
 
 
 }

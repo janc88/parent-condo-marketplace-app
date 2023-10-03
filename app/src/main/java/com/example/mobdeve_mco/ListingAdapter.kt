@@ -60,7 +60,7 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
         holder.tvNumBedroom.text = listing.numBedroom.toString()
         holder.tvNumBathroom.text = listing.numBathroom.toString()
         holder.tvArea.text = listing.area.toString()
-        holder.tvFloor.text = "${formatFloor(listing.floor)} floor"
+        holder.tvFloor.text = "${formatFloor(listing.floor)}"
 
         holder.setImageSliderClickListener(object : ItemClickListener {
             override fun onItemSelected(position: Int) {

@@ -7,6 +7,14 @@
     <item android:title="MyListings"
         android:id="@+id/myListings"
         android:icon="@drawable/ic_home"/>
+
+    <item
+        android:id="@+id/placeholder"
+        android:title="" />
+
+    <item android:title="Wishlist"
+        android:id="@+id/wishlist"
+        android:icon="@drawable/ic_wishlist"/>
     <item android:title="Account"
         android:id="@+id/account"
         android:icon="@drawable/ic_account"/>

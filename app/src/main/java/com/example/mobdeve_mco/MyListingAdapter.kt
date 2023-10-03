@@ -30,7 +30,6 @@ class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ad
     }
 
 
-
     var onItemClick : ((Listing) -> Unit)? = null
 
     fun setFilteredList(listings: ArrayList<Listing>){
@@ -58,11 +57,15 @@ class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ad
         holder.tvPrice.text = listing.price.formatPrice()
         holder.tvNumBedroom.text = listing.numBedroom.toString()
         holder.tvNumBathroom.text = listing.numBathroom.toString()
-        holder.tvArea.text = listing.area.toString()
+        holder.tvArea.text = listing.area.toInt().toString()
         holder.tvFloor.text = formatFloor(listing.floor)
 
         holder.btnMarkAsRented.setOnClickListener{
 
+        }
+
+        holder.ivImage.setOnClickListener{
+            onItemClick?.invoke(listing)
         }
 
 

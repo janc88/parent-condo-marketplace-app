@@ -2,14 +2,17 @@ package com.example.mobdeve_mco
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.example.mobdeve_mco.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
 
     private lateinit var bottomNavigationView : BottomNavigationView
+    private lateinit var btnAddListing : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,6 +21,15 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(ExploreFragment())
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
+        btnAddListing = findViewById(R.id.btnAddListing)
+
+        bottomNavigationView.background = null
+        bottomNavigationView.menu.getItem(2).isEnabled = false
+
+        btnAddListing.setOnClickListener{
+
+        }
+
 
         bottomNavigationView.setOnItemSelectedListener {
 
