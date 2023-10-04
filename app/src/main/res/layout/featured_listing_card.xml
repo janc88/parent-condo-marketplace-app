@@ -5,8 +5,8 @@
     android:layout_marginRight="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <LinearLayout
-        android:layout_width="140dp"
-        android:layout_height="wrap_content"
+        android:layout_width="170dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <androidx.cardview.widget.CardView
@@ -16,8 +16,8 @@
 
             <ImageView
                 android:id="@+id/ivImage"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/bed" />
         </androidx.cardview.widget.CardView>
