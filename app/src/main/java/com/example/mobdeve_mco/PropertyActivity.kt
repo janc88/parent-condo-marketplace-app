@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowManager
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -53,6 +55,10 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var btnSeeListings: Button
     private lateinit var property: Property
 
+    private lateinit var btnBack: CardView
+    private lateinit var cvHeart: CardView
+    private lateinit var btnHeart: ImageView
+
     private var longitude: Double? = null
     private var latitude: Double? = null
 
@@ -61,7 +67,7 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var featuredListings: ArrayList<Listing>
 
-
+    private var isLiked = false
     private var isExpanded = false
 
     override fun onMapReady(map: GoogleMap) {
@@ -160,9 +166,26 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         tvNumListings = findViewById(R.id.tvNumListings)
         tvAddress = findViewById(R.id.tvListingTitle)
         tvNoFound = findViewById(R.id.tvNoFound)
+        btnBack = findViewById(R.id.btnBack)
+        cvHeart = findViewById(R.id.cvHeart)
+        btnHeart = findViewById(R.id.btnHeart)
     }
 
     private fun init(){
+        btnBack.setOnClickListener{
+            onBackPressed()
+        }
+
+        cvHeart.setOnClickListener{
+            if (isLiked) {
+                btnHeart.setImageResource(R.drawable.ic_heart)
+            } else {
+                btnHeart.setImageResource(R.drawable.ic_heart_liked)
+            }
+            isLiked = !isLiked
+        }
+
+
         val imageList = ArrayList<SlideModel>()
         for(image in property.imageList){
             imageList.add(SlideModel(image, ScaleTypes.CENTER_CROP))

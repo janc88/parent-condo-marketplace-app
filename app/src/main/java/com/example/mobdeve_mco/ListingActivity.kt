@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -44,6 +45,10 @@ class ListingActivity : AppCompatActivity() {
 
     private lateinit var tvStudioType : TextView
 
+    private lateinit var btnBack: CardView
+    private lateinit var cvHeart: CardView
+    private lateinit var btnHeart: ImageView
+
     private lateinit var rvSimilarListings: RecyclerView
     private lateinit var glAmenities: GridLayout
 
@@ -53,7 +58,7 @@ class ListingActivity : AppCompatActivity() {
     private lateinit var property: Property
 
     private lateinit var featuredListingAdapter: FeaturedListingAdapter
-
+    private var isLiked = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -90,9 +95,26 @@ class ListingActivity : AppCompatActivity() {
         tvDescription = findViewById(R.id.tvDescription)
         glAmenities = findViewById(R.id.glAmenities)
         tvPrice = findViewById(R.id.tvPrice)
+        btnBack = findViewById(R.id.btnBack)
+        cvHeart = findViewById(R.id.cvHeart)
+        btnHeart = findViewById(R.id.btnHeart)
+
     }
 
     private fun init(){
+        btnBack.setOnClickListener{
+            onBackPressed()
+        }
+
+        cvHeart.setOnClickListener{
+            if (isLiked) {
+                btnHeart.setImageResource(R.drawable.ic_heart)
+            } else {
+                btnHeart.setImageResource(R.drawable.ic_heart_liked)
+            }
+            isLiked = !isLiked
+        }
+
         tvListingTitle.text = listing.title
 
         val imageList = ArrayList<SlideModel>()

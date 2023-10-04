@@ -27,7 +27,7 @@
                     android:layout_height="0dp"
                     app:cardElevation="0dp"
                     app:cardCornerRadius="20dp"
-                    app:layout_constraintDimensionRatio="3:2"
+                    app:layout_constraintDimensionRatio="1:1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -42,6 +42,39 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btnBack"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="start"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="50dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="2dp">
+                        <ImageView
+                            android:padding="5dp"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/ic_back"/>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvHeart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginTop="50dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="2dp">
+                        <ImageView
+                            android:id="@+id/btnHeart"
+                            android:padding="5dp"
+                            android:layout_width="28dp"
+                            android:layout_height="28dp"
+                            android:src="@drawable/ic_heart"/>
+                    </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
