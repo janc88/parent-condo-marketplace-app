@@ -14,7 +14,7 @@
 
     <item android:title="Wishlist"
         android:id="@+id/wishlist"
-        android:icon="@drawable/ic_wishlist"/>
+        android:icon="@drawable/ic_heart"/>
     <item android:title="Account"
         android:id="@+id/account"
         android:icon="@drawable/ic_account"/>

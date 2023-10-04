@@ -3,6 +3,7 @@ package com.example.mobdeve_mco
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,7 @@ import com.example.mobdeve_mco.formatPrice
 
 class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<ListingAdapter.ListingViewHolder>(){
 
+    private var isLiked = false
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val imageSlider : ImageSlider = itemView.findViewById(R.id.imageSlider)
         val tvPrice : TextView = itemView.findViewById(R.id.tvPrice)
@@ -21,6 +23,9 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
         val tvNumBathroom : TextView = itemView.findViewById(R.id.tvNumBathroom)
         val tvArea : TextView = itemView.findViewById(R.id.tvArea)
         val tvFloor : TextView = itemView.findViewById(R.id.tvFloor)
+        val btnHeart : ImageButton = itemView.findViewById(R.id.btnHeart)
+        val btnHeartBorder : ImageButton = itemView.findViewById(R.id.btnHeartBorder)
+
 
         fun setImageSliderClickListener(itemClickListener: ItemClickListener) {
             imageSlider.setItemClickListener(itemClickListener)
@@ -73,9 +78,21 @@ class ListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adap
         })
 
 
+        holder.btnHeartBorder.setOnClickListener{
+            if (isLiked) {
+                holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_unliked)
+            } else {
+                holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_liked)
+            }
+            isLiked = !isLiked
+        }
+
+
         holder.itemView.setOnClickListener {
             onItemClick?.invoke(listing)
         }
     }
+
+
 
 }
