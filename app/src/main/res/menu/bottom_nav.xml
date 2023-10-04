@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_home"/>
 
     <item
-        android:id="@+id/placeholder"
+        android:id="@+id/addListing"
         android:title="" />
 
     <item android:title="Wishlist"

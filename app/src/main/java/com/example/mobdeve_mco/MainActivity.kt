@@ -1,5 +1,6 @@
 package com.example.mobdeve_mco
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -12,7 +13,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
 
     private lateinit var bottomNavigationView : BottomNavigationView
-    private lateinit var btnAddListing : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,14 +21,9 @@ class MainActivity : AppCompatActivity() {
         replaceFragment(ExploreFragment())
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
-        btnAddListing = findViewById(R.id.btnAddListing)
 
         bottomNavigationView.background = null
-        bottomNavigationView.menu.getItem(2).isEnabled = false
-
-        btnAddListing.setOnClickListener{
-
-        }
+        bottomNavigationView.menu.getItem(2).isEnabled = true
 
 
         bottomNavigationView.setOnItemSelectedListener {
@@ -37,6 +32,10 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.explore -> replaceFragment(ExploreFragment())
                 R.id.myListings -> replaceFragment(MyListingsFragment())
+                R.id.addListing -> {
+                    val intent = Intent(this, AddListingActivity::class.java)
+                    startActivity(intent)
+                }
                 R.id.account -> replaceFragment(AccountFragment())
                 R.id.wishlist -> replaceFragment(WishlistFragment())
                 else ->{
