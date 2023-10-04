@@ -54,8 +54,8 @@
                         app:cardElevation="2dp">
                         <ImageView
                             android:padding="5dp"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_back"/>
                     </androidx.cardview.widget.CardView>
 
@@ -71,8 +71,8 @@
                         <ImageView
                             android:id="@+id/btnHeart"
                             android:padding="5dp"
-                            android:layout_width="28dp"
-                            android:layout_height="28dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:src="@drawable/ic_heart"/>
                     </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
