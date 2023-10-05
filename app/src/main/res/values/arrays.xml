@@ -1,0 +1,8 @@
+<resources>
+    <string-array name="number_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <!-- Add more items up to 10 -->
+    </string-array>
+</resources>
