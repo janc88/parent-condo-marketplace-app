@@ -33,7 +33,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.explore -> replaceFragment(ExploreFragment())
                 R.id.myListings -> replaceFragment(MyListingsFragment())
                 R.id.addListing -> {
-//                    val intent = Intent(this, AddListingActivity::class.java)
                     val intent = Intent(this, AddListingStepsActivity::class.java)
                     startActivity(intent)
                 }

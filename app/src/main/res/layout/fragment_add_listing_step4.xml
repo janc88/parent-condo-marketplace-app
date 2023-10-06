@@ -6,66 +6,78 @@
     android:orientation="vertical"
     tools:context=".AddListingStep5Fragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add some photos of your unit"
-        android:textColor="@color/black"
-        android:fontFamily="@font/cereal_bold"
-        android:textSize="23dp"/>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Take some captivating photos of your unit"
-        />
-
     <LinearLayout
-        android:layout_marginTop="16dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingLeft="12dp"
-        android:paddingBottom="20dp"
-        android:background="@drawable/round_10_card"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_lg_black"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/frame_margin"
+        android:layout_marginRight="@dimen/frame_margin"
+        android:layout_marginTop="45dp">
         <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
+            android:text="Add some photos of your unit"
             android:textColor="@color/black"
-            android:text="Add photos"/>
+            android:fontFamily="@font/cereal_bold"
+            android:textSize="23dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Take some captivating photos of your unit"
+            />
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingLeft="12dp"
+            android:paddingBottom="20dp"
+            android:background="@drawable/round_10_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_add_lg_black"/>
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:text="Add photos"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingLeft="12dp"
+            android:paddingBottom="20dp"
+            android:background="@drawable/round_10_card"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_camera"/>
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="15dp"
+                android:textColor="@color/black"
+                android:text="Take new photos"/>
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="20dp"
-        android:paddingLeft="12dp"
-        android:paddingBottom="20dp"
-        android:background="@drawable/round_10_card"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_camera"/>
-        <TextView
-            android:layout_marginLeft="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:textColor="@color/black"
-            android:text="Take new photos"/>
-    </LinearLayout>
+
+
 
 
 </LinearLayout>

@@ -7,26 +7,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AddListingStep2Fragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Select the condo of your unit"
-        android:textColor="@color/black"
-        android:fontFamily="@font/cereal_bold"
-        android:textSize="23dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/frame_margin"
+        android:layout_marginRight="@dimen/frame_margin"
+        android:layout_marginTop="45dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select the condo of your unit"
+            android:textColor="@color/black"
+            android:fontFamily="@font/cereal_bold"
+            android:textSize="23dp"/>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="Don't see your condo? Add a condo here"
-        />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Don't see your condo? Add a condo here"
+            />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="16dp"
-        android:id="@+id/rvProperties"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="16dp"
+            android:id="@+id/rvProperties"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
+    </LinearLayout>
 
 </LinearLayout>

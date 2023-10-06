@@ -13,7 +13,7 @@
         android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="40dp"
         android:background="@android:color/transparent"
         android:src="@drawable/ic_back"/>
 
@@ -23,12 +23,12 @@
         android:text="Listing your unit is simple in Parent"
         android:textColor="@color/black"
         android:fontFamily="@font/cereal_bold"
-        android:textSize="23dp"/>
+        android:textSize="28dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="35dp"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cereal_bold"
                 android:textColor="@color/black"
-                android:textSize="16dp"
+                android:textSize="18dp"
                 android:layout_marginRight="10dp"
                 android:text="1"/>
             <LinearLayout
@@ -50,16 +50,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tell us about your place"
+                    android:text="Tell us where it is located"
                     android:fontFamily="@font/cereal_bold"
                     android:textColor="@color/black"
-                    android:textSize="16dp"/>
+                    android:textSize="18dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13dp"
+                    android:textSize="15dp"
                     android:layout_marginTop="5dp"
-                    android:text="Share some basic info, like where it is and how large the area is."/>
+                    android:text="Provide the university your condo is closest to and the property name"/>
             </LinearLayout>
 
             <LinearLayout
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cereal_bold"
                 android:textColor="@color/black"
-                android:textSize="16dp"
+                android:textSize="18dp"
                 android:layout_marginRight="10dp"
                 android:text="2"/>
             <LinearLayout
@@ -103,16 +103,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tell us about your place"
+                    android:text="Provide the details"
                     android:fontFamily="@font/cereal_bold"
                     android:textColor="@color/black"
-                    android:textSize="16dp"/>
+                    android:textSize="18dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13dp"
+                    android:textSize="15dp"
                     android:layout_marginTop="5dp"
-                    android:text="Share some basic info, like where it is and how large the area is."/>
+                    android:text="Share some basic info, like what floor it is and how large the area is."/>
             </LinearLayout>
 
             <LinearLayout
@@ -145,7 +145,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/cereal_bold"
                 android:textColor="@color/black"
-                android:textSize="16dp"
+                android:textSize="18dp"
                 android:layout_marginRight="10dp"
                 android:text="3"/>
             <LinearLayout
@@ -156,16 +156,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tell us about your place"
+                    android:text="Set the price"
                     android:fontFamily="@font/cereal_bold"
                     android:textColor="@color/black"
-                    android:textSize="16dp"/>
+                    android:textSize="18dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13dp"
+                    android:textSize="15dp"
                     android:layout_marginTop="5dp"
-                    android:text="Share some basic info, like where it is and how large the area is."/>
+                    android:text="Decide on a starting price and publish your listing"/>
             </LinearLayout>
 
             <LinearLayout
@@ -183,8 +183,19 @@
 
             </LinearLayout>
         </LinearLayout>
-
-
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btnGetStarted"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Started"
+        android:textAllCaps="false" />
+
 
 </LinearLayout>
