@@ -9,7 +9,10 @@
         android:layout_marginRight="@dimen/frame_margin"
         android:layout_marginTop="45dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_above="@id/constraintLayout"
+        android:layout_alignParentTop="true"
+    />
 
     <View
         android:layout_width="match_parent"
