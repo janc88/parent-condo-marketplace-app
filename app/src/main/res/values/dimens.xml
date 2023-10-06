@@ -3,4 +3,7 @@
     <dimen name="bottom_navigation_text_size">12sp</dimen>
     <dimen name="bottom_navigation_icon_size">24dp</dimen>
     <dimen name="frame_margin">20dp</dimen>
+    <dimen name="addListing_lg">28dp</dimen>
+    <dimen name="addListing_sm">15dp</dimen>
+
 </resources>

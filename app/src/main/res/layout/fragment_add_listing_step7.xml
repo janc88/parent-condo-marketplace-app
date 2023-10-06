@@ -20,12 +20,13 @@
             android:text="Now, set your price"
             android:textColor="@color/black"
             android:fontFamily="@font/cereal_bold"
-            android:textSize="23dp"/>
+            android:textSize="@dimen/addListing_lg"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:textSize="@dimen/addListing_sm"
             android:text="A well written description will separate your listing from others."
             />
 

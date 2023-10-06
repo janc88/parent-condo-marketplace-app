@@ -21,12 +21,13 @@
             android:text="Now, lets give your unit a title"
             android:textColor="@color/black"
             android:fontFamily="@font/cereal_bold"
-            android:textSize="23dp"/>
+            android:textSize="@dimen/addListing_lg"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:textSize="@dimen/addListing_sm"
             android:text="A good title will attract potential renters."
             />
 
@@ -34,8 +35,8 @@
             android:id="@+id/textInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:textSize="15dp"
+            android:layout_marginTop="@dimen/addListing_lg"
+            android:textSize="@dimen/addListing_sm"
             android:minLines="4"
             android:background="@drawable/round_button"
             />

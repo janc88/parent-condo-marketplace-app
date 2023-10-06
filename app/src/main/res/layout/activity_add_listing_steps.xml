@@ -57,7 +57,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/addListing_sm"
                     android:layout_marginTop="5dp"
                     android:text="Provide the university your condo is closest to and the property name"/>
             </LinearLayout>
@@ -110,7 +110,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/addListing_sm"
                     android:layout_marginTop="5dp"
                     android:text="Share some basic info, like what floor it is and how large the area is."/>
             </LinearLayout>
@@ -163,7 +163,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/addListing_sm"
                     android:layout_marginTop="5dp"
                     android:text="Decide on a starting price and publish your listing"/>
             </LinearLayout>

@@ -19,17 +19,18 @@
             android:text="Add some photos of your unit"
             android:textColor="@color/black"
             android:fontFamily="@font/cereal_bold"
-            android:textSize="23dp"/>
+            android:textSize="@dimen/addListing_lg"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
+            android:textSize="@dimen/addListing_sm"
             android:text="Take some captivating photos of your unit"
             />
 
         <LinearLayout
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/addListing_lg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="20dp"
@@ -46,7 +47,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="@dimen/addListing_sm"
                 android:textColor="@color/black"
                 android:text="Add photos"/>
         </LinearLayout>
@@ -69,7 +70,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
+                android:textSize="@dimen/addListing_sm"
                 android:textColor="@color/black"
                 android:text="Take new photos"/>
         </LinearLayout>

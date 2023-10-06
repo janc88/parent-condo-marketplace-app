@@ -20,10 +20,10 @@
             android:text="Share some details about your unit"
             android:textColor="@color/black"
             android:fontFamily="@font/cereal_bold"
-            android:textSize="23dp"/>
+            android:textSize="@dimen/addListing_lg"/>
 
         <LinearLayout
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/addListing_lg"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -38,7 +38,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/addListing_sm"
                     android:text="Bedrooms"/>
 
                 <LinearLayout
@@ -58,7 +58,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15dp"
+                        android:textSize="@dimen/addListing_sm"
                         android:text="1"
                         android:layout_margin="5dp"/>
                     <Space
@@ -89,7 +89,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="@color/black"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/addListing_sm"
                     android:text="Bathrooms"/>
 
                 <LinearLayout
@@ -109,7 +109,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="15dp"
+                        android:textSize="@dimen/addListing_sm"
                         android:text="1"
                         android:layout_margin="5dp"/>
                     <Space
@@ -141,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/addListing_sm"
                     android:text="Floor Area"/>
 
                 <LinearLayout
@@ -154,7 +154,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:textSize="15dp"
+                        android:textSize="@dimen/addListing_sm"
                         />
                     <TextView
                         android:layout_width="40dp"
@@ -180,7 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/addListing_sm"
                     android:text="Floor"/>
 
                 <LinearLayout
@@ -193,7 +193,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:textSize="15dp"
+                        android:textSize="@dimen/addListing_sm"
                         />
                     <TextView
                         android:layout_width="40dp"
@@ -221,7 +221,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/addListing_sm"
                     android:text="Furnished"/>
 
                 <LinearLayout
@@ -255,7 +255,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/addListing_sm"
                     android:text="With Balcony"/>
 
                 <LinearLayout
@@ -289,7 +289,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="15dp"
+                    android:textSize="@dimen/addListing_sm"
                     android:text="Studio Type"/>
 
                 <LinearLayout
