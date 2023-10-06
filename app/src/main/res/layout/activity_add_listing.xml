@@ -25,11 +25,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Title"/>
+                    android:text="Title"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/cereal_bold"/>
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Name your listing"
+                    android:textSize="15dp"
                     android:background="@android:color/transparent"
                     />
             </LinearLayout>
@@ -41,11 +44,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Price"/>
+                    android:text="Price"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/cereal_bold"/>
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter the price"
+                    android:textSize="15dp"
                     android:background="@android:color/transparent"
                     />
             </LinearLayout>
@@ -57,12 +63,17 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Description"/>
+                    android:text="Description"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/cereal_bold"/>
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:minLines="4"
+                    android:textSize="15dp"
+                    android:hint="Enter the description"
+                    android:gravity="top"
                     android:background="@android:color/transparent"
                 />
             </LinearLayout>
@@ -76,7 +87,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Condo"/>
+                    android:text="Condo"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/cereal_bold"/>
                 <androidx.appcompat.widget.AppCompatButton
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -92,13 +105,35 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_weight="10"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Number of bedrooms"/>
+                    android:text="Number of bedrooms"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/cereal_bold"/>
                 <Spinner
-                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/number_array" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_weight="10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Number of bathrooms"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/cereal_bold"/>
+                <Spinner
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/number_array" />
             </LinearLayout>
@@ -110,25 +145,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Number of bathrooms"/>
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:entries="@array/number_array" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Floor Area"/>
+                    android:text="Floor Area"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/cereal_bold"/>
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="sqm"
+                    android:textSize="15dp"
                     android:background="@android:color/transparent"
                     />
             </LinearLayout>
@@ -136,57 +160,67 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Furnishing"/>
+                    android:text="Is the unit furnished?"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/cereal_bold"/>
                 <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Fully Furnished"/>
+                        android:text="Yes"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Unfurnished"/>
+                        android:text="No"/>
                 </RadioGroup>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Unit Type"/>
+                    android:text="Is the unit studio type?"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/cereal_bold"/>
                 <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Studio Type"/>
+                        android:text="Yes"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Non-studio Tyep"/>
+                        android:text="No"/>
                 </RadioGroup>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_weight="10"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Floor"/>
+                    android:text="What floor is the unit?"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/cereal_bold"/>
                 <Spinner
-                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:entries="@array/number_array" />
             </LinearLayout>
@@ -194,22 +228,25 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="horizontal">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Balcony"/>
+                    android:text="Does the unit have a balcony?"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/cereal_bold"/>
                 <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="With balcony"/>
+                        android:text="Yes"/>
                     <RadioButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="No balcony"/>
+                        android:text="No"/>
                 </RadioGroup>
             </LinearLayout>
 
