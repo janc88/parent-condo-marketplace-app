@@ -7,7 +7,7 @@
         android:id="@+id/viewPager"
         android:layout_marginLeft="@dimen/frame_margin"
         android:layout_marginRight="@dimen/frame_margin"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="45dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
