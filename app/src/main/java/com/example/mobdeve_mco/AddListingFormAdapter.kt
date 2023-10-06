@@ -15,11 +15,12 @@ class AddListingFormAdapter(fragmentActivity: FragmentActivity) :
             3 -> AddListingStep4Fragment()
             4 -> AddListingStep5Fragment()
             5 -> AddListingStep6Fragment()
+            6 -> AddListingStep7Fragment()
             else -> AddListingStep1Fragment()
         }
     }
 
     override fun getItemCount(): Int {
-        return 6
+        return 7
     }
 }

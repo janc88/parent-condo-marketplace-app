@@ -29,6 +29,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:textColor="@color/black"
                 android:textSize="15dp"
                 android:text="Bedrooms"/>
 
@@ -79,6 +80,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:textColor="@color/black"
                 android:textSize="15dp"
                 android:text="Bathrooms"/>
 
@@ -130,6 +132,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:textSize="15dp"
                 android:text="Floor Area"/>
 
@@ -168,6 +171,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:textSize="15dp"
                 android:text="Floor"/>
 
@@ -208,6 +212,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:textSize="15dp"
                 android:text="Furnished"/>
 
@@ -241,6 +246,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:textSize="15dp"
                 android:text="With Balcony"/>
 
@@ -274,6 +280,7 @@
                 android:gravity="center_vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
                 android:textSize="15dp"
                 android:text="Studio Type"/>
 
