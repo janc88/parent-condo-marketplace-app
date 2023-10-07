@@ -1,6 +1,8 @@
 package com.example.mobdeve_mco
 
 import DummyData
+import android.graphics.Paint
+import android.widget.TextView
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -17,6 +19,11 @@ fun createDate(year: Int, month: Int, day: Int): Date {
     calendar.set(Calendar.MONTH, month - 1)
     calendar.set(Calendar.DAY_OF_MONTH, day)
     return calendar.time
+}
+
+
+fun TextView.underlineText() {
+    paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
 }
 
 fun getUser(userId: Int): User {

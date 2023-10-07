@@ -47,6 +47,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
                     <ImageButton
+                        android:id="@+id/btnMinusBedroom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/round_button"
@@ -56,6 +57,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"/>
                     <TextView
+                        android:id="@+id/tvNumBedroom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/addListing_sm"
@@ -66,6 +68,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"/>
                     <ImageButton
+                        android:id="@+id/btnAddBedroom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/round_button"
@@ -98,6 +101,7 @@
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
                     <ImageButton
+                        android:id="@+id/btnMinusBathroom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/round_button"
@@ -107,6 +111,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"/>
                     <TextView
+                        android:id="@+id/tvNumBathroom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textSize="@dimen/addListing_sm"
@@ -117,6 +122,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"/>
                     <ImageButton
+                        android:id="@+id/btnAddBathroom"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/round_button"
@@ -149,17 +155,29 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:textSize="@dimen/addListing_sm"
-                        />
-                    <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:text="sqm"/>
+                        android:gravity="right"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tvFloorArea"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="23"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/cereal_bold"
+                            android:textSize="@dimen/addListing_sm"
+                            />
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text=" sqm"/>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -188,17 +206,27 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
-                    <androidx.appcompat.widget.AppCompatEditText
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="number"
-                        android:textSize="@dimen/addListing_sm"
-                        />
-                    <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:text="floor"/>
+                        android:gravity="right"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/tvFloor"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="23rd"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/cereal_bold"
+                            android:textSize="@dimen/addListing_sm"
+                            />
+                        <TextView
+                            android:layout_width="40dp"
+                            android:layout_height="wrap_content"
+                            android:text=" floor"/>
+
+                    </LinearLayout>
                 </LinearLayout>
 
 
@@ -230,6 +258,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
                     <CheckBox
+                        android:id="@+id/cbIsFurnished"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:minWidth="0dp"
@@ -264,6 +293,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
                     <CheckBox
+                        android:id="@+id/cbBalcony"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:minWidth="0dp"
@@ -298,6 +328,7 @@
                     android:gravity="center"
                     android:orientation="horizontal">
                     <CheckBox
+                        android:id="@+id/cbIsStudioType"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:minWidth="0dp"

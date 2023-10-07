@@ -25,9 +25,7 @@ class AddListingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_listing)
 
         bindViews()
-
         init()
-
         setListeners()
     }
 

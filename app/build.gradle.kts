@@ -53,5 +53,6 @@ dependencies {
     implementation("com.google.android.gms:play-services-maps:18.1.0")
     implementation("com.google.android.material:material:1.3.0-alpha03")
     implementation("com.airbnb.android:lottie:6.1.0")
+    implementation("androidx.fragment:fragment-ktx:1.3.0")
 
 }
