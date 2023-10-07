@@ -36,6 +36,10 @@ class GetFloorAreaFragment : BottomSheetDialogFragment() {
         }
     }
 
+    override fun getTheme(): Int {
+        return R.style.AppBottomSheetDialogTheme
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

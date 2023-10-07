@@ -168,11 +168,12 @@
                             android:layout_height="wrap_content"
                             android:text="23"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/addListing_sm"
+                            android:textSize="17dp"
                             />
                         <TextView
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
+                            android:textSize="15dp"
                             android:text=" sqm"/>
 
                     </LinearLayout>
@@ -217,11 +218,12 @@
                             android:layout_height="wrap_content"
                             android:text="23rd"
                             android:textColor="@color/black"
-                            android:textSize="@dimen/addListing_sm"
+                            android:textSize="17dp"
                             />
                         <TextView
                             android:layout_width="40dp"
                             android:layout_height="wrap_content"
+                            android:textSize="15dp"
                             android:text=" floor"/>
 
                     </LinearLayout>

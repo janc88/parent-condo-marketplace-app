@@ -142,7 +142,7 @@ class AddListingStep3Fragment : Fragment() {
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
             isUserInputFloorArea = true
 
-            val delayMillis = 1000L
+            val delayMillis = 300L
             val handler = Handler()
             handler.postDelayed({
                 tvFloorArea.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
@@ -154,7 +154,7 @@ class AddListingStep3Fragment : Fragment() {
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
             isUserInputFloor = true
 
-            val delayMillis = 1000L
+            val delayMillis = 300L
             val handler = Handler()
             handler.postDelayed({
                 tvFloor.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
