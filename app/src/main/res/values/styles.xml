@@ -6,4 +6,6 @@
         <item name="android:maxHeight">@dimen/bottom_navigation_icon_size</item>
         <item name="android:background">@color/white</item>
     </style>
+
+
 </resources>

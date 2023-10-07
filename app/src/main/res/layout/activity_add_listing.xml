@@ -11,11 +11,20 @@
         android:layout_alignParentTop="true"
     />
 
-    <View
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="1dp"-->
+<!--        android:background="#20000000"-->
+<!--        android:layout_alignTop="@+id/constraintLayout"/>-->
+
+    <ProgressBar
+        android:id="@+id/progressBar"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#20000000"
-        android:layout_alignTop="@+id/constraintLayout"/>
+        android:layout_height="2dp"
+        android:max="100"
+        android:indeterminate="false"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_alignTop="@+id/constraintLayout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -30,6 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Back"
             android:textAllCaps="false"
+            android:minWidth="0dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="@android:color/transparent"
