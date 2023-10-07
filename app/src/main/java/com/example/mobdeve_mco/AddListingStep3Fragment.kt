@@ -66,6 +66,22 @@ class AddListingStep3Fragment : Fragment() {
             tvFloorArea.text = value
         })
 
+        val floorViewModel = ViewModelProvider(requireActivity()).get(FloorViewModel::class.java)
+
+        floorViewModel.floor.observe(viewLifecycleOwner, Observer { floorValue ->
+            val floorWithSuffix = when {
+//                floorValue.endsWith("11", ignoreCase = true) -> "$floorValue${" th"}"
+//                floorValue.endsWith("12", ignoreCase = true) -> "$floorValue${" th"}"
+//                floorValue.endsWith("13", ignoreCase = true) -> "$floorValue${" th"}"
+                floorValue.endsWith("1") -> "$floorValue${"st"}"
+                floorValue.endsWith("2") -> "$floorValue${"nd"}"
+                floorValue.endsWith("3") -> "$floorValue${"rd"}"
+                else -> "$floorValue${"th"}"
+            }
+            tvFloor.text = floorWithSuffix
+        })
+
+
     }
 
 
@@ -128,6 +144,16 @@ class AddListingStep3Fragment : Fragment() {
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         }
 
+        tvFloor.setOnClickListener {
+            val bottomSheetFragment = GetFloorFragment.newInstance(extractNumericValue(tvFloor.text.toString()))
+            bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+        }
+
+    }
+
+    private fun extractNumericValue(floorText: String): Int {
+        val numericValueString = floorText.filter { it.isDigit() }
+        return numericValueString.toIntOrNull() ?: 0
     }
 
     private fun accessButtons() {

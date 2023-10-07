@@ -7,5 +7,9 @@
         <item name="android:background">@color/white</item>
     </style>
 
+    <style name="NumberPickerText">
+        <item name="android:textSize">22dp</item>
+    </style>
+
 
 </resources>

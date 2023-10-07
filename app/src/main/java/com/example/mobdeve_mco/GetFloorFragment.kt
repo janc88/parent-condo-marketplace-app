@@ -14,21 +14,20 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
-class GetFloorAreaFragment : BottomSheetDialogFragment() {
+class GetFloorFragment : BottomSheetDialogFragment() {
 
     private lateinit var numberPicker: NumberPicker
     private lateinit var btnClose: ImageButton
     private lateinit var btnDone: Button
 
-
-    private val maxFloorArea = 100
-    private val minFloorArea = 10
+    private val maxFloor = 50
+    private val minFloor = 1
 
     companion object {
         private const val ARG_INITIAL_VALUE = "initialValue"
 
-        fun newInstance(initialValue: Int): GetFloorAreaFragment {
-            val fragment = GetFloorAreaFragment()
+        fun newInstance(initialValue: Int): GetFloorFragment {
+            val fragment = GetFloorFragment()
             val args = Bundle()
             args.putInt(ARG_INITIAL_VALUE, initialValue)
             fragment.arguments = args
@@ -36,12 +35,11 @@ class GetFloorAreaFragment : BottomSheetDialogFragment() {
         }
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_get_floor_area, container, false)
+        return inflater.inflate(R.layout.fragment_get_floor, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,28 +49,30 @@ class GetFloorAreaFragment : BottomSheetDialogFragment() {
         btnDone = view.findViewById(R.id.btnDone)
         numberPicker = view.findViewById(R.id.numberPicker)
 
-        numberPicker.minValue = minFloorArea
-        numberPicker.maxValue = maxFloorArea
-
-
-        val floorAreaViewModel = ViewModelProvider(requireActivity()).get(FloorAreaViewModel::class.java)
+        val floorViewModel = ViewModelProvider(requireActivity()).get(FloorViewModel::class.java)
 
         btnClose.setOnClickListener {
             val enteredValue = numberPicker.value.toString()
-            floorAreaViewModel.setFloorArea(enteredValue)
+            floorViewModel.setFloor(enteredValue)
             dismiss()
         }
 
         btnDone.setOnClickListener {
             val enteredValue = numberPicker.value.toString()
-            floorAreaViewModel.setFloorArea(enteredValue)
+            floorViewModel.setFloor(enteredValue)
             dismiss()
         }
 
-        val initialValue = arguments?.getInt(ARG_INITIAL_VALUE) ?: minFloorArea
-        numberPicker.value = initialValue
+        val floorLabels = generateFloorLabels(minFloor, maxFloor)
+        numberPicker.minValue = minFloor
+        numberPicker.maxValue = maxFloor
+        numberPicker.displayedValues = floorLabels
 
+        val initialValue = arguments?.getInt(ARG_INITIAL_VALUE) ?: minFloor
+        numberPicker.value = initialValue
     }
+
+
 
 
 
@@ -99,6 +99,19 @@ class GetFloorAreaFragment : BottomSheetDialogFragment() {
         bottomSheet.layoutParams = layoutParams
     }
 
+    private fun generateFloorLabels(min: Int, max: Int): Array<String> {
+        val labels = mutableListOf<String>()
+        for (i in min..max) {
+            val label = when {
+                i % 10 == 1 && i % 100 != 11 -> "${i}st"
+                i % 10 == 2 && i % 100 != 12 -> "${i}nd"
+                i % 10 == 3 && i % 100 != 13 -> "${i}rd"
+                else -> "${i}th"
+            }
+            labels.add(label)
+        }
+        return labels.toTypedArray()
+    }
 
 }
 
