@@ -55,20 +55,21 @@ class AddListingActivity : AppCompatActivity() {
             if (viewPager.currentItem > 0) {
                 viewPager.setCurrentItem(viewPager.currentItem - 1, true)
             }
+            updateProgressBar()
         }
 
         btnNext.setOnClickListener {
             if (viewPager.currentItem < addListingFormAdapter.itemCount - 1) {
                 viewPager.setCurrentItem(viewPager.currentItem + 1, true)
             }
+            updateProgressBar()
         }
 
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                val progress = (position * 100) / (addListingFormAdapter.itemCount - 1)
-                progressBar.progress = progress
-            }
-        })
+    }
+
+    private fun updateProgressBar(){
+        val progress = (viewPager.currentItem * 100) / (addListingFormAdapter.itemCount - 1)
+        progressBar.progress = progress
     }
 
     override fun onBackPressed() {
