@@ -1,8 +1,6 @@
 package com.example.mobdeve_mco
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +9,7 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatEditText
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.mobdeve_mco.databinding.FragmentAddListingStep3Binding
@@ -37,6 +33,7 @@ class AddListingStep3Fragment : Fragment() {
     private lateinit var cbBalcony : CheckBox
     private lateinit var cbIsStudioType : CheckBox
 
+    private var initialFloorArea = 10
 
     private var numBedroom = 1
     private var numBathroom = 1
@@ -63,9 +60,9 @@ class AddListingStep3Fragment : Fragment() {
         init()
         setListeners()
 
-        val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        val floorAreaViewModel = ViewModelProvider(requireActivity()).get(FloorAreaViewModel::class.java)
 
-        sharedViewModel.floorArea.observe(viewLifecycleOwner, Observer { value ->
+        floorAreaViewModel.floorArea.observe(viewLifecycleOwner, Observer { value ->
             tvFloorArea.text = value
         })
 
@@ -91,6 +88,7 @@ class AddListingStep3Fragment : Fragment() {
     }
 
     private fun init(){
+        tvFloorArea.text = initialFloorArea.toString()
         tvFloorArea.underlineText()
         tvFloor.underlineText()
 
@@ -125,8 +123,8 @@ class AddListingStep3Fragment : Fragment() {
             }
         }
 
-        tvFloorArea.setOnClickListener{
-            val bottomSheetFragment = GetFloorAreaFragment()
+        tvFloorArea.setOnClickListener {
+            val bottomSheetFragment = GetFloorAreaFragment.newInstance(tvFloorArea.text.toString().toInt())
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
         }
 

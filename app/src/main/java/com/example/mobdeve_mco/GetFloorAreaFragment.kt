@@ -1,19 +1,13 @@
 package com.example.mobdeve_mco
 
 import android.app.Dialog
-import android.content.Context
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.NumberPicker
-import androidx.core.os.bundleOf
-import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -26,6 +20,18 @@ class GetFloorAreaFragment : BottomSheetDialogFragment() {
 
     private val maxFloorArea = 100
     private val minFloorArea = 10
+
+    companion object {
+        private const val ARG_INITIAL_VALUE = "initialValue"
+
+        fun newInstance(initialValue: Int): GetFloorAreaFragment {
+            val fragment = GetFloorAreaFragment()
+            val args = Bundle()
+            args.putInt(ARG_INITIAL_VALUE, initialValue)
+            fragment.arguments = args
+            return fragment
+        }
+    }
 
 
     override fun onCreateView(
@@ -45,13 +51,16 @@ class GetFloorAreaFragment : BottomSheetDialogFragment() {
         numberPicker.maxValue = maxFloorArea
 
 
-        val sharedViewModel = ViewModelProvider(requireActivity()).get(SharedViewModel::class.java)
+        val floorAreaViewModel = ViewModelProvider(requireActivity()).get(FloorAreaViewModel::class.java)
 
         btnClose.setOnClickListener {
             val enteredValue = numberPicker.value.toString()
-            sharedViewModel.setFloorArea(enteredValue)
+            floorAreaViewModel.setFloorArea(enteredValue)
             dismiss()
         }
+
+        val initialValue = arguments?.getInt(ARG_INITIAL_VALUE) ?: minFloorArea
+        numberPicker.value = initialValue
 
     }
 

@@ -3,7 +3,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SharedViewModel : ViewModel() {
+class FloorAreaViewModel : ViewModel() {
     private val _floorArea = MutableLiveData<String>()
     val floorArea: LiveData<String> = _floorArea
 
