@@ -168,7 +168,6 @@
                             android:layout_height="wrap_content"
                             android:text="23"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/cereal_bold"
                             android:textSize="@dimen/addListing_sm"
                             />
                         <TextView
@@ -218,7 +217,6 @@
                             android:layout_height="wrap_content"
                             android:text="23rd"
                             android:textColor="@color/black"
-                            android:fontFamily="@font/cereal_bold"
                             android:textSize="@dimen/addListing_sm"
                             />
                         <TextView

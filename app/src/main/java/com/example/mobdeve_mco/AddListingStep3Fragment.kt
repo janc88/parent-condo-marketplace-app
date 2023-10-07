@@ -1,6 +1,7 @@
 package com.example.mobdeve_mco
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import android.widget.CheckBox
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -33,7 +35,8 @@ class AddListingStep3Fragment : Fragment() {
     private lateinit var cbBalcony : CheckBox
     private lateinit var cbIsStudioType : CheckBox
 
-    private var initialFloorArea = 10
+    private var isUserInputFloorArea = false
+    private var isUserInputFloor = false
 
     private var numBedroom = 1
     private var numBathroom = 1
@@ -70,9 +73,6 @@ class AddListingStep3Fragment : Fragment() {
 
         floorViewModel.floor.observe(viewLifecycleOwner, Observer { floorValue ->
             val floorWithSuffix = when {
-//                floorValue.endsWith("11", ignoreCase = true) -> "$floorValue${" th"}"
-//                floorValue.endsWith("12", ignoreCase = true) -> "$floorValue${" th"}"
-//                floorValue.endsWith("13", ignoreCase = true) -> "$floorValue${" th"}"
                 floorValue.endsWith("1") -> "$floorValue${"st"}"
                 floorValue.endsWith("2") -> "$floorValue${"nd"}"
                 floorValue.endsWith("3") -> "$floorValue${"rd"}"
@@ -104,7 +104,6 @@ class AddListingStep3Fragment : Fragment() {
     }
 
     private fun init(){
-        tvFloorArea.text = initialFloorArea.toString()
         tvFloorArea.underlineText()
         tvFloor.underlineText()
 
@@ -138,15 +137,28 @@ class AddListingStep3Fragment : Fragment() {
                 tvNumBathroom.text = numBathroom.toString()
             }
         }
-
         tvFloorArea.setOnClickListener {
             val bottomSheetFragment = GetFloorAreaFragment.newInstance(tvFloorArea.text.toString().toInt())
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+            isUserInputFloorArea = true
+
+            val delayMillis = 1000L
+            val handler = Handler()
+            handler.postDelayed({
+                tvFloorArea.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
+            }, delayMillis)
         }
 
         tvFloor.setOnClickListener {
             val bottomSheetFragment = GetFloorFragment.newInstance(extractNumericValue(tvFloor.text.toString()))
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
+            isUserInputFloor = true
+
+            val delayMillis = 1000L
+            val handler = Handler()
+            handler.postDelayed({
+                tvFloor.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
+            }, delayMillis)
         }
 
     }
