@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import com.example.mobdeve_mco.databinding.ActivityMainBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
@@ -19,6 +20,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         replaceFragment(ExploreFragment())
+
+
+        val userLoggedIn = intent.getBooleanExtra("userLoggedIn", false)
+
+        if (userLoggedIn) {
+            bottomNavigationView.selectedItemId = R.id.explore
+        }
+
+
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView)
 

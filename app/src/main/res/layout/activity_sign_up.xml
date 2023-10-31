@@ -36,6 +36,23 @@
             android:text="Create Your Account"
             android:textSize="20dp" />
 
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            app:cardCornerRadius="75dp">
+            <ImageView
+                android:id="@+id/ivProfilePic"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_default_pfp"
+              />
+
+        </androidx.cardview.widget.CardView>
+
+
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -102,11 +119,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/btnNext"
+            android:id="@+id/btnSignUp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Next"
+            android:text="Sign up"
             android:textAllCaps="false" />
 
         <LinearLayout

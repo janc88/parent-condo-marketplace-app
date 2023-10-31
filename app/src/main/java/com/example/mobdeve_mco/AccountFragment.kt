@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
 import com.example.mobdeve_mco.databinding.FragmentAccountBinding
+import com.google.firebase.auth.FirebaseAuth
 
 class AccountFragment : Fragment() {
 
@@ -28,6 +29,15 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         replaceFragment(LoggedOutFragment())
+
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val currentUser = firebaseAuth.currentUser
+
+        if (currentUser != null) {
+            replaceFragment(LoggedInFragment())
+        } else {
+            replaceFragment(LoggedOutFragment())
+        }
     }
 
     private fun replaceFragment(fragment : Fragment){
