@@ -58,5 +58,6 @@ dependencies {
     implementation("androidx.fragment:fragment-ktx:1.3.0")
     implementation(platform("com.google.firebase:firebase-bom:32.5.0"))
     implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.android.gms:play-services-auth:20.7.0")
 
 }

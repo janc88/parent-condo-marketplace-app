@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.cardview.widget.CardView
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -25,6 +26,8 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var etEmail : TextInputEditText
     private lateinit var etPassword : TextInputEditText
     private lateinit var etBio : EditText
+    private lateinit var ivProfilePic : ImageView
+    private lateinit var cvProfilePic : CardView
     private lateinit var ivClose: ImageView
 
     private lateinit var auth: FirebaseAuth
@@ -47,6 +50,12 @@ class SignUpActivity : AppCompatActivity() {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etBio = findViewById(R.id.etBio);
+        ivProfilePic = findViewById(R.id.ivProfilePic);
+        cvProfilePic = findViewById(R.id.cvProfilePic);
+
+        cvProfilePic.setOnClickListener{
+
+        }
 
         btnSignUp.setOnClickListener {
             val firstName = etFirstName.text.toString()
