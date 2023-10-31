@@ -52,6 +52,16 @@
 
         </androidx.cardview.widget.CardView>
 
+        <EditText
+            android:id="@+id/etBio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Write a short description about yourself"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            android:textSize="15dp"
+            />
+
 
 
         <com.google.android.material.textfield.TextInputLayout

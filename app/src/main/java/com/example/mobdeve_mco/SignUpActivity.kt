@@ -6,11 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import java.util.Date
 
 
 class SignUpActivity : AppCompatActivity() {
@@ -20,6 +24,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var etLastName : TextInputEditText
     private lateinit var etEmail : TextInputEditText
     private lateinit var etPassword : TextInputEditText
+    private lateinit var etBio : EditText
     private lateinit var ivClose: ImageView
 
     private lateinit var auth: FirebaseAuth
@@ -41,40 +46,60 @@ class SignUpActivity : AppCompatActivity() {
         etLastName = findViewById(R.id.etLastName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        etBio = findViewById(R.id.etBio);
 
         btnSignUp.setOnClickListener {
             val firstName = etFirstName.text.toString()
             val lastName = etLastName.text.toString()
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
+            val bio = etBio.text.toString()
 
-            if(email.isEmpty()){
+            if (email.isEmpty()) {
                 Toast.makeText(this, "Email is required", Toast.LENGTH_SHORT).show()
-            }else if(password.isEmpty()){
+            } else if (password.isEmpty()) {
                 Toast.makeText(this, "Password is required", Toast.LENGTH_SHORT).show()
-            } else{
+            } else {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
-                            Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
-
                             val user = auth.currentUser
                             userViewModel.updateUser(user)
 
-                            val intent = Intent(this, MainActivity::class.java)
-                            intent.putExtra("userLoggedIn", true)
-                            startActivity(intent)
-                            finish()
+                            val db = Firebase.firestore
+
+                            val usersCollection = db.collection("users")
+
+                            val newUser = User(
+                                user!!.uid,
+                                firstName,
+                                lastName,
+                                email,
+                                Date(),
+                                bio,
+                                ""
+                            )
+
+                            usersCollection.document(user!!.uid)
+                                .set(newUser)
+                                .addOnSuccessListener {
+                                    Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
+
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    intent.putExtra("userLoggedIn", true)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                                .addOnFailureListener { e ->
+                                    Toast.makeText(this, "Failed to store user data in Firestore: $e", Toast.LENGTH_SHORT).show()
+                                }
                         } else {
-                            Toast.makeText(
-                                baseContext,
-                                "Authentication failed.",
-                                Toast.LENGTH_SHORT,
-                            ).show()
+                            Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
                         }
                     }
             }
         }
+
 
 
         btnLogin.setOnClickListener {
