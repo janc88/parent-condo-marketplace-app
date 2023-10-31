@@ -35,7 +35,7 @@ object DummyData {
 
     val users: List<User> = listOf(
         User(
-            30,
+            "30",
             "Arturo",
             "Caronongan",
             "dlsu.edu.ph",

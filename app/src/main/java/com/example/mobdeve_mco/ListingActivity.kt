@@ -157,7 +157,7 @@ class ListingActivity : AppCompatActivity() {
         tvOwner.text = "Temp owner"
         tvDateJoined.text = "Joined Temp 2022"
         tvDescription.text = listing.description
-        user = getUser(listing.ownerId)
+        user = getUser(listing.ownerId.toString())
         tvOwner.text = "${user.firstname} ${user.lastname}"
         tvDateJoined.text = "Joined in ${formatDateJoined(user.dateAccountCreated)}"
         tvPrice.text = listing.price.formatPrice()

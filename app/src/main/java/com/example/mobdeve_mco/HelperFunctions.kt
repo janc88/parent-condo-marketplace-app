@@ -26,7 +26,7 @@ fun TextView.underlineText() {
     paintFlags = paintFlags or Paint.UNDERLINE_TEXT_FLAG
 }
 
-fun getUser(userId: Int): User {
+fun getUser(userId: String): User {
     var owner: User? = null
     for(user in DummyData.users){
         if(user.id == userId){
