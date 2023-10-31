@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.mobdeve_mco.databinding.FragmentLoggedInBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
@@ -61,6 +63,7 @@ class LoggedInFragment : Fragment() {
 
         btnLogOut.setOnClickListener{
             FirebaseAuth.getInstance().signOut()
+            Toast.makeText(this.context, "Logged out successfully", Toast.LENGTH_SHORT).show()
 
             val transaction = requireActivity().supportFragmentManager.beginTransaction()
             transaction.replace(R.id.frame_layout, LoggedOutFragment())

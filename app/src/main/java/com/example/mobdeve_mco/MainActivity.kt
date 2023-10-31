@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val userLoggedIn = intent.getBooleanExtra("userLoggedIn", false)
 
         if (userLoggedIn) {
-            bottomNavigationView.selectedItemId = R.id.explore
+            replaceFragment(ExploreFragment())
         }
 
 
