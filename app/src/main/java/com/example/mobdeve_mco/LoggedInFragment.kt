@@ -13,6 +13,8 @@ import com.example.mobdeve_mco.databinding.FragmentLoggedInBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class LoggedInFragment : Fragment() {
     private var _binding: FragmentLoggedInBinding? = null
@@ -20,7 +22,10 @@ class LoggedInFragment : Fragment() {
 
     private lateinit var tvId : TextView
     private lateinit var tvEmail : TextView
-    private lateinit var tvName : TextView
+    private lateinit var tvFirstName : TextView
+    private lateinit var tvLastName : TextView
+    private lateinit var tvBio : TextView
+
     private lateinit var btnLogOut : Button
 
 
@@ -39,7 +44,9 @@ class LoggedInFragment : Fragment() {
 
         tvId = view.findViewById(R.id.tvId)
         tvEmail = view.findViewById(R.id.tvEmail)
-        tvName = view.findViewById(R.id.tvName)
+        tvFirstName = view.findViewById(R.id.tvFirstName)
+        tvLastName = view.findViewById(R.id.tvLastName)
+        tvBio = view.findViewById(R.id.tvBio)
         btnLogOut = view.findViewById(R.id.btnLogOut)
 
 
@@ -49,11 +56,34 @@ class LoggedInFragment : Fragment() {
         if (currentUser != null) {
             val uid = currentUser.uid
             val email = currentUser.email
-            val displayName = currentUser.displayName
 
             tvId.text = uid
             tvEmail.text = email
-            tvName.text = displayName
+
+            val db = Firebase.firestore
+
+            val usersCollection = db.collection("users")
+            val userDocument = usersCollection.document(uid)
+
+            userDocument.get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val userData = document.data
+                        val firstName = userData!!.get("firstname").toString()
+                        val lastName = userData!!.get("lastname").toString()
+                        val bio = userData!!.get("bio").toString()
+                        tvFirstName.text = firstName
+                        tvLastName.text = lastName
+                        tvBio.text = bio
+
+                    } else {
+                        // Handle the case where the user document doesn't exist
+                    }
+                }
+                .addOnFailureListener { e ->
+                    // Handle any errors that occurred during the read operation
+                    // e.g., network errors, permission issues, etc.
+                }
 
 
         } else {
