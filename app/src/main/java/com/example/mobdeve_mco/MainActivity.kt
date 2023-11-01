@@ -1,5 +1,6 @@
 package com.example.mobdeve_mco
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -84,5 +85,14 @@ class MainActivity : AppCompatActivity() {
         fragmentTransaction.commit()
 
 
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
     }
 }

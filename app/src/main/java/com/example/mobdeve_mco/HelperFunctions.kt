@@ -37,6 +37,8 @@ fun getUser(userId: String): User {
     return owner!!
 }
 
+
+
 fun mapNumberToUniversity(number: Int): String {
     return when (number) {
         1 -> "DLSU"
