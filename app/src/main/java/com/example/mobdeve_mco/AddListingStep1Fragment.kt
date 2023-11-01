@@ -47,6 +47,10 @@ class AddListingStep1Fragment : Fragment() {
         bindViews(view)
         setListeners()
         setSharedPreferences()
+    }
+
+    override fun onResume() {
+        super.onResume()
         updateButtons()
     }
 
@@ -71,7 +75,6 @@ class AddListingStep1Fragment : Fragment() {
             btnNext.isEnabled = false
             btnNext.setTextColor(resources.getColor(android.R.color.darker_gray))
         }
-
     }
 
 

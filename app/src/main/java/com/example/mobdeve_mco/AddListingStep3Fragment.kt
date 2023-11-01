@@ -277,24 +277,28 @@ class AddListingStep3Fragment : Fragment() {
         return numericValueString.toIntOrNull() ?: 0
     }
 
-    private fun disableNextButton(){
-        val activity = requireActivity() as AppCompatActivity
-        val btnNext = activity.findViewById<Button>(R.id.btnNext)
-        btnNext.isEnabled = false
+    override fun onResume() {
+        super.onResume()
+        updateButtons()
     }
+
 
     private fun updateButtons() {
         val activity = requireActivity() as AppCompatActivity
         val btnNext = activity.findViewById<Button>(R.id.btnNext)
 
-        btnNext.setOnClickListener {
-            if(isUserInputFloor && isUserInputFloorArea){
-                btnNext.isEnabled = true
-                btnNext.setTextColor(resources.getColor(android.R.color.white))
-            } else {
-                btnNext.isEnabled = false
-                btnNext.setTextColor(resources.getColor(android.R.color.darker_gray))
-            }
+        Log.d("test", "step3 next button")
+
+        if(isUserInputFloor && isUserInputFloorArea){
+            Log.d("test", "can go")
+
+            btnNext.isEnabled = true
+            btnNext.setTextColor(resources.getColor(android.R.color.white))
+        } else {
+            Log.d("test", "cannot go")
+
+            btnNext.isEnabled = false
+            btnNext.setTextColor(resources.getColor(android.R.color.darker_gray))
         }
     }
 

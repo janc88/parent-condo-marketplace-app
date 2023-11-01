@@ -37,6 +37,11 @@ class AddListingStep2Fragment : Fragment() {
         return _binding?.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateButtons()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -46,7 +51,6 @@ class AddListingStep2Fragment : Fragment() {
         init()
         getUniversity()
         retrieveSelectedItemPosition()
-        updateButtons()
     }
 
     private fun updateButtons() {
