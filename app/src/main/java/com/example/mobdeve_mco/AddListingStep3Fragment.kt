@@ -1,7 +1,10 @@
 package com.example.mobdeve_mco
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +22,8 @@ import com.example.mobdeve_mco.databinding.FragmentAddListingStep3Binding
 class AddListingStep3Fragment : Fragment() {
     private var _binding: FragmentAddListingStep3Binding? = null
     private val binding: FragmentAddListingStep3Binding get() = _binding!!
+
+    private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var btnAddBedroom : ImageButton
     private lateinit var btnAddBathroom : ImageButton
@@ -47,6 +52,10 @@ class AddListingStep3Fragment : Fragment() {
     private val maxBedroom = 5
     private val minBedroom = 1
 
+    private var floorArea = -1
+    private var floor = -1
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -59,33 +68,63 @@ class AddListingStep3Fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+
         bindViews(view)
+        getSharedPreferences()
         init()
         setListeners()
+        setViewModels()
+    }
 
+    private fun setViewModels(){
         val floorAreaViewModel = ViewModelProvider(requireActivity()).get(FloorAreaViewModel::class.java)
 
         floorAreaViewModel.floorArea.observe(viewLifecycleOwner, Observer { value ->
             tvFloorArea.text = value
+            floorArea = value.toInt()
+            with(sharedPreferences.edit()) {
+                putInt("floorArea", floorArea)
+                apply()
+            }
         })
 
         val floorViewModel = ViewModelProvider(requireActivity()).get(FloorViewModel::class.java)
 
         floorViewModel.floor.observe(viewLifecycleOwner, Observer { floorValue ->
-            val floorWithSuffix = when {
-                floorValue.endsWith("1") -> "$floorValue${"st"}"
-                floorValue.endsWith("2") -> "$floorValue${"nd"}"
-                floorValue.endsWith("3") -> "$floorValue${"rd"}"
-                else -> "$floorValue${"th"}"
+            tvFloor.text = appendFloorSuffix(floorValue)
+            floor = floorValue.toInt()
+            with(sharedPreferences.edit()) {
+                putInt("floor", floor)
+                apply()
             }
-            tvFloor.text = floorWithSuffix
         })
+    }
 
+    private fun appendFloorSuffix(floorValue : String) : String{
+        val floorWithSuffix = when {
+            floorValue.endsWith("1") -> "$floorValue${"st"}"
+            floorValue.endsWith("2") -> "$floorValue${"nd"}"
+            floorValue.endsWith("3") -> "$floorValue${"rd"}"
+            else -> "$floorValue${"th"}"
+        }
+        return floorWithSuffix
+    }
 
+    private fun getSharedPreferences(){
+        numBedroom = sharedPreferences.getInt("numBedroom", 1)
+        numBathroom = sharedPreferences.getInt("numBathroom", 1)
+        isUserInputFloorArea = sharedPreferences.getBoolean("isUserInputFloorArea", false)
+        isUserInputFloor = sharedPreferences.getBoolean("isUserInputFloor", false)
+        cbIsFurnished.isChecked = sharedPreferences.getBoolean("isFurnished", false)
+        cbBalcony.isChecked = sharedPreferences.getBoolean("withBalcony", false)
+        cbIsStudioType.isChecked = sharedPreferences.getBoolean("isStudioType", false)
+        floorArea = sharedPreferences.getInt("floorArea", 23)
+        floor = sharedPreferences.getInt("floor", 23)
     }
 
 
-    private fun bindViews(view: View){
+    private fun bindViews(view: View) {
         btnAddBedroom = view.findViewById(R.id.btnAddBedroom)
         btnAddBathroom = view.findViewById(R.id.btnAddBathroom)
         btnMinusBedroom = view.findViewById(R.id.btnMinusBedroom)
@@ -107,6 +146,20 @@ class AddListingStep3Fragment : Fragment() {
         tvFloorArea.underlineText()
         tvFloor.underlineText()
 
+        tvNumBedroom.text = numBedroom.toString()
+        tvNumBathroom.text = numBathroom.toString()
+        tvFloorArea.text = floorArea.toString()
+        tvFloor.text = appendFloorSuffix(floor.toString())
+
+
+        if(isUserInputFloor){
+            tvFloor.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
+        }
+
+        if(isUserInputFloorArea){
+            tvFloorArea.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
+        }
+
     }
 
     private fun setListeners(){
@@ -114,6 +167,11 @@ class AddListingStep3Fragment : Fragment() {
             if (numBedroom < maxBedroom) {
                 numBedroom++
                 tvNumBedroom.text = numBedroom.toString()
+
+                with(sharedPreferences.edit()) {
+                    putInt("numBedroom", numBedroom)
+                    apply()
+                }
             }
         }
 
@@ -122,12 +180,22 @@ class AddListingStep3Fragment : Fragment() {
                 numBedroom--
                 tvNumBedroom.text = numBedroom.toString()
             }
+
+            with(sharedPreferences.edit()) {
+                putInt("numBedroom", numBedroom)
+                apply()
+            }
         }
 
         btnAddBathroom.setOnClickListener {
             if (numBathroom < maxBathroom) {
                 numBathroom++
                 tvNumBathroom.text = numBathroom.toString()
+            }
+
+            with(sharedPreferences.edit()) {
+                putInt("numBathroom", numBathroom)
+                apply()
             }
         }
 
@@ -136,11 +204,47 @@ class AddListingStep3Fragment : Fragment() {
                 numBathroom--
                 tvNumBathroom.text = numBathroom.toString()
             }
+
+            with(sharedPreferences.edit()) {
+                putInt("numBathroom", numBathroom)
+                apply()
+            }
         }
+
+        cbIsFurnished.setOnCheckedChangeListener { _, isChecked ->
+            cbIsFurnished.isChecked = isChecked
+            with(sharedPreferences.edit()) {
+                putBoolean("isFurnished", isChecked)
+                apply()
+            }
+        }
+
+        cbBalcony.setOnCheckedChangeListener { _, isChecked ->
+            cbBalcony.isChecked = isChecked
+            with(sharedPreferences.edit()) {
+                putBoolean("withBalcony", isChecked)
+                apply()
+            }
+        }
+
+        cbIsStudioType.setOnCheckedChangeListener { _, isChecked ->
+            cbIsStudioType.isChecked = isChecked
+            with(sharedPreferences.edit()) {
+                putBoolean("isStudioType", isChecked)
+                apply()
+            }
+        }
+
+
         tvFloorArea.setOnClickListener {
             val bottomSheetFragment = GetFloorAreaFragment.newInstance(tvFloorArea.text.toString().toInt())
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
             isUserInputFloorArea = true
+            with(sharedPreferences.edit()) {
+                putBoolean("isUserInputFloorArea", isUserInputFloorArea)
+                apply()
+            }
+            updateButtons()
 
             val delayMillis = 300L
             val handler = Handler()
@@ -153,6 +257,11 @@ class AddListingStep3Fragment : Fragment() {
             val bottomSheetFragment = GetFloorFragment.newInstance(extractNumericValue(tvFloor.text.toString()))
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
             isUserInputFloor = true
+            with(sharedPreferences.edit()) {
+                putBoolean("isUserInputFloor", isUserInputFloor)
+                apply()
+            }
+            updateButtons()
 
             val delayMillis = 300L
             val handler = Handler()
@@ -168,17 +277,24 @@ class AddListingStep3Fragment : Fragment() {
         return numericValueString.toIntOrNull() ?: 0
     }
 
-    private fun accessButtons() {
+    private fun disableNextButton(){
         val activity = requireActivity() as AppCompatActivity
-        val btnBack = activity.findViewById<Button>(R.id.btnBack)
+        val btnNext = activity.findViewById<Button>(R.id.btnNext)
+        btnNext.isEnabled = false
+    }
+
+    private fun updateButtons() {
+        val activity = requireActivity() as AppCompatActivity
         val btnNext = activity.findViewById<Button>(R.id.btnNext)
 
-        btnBack.setOnClickListener {
-            // Handle the Back button click
-        }
-
         btnNext.setOnClickListener {
-            // Handle the Next button click
+            if(isUserInputFloor && isUserInputFloorArea){
+                btnNext.isEnabled = true
+                btnNext.setTextColor(resources.getColor(android.R.color.white))
+            } else {
+                btnNext.isEnabled = false
+                btnNext.setTextColor(resources.getColor(android.R.color.darker_gray))
+            }
         }
     }
 

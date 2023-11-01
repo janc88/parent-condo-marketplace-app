@@ -9,6 +9,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -22,6 +24,7 @@ class AddListingStep2Fragment : Fragment() {
     private lateinit var property2Adapter: Property2Adapter
     private lateinit var sharedPreferences: SharedPreferences
     private var selectedUniversity : String? = ""
+    private var selectedItemPosition : Int = -1
 
 
     override fun onCreateView(
@@ -43,10 +46,24 @@ class AddListingStep2Fragment : Fragment() {
         init()
         getUniversity()
         retrieveSelectedItemPosition()
+        updateButtons()
+    }
+
+    private fun updateButtons() {
+        val activity = requireActivity() as AppCompatActivity
+        val btnNext = activity.findViewById<Button>(R.id.btnNext)
+
+        if(selectedItemPosition != -1){
+            btnNext.isEnabled = true
+            btnNext.setTextColor(resources.getColor(android.R.color.white))
+        } else {
+            btnNext.isEnabled = false
+            btnNext.setTextColor(resources.getColor(android.R.color.darker_gray))
+        }
     }
 
     private fun retrieveSelectedItemPosition() {
-        val selectedItemPosition = sharedPreferences.getInt("propertyPosition", -1)
+        selectedItemPosition = sharedPreferences.getInt("propertyPosition", -1)
         if (selectedItemPosition != -1) {
             property2Adapter.setSelectedPosition(selectedItemPosition)
             property2Adapter.notifyItemChanged(selectedItemPosition)
@@ -68,7 +85,10 @@ class AddListingStep2Fragment : Fragment() {
         rvProperties.layoutManager = LinearLayoutManager(this.context)
 
         // TODO: filter listings by the university the user selected in step 1
-        property2Adapter = Property2Adapter(DummyData.propertyList)
+        property2Adapter = Property2Adapter(DummyData.propertyList) { selectedPosition ->
+            selectedItemPosition = selectedPosition
+            updateButtons()
+        }
         rvProperties.adapter = property2Adapter
 
         property2Adapter.onItemClick = {

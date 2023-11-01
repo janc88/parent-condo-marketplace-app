@@ -15,7 +15,8 @@ import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 
-class Property2Adapter(private var properties: ArrayList<Property>) : RecyclerView.Adapter<Property2Adapter.PropertyViewHolder>() {
+class Property2Adapter(private var properties: ArrayList<Property>, private val itemSelectedCallback: (Int) -> Unit
+) : RecyclerView.Adapter<Property2Adapter.PropertyViewHolder>() {
 
     private var selectedPosition: Int = RecyclerView.NO_POSITION
     private var sharedPreferences: SharedPreferences? = null
@@ -67,6 +68,8 @@ class Property2Adapter(private var properties: ArrayList<Property>) : RecyclerVi
             notifyItemChanged(selectedPosition)
 
             onItemClick?.invoke(property)
+
+            itemSelectedCallback(position)
 
             sharedPreferences?.edit()?.putInt("property", property.id)?.apply()
             sharedPreferences?.edit()?.putInt("propertyPosition", selectedPosition)?.apply()

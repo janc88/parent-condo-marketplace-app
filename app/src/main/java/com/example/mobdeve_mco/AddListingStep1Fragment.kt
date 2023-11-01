@@ -29,8 +29,6 @@ class AddListingStep1Fragment : Fragment() {
 
     private lateinit var sharedPreferences: SharedPreferences
 
-
-
     private var selectedOption = -1
 
     override fun onCreateView(
@@ -48,8 +46,8 @@ class AddListingStep1Fragment : Fragment() {
 
         bindViews(view)
         setListeners()
-        updateButtons()
         setSharedPreferences()
+        updateButtons()
     }
 
     private fun setSharedPreferences(){
