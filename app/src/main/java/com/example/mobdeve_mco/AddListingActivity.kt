@@ -1,5 +1,6 @@
 package com.example.mobdeve_mco
 
+import android.content.Context
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PorterDuff
@@ -75,5 +76,14 @@ class AddListingActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.clear()
+        editor.apply()
     }
 }

@@ -2,7 +2,9 @@ package com.example.mobdeve_mco
 
 import DummyData
 import ListingViewModel
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,7 +24,6 @@ class AddListingStep1Fragment : Fragment() {
     private var _binding: FragmentAddListingStep1Binding? = null
     private val binding: FragmentAddListingStep1Binding get() = _binding!!
 
-    private val listingViewModel: ListingViewModel by viewModels()
 
     private lateinit var optionDLSU : LinearLayout
     private lateinit var optionADMU : LinearLayout
@@ -33,6 +34,9 @@ class AddListingStep1Fragment : Fragment() {
     private lateinit var btnADMU : Button
     private lateinit var btnUST : Button
     private lateinit var btnUP : Button
+
+    private lateinit var sharedPreferences: SharedPreferences
+
 
 
     private var selectedOption = -1
@@ -53,10 +57,15 @@ class AddListingStep1Fragment : Fragment() {
         bindViews(view)
         setListeners()
         updateButtons()
+        setSharedPreferences()
+    }
 
-        val listing = listingViewModel.listing
-        selectedOption = mapUniversityToNumber(listing.university)
-
+    private fun setSharedPreferences(){
+        sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        selectedOption = sharedPreferences.getInt("university", -1)
+        if (selectedOption != -1) {
+            selectOption(selectedOption)
+        }
     }
 
     private fun mapNumberToUniversity(number: Int): String {
@@ -78,7 +87,6 @@ class AddListingStep1Fragment : Fragment() {
             else -> -1
         }
     }
-
 
 
     // access back and next buttons of viewpager
@@ -139,11 +147,8 @@ class AddListingStep1Fragment : Fragment() {
             4 -> optionUP.setBackgroundResource(R.drawable.round_10_card_selected)
         }
 
-        val currentListing = listingViewModel.listing
-        val updatedListing = currentListing?.copy(university = mapNumberToUniversity(selectedOption))
-        listingViewModel.listing = updatedListing!!
+        sharedPreferences.edit().putInt("university", selectedOption).apply()
         updateButtons()
-
     }
 
     private fun clearSelection() {
