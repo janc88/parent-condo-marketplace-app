@@ -37,6 +37,26 @@ fun getUser(userId: String): User {
     return owner!!
 }
 
+fun mapNumberToUniversity(number: Int): String {
+    return when (number) {
+        1 -> "DLSU"
+        2 -> "ADMU"
+        3 -> "UST"
+        4 -> "UP"
+        else -> ""
+    }
+}
+
+fun mapUniversityToNumber(university: String): Int {
+    return when (university) {
+        "DLSU" -> 1
+        "ADMU" -> 2
+        "UST" -> 3
+        "UP" -> 4
+        else -> -1
+    }
+}
+
 fun getProperty(propertyId: Int): Property {
     var property: Property? = null
     for(p in DummyData.propertyList){

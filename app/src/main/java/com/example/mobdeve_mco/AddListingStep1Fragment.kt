@@ -1,23 +1,15 @@
 package com.example.mobdeve_mco
 
-import DummyData
-import ListingViewModel
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.RelativeLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mco.databinding.FragmentAddListingStep1Binding
 
 class AddListingStep1Fragment : Fragment() {
@@ -65,26 +57,6 @@ class AddListingStep1Fragment : Fragment() {
         selectedOption = sharedPreferences.getInt("university", -1)
         if (selectedOption != -1) {
             selectOption(selectedOption)
-        }
-    }
-
-    private fun mapNumberToUniversity(number: Int): String {
-        return when (number) {
-            1 -> "DLSU"
-            2 -> "ADMU"
-            3 -> "UST"
-            4 -> "UP"
-            else -> ""
-        }
-    }
-
-    private fun mapUniversityToNumber(university: String): Int {
-        return when (university) {
-            "DLSU" -> 1
-            "ADMU" -> 2
-            "UST" -> 3
-            "UP" -> 4
-            else -> -1
         }
     }
 
