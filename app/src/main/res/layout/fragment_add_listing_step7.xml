@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textSize="@dimen/addListing_sm"
-            android:text="A well written description will separate your listing from others."
+            android:text="Set your rental price fairly with market research and property evaluation."
             />
 
         <LinearLayout
@@ -46,6 +46,7 @@
                     android:textColor="@color/black"
                     android:text="₱"/>
                 <EditText
+                    android:id="@+id/etPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/cereal_bold"
@@ -53,7 +54,12 @@
                     android:textSize="40dp"
                     android:inputType="number"
                     android:text="9990"/>
-
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:text="a month"/>
             </LinearLayout>
 
         </LinearLayout>
