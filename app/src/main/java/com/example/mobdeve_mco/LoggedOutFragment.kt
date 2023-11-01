@@ -17,11 +17,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInApi
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.SignInMethodQueryResult
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.ktx.firestore
+import java.util.Date
 
 
 class LoggedOutFragment : Fragment() {
@@ -98,7 +102,7 @@ class LoggedOutFragment : Fragment() {
         }
     }
 
-    private fun updateUI(account: GoogleSignInAccount){
+    private fun updateUI(account: GoogleSignInAccount) {
         val googleSignInClient = GoogleSignIn.getClient(requireActivity(), GoogleSignInOptions.DEFAULT_SIGN_IN)
 
         googleSignInClient.signOut().addOnCompleteListener {
@@ -106,10 +110,54 @@ class LoggedOutFragment : Fragment() {
                 val credential = GoogleAuthProvider.getCredential(account.idToken, null)
                 auth.signInWithCredential(credential).addOnCompleteListener { signInTask ->
                     if (signInTask.isSuccessful) {
-                        val intent = Intent(requireContext(), MainActivity::class.java)
-                        intent.putExtra("userLoggedIn", true)
-                        startActivity(intent)
-                        requireActivity().finish()
+                        val user = auth.currentUser
+                        val userId = user!!.uid
+
+                        val db = com.google.firebase.ktx.Firebase.firestore
+                        val usersCollection = db.collection("users")
+
+                        usersCollection.document(userId).get().addOnCompleteListener { snapshotTask ->
+                            if (snapshotTask.isSuccessful) {
+                                val document = snapshotTask.result
+                                if (document.exists()) {
+                                    val intent = Intent(requireContext(), MainActivity::class.java)
+                                    intent.putExtra("userLoggedIn", true)
+                                    startActivity(intent)
+                                    requireActivity().finish()
+                                } else {
+                                    val firstName = user.displayName?.split(" ")?.getOrNull(0) ?: ""
+                                    val lastName = user.displayName?.split(" ")?.getOrNull(1) ?: ""
+                                    val email = user.email
+                                    val photoUrl = user.photoUrl.toString()
+
+                                    val newUser = User(
+                                        userId,
+                                        firstName,
+                                        lastName,
+                                        email!!,
+                                        Date(),
+                                        "",
+                                        photoUrl
+                                    )
+
+                                    usersCollection.document(userId)
+                                        .set(newUser)
+                                        .addOnSuccessListener {
+                                            Toast.makeText(requireContext(), "Account created successfully", Toast.LENGTH_SHORT).show()
+
+                                            val intent = Intent(requireContext(), MainActivity::class.java)
+                                            intent.putExtra("userLoggedIn", true)
+                                            startActivity(intent)
+                                            requireActivity().finish()
+                                        }
+                                        .addOnFailureListener { e ->
+                                            Toast.makeText(requireContext(), "Failed to store user data in Firestore: $e", Toast.LENGTH_SHORT).show()
+                                        }
+                                }
+                            } else {
+                                Toast.makeText(requireContext(), "Failed to check user data in Firestore: ${snapshotTask.exception}", Toast.LENGTH_SHORT).show()
+                            }
+                        }
                     } else {
                         Toast.makeText(requireContext(), "Authentication failed", Toast.LENGTH_SHORT).show()
                     }
@@ -119,6 +167,9 @@ class LoggedOutFragment : Fragment() {
             }
         }
     }
+
+
+
 
     private fun signInWithGoogle(){
         val signInIntent = googleSignInClient.signInIntent
