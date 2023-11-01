@@ -19,7 +19,6 @@ class AddListingActivity : AppCompatActivity() {
     private lateinit var addListingFormAdapter: AddListingFormAdapter
     private lateinit var progressBar: ProgressBar
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_listing)
