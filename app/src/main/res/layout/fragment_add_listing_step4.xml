@@ -29,51 +29,81 @@
             android:text="Take some captivating photos of your unit"
             />
 
-        <LinearLayout
-            android:layout_marginTop="@dimen/addListing_lg"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:paddingLeft="12dp"
-            android:paddingBottom="20dp"
-            android:background="@drawable/round_10_card"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/addPhotos"
+                android:layout_marginTop="@dimen/addListing_lg"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_lg_black"/>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/addListing_sm"
-                android:textColor="@color/black"
-                android:text="Add photos"/>
-        </LinearLayout>
+                android:paddingTop="20dp"
+                android:paddingLeft="12dp"
+                android:paddingBottom="20dp"
+                android:background="@drawable/round_10_card"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_add_lg_black"/>
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/addListing_sm"
+                    android:textColor="@color/black"
+                    android:text="Add photos"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/btnAddPhotos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:layout_alignTop="@id/addPhotos"
+                android:layout_alignBottom="@id/addPhotos"
+                android:layout_alignStart="@id/addPhotos"
+                android:layout_alignEnd="@id/addPhotos" />
+        </RelativeLayout>
 
-        <LinearLayout
-            android:layout_marginTop="16dp"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="20dp"
-            android:paddingLeft="12dp"
-            android:paddingBottom="20dp"
-            android:background="@drawable/round_10_card"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-            <ImageView
-                android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:id="@+id/takePhotos"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_camera"/>
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/addListing_sm"
-                android:textColor="@color/black"
-                android:text="Take new photos"/>
-        </LinearLayout>
+                android:paddingTop="20dp"
+                android:paddingLeft="12dp"
+                android:paddingBottom="20dp"
+                android:background="@drawable/round_10_card"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_camera"/>
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/addListing_sm"
+                    android:textColor="@color/black"
+                    android:text="Take new photos"/>
+            </LinearLayout>
+            <Button
+                android:id="@+id/btnTakePhotos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:layout_alignTop="@id/takePhotos"
+                android:layout_alignBottom="@id/takePhotos"
+                android:layout_alignStart="@id/takePhotos"
+                android:layout_alignEnd="@id/takePhotos" />
+        </RelativeLayout>
+
 
     </LinearLayout>
 
