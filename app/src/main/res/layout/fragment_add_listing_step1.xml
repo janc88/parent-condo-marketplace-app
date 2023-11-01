@@ -21,250 +21,318 @@
             android:fontFamily="@font/cereal_bold"
             android:textSize="@dimen/addListing_lg"/>
 
-        <LinearLayout
-            android:layout_marginTop="16dp"
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:orientation="vertical">
-
+            android:layout_marginTop="-40dp">
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_10_card"
-                android:layout_marginBottom="20dp"
-                android:padding="20dp"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
                     <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
+                        android:clickable="true"
+                        android:id="@+id/optionDLSU"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="De La Salle University"
-                            android:layout_marginBottom="5dp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/cereal_bold"
-                            android:textSize="16dp"/>
+                        android:background="@drawable/round_10_card"
+                        android:layout_marginBottom="20dp"
+                        android:padding="20dp"
+                        android:orientation="horizontal">
 
+                        <LinearLayout
+                            android:clickable="false"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:clickable="false"
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:clickable="false"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="De La Salle University"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/cereal_bold"
+                                    android:textSize="16dp"/>
+
+
+                                <LinearLayout
+                                    android:clickable="false"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    <ImageView
+                                        android:clickable="false"
+                                        android:layout_width="15dp"
+                                        android:layout_height="15dp"
+                                        android:src="@drawable/ic_location"
+                                        />
+
+                                    <TextView
+                                        android:clickable="false"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="2401 Taft Ave, Malate, Manila"
+                                        android:maxLines="1"
+                                        android:ellipsize="end"
+                                        />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                            <ImageView
+                                android:clickable="false"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:src="@mipmap/dlsu_logo"/>
+
+
+                        </LinearLayout>
+                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btnDLSU"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:layout_alignTop="@id/optionDLSU"
+                        android:layout_alignBottom="@id/optionDLSU"
+                        android:layout_alignStart="@id/optionDLSU"
+                        android:layout_alignEnd="@id/optionDLSU" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:id="@+id/optionADMU"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/round_10_card"
+                        android:padding="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-                            <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:src="@drawable/ic_location"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="2401 Taft Ave, Malate, Manila"
-                                android:maxLines="1"
-                                android:ellipsize="end"
-                                />
+                                android:layout_gravity="center_vertical"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Ateneo De Manila University"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/cereal_bold"
+                                    android:textSize="16dp"/>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    <ImageView
+                                        android:layout_width="15dp"
+                                        android:layout_height="15dp"
+                                        android:src="@drawable/ic_location"
+                                        />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Katipunan Ave, Quezon City"
+                                        android:maxLines="1"
+                                        android:ellipsize="end"
+                                        />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:src="@mipmap/admu_logo"/>
+
+
                         </LinearLayout>
-
                     </LinearLayout>
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@mipmap/dlsu_logo"/>
+                    <Button
+                        android:id="@+id/btnADMU"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:layout_alignTop="@id/optionADMU"
+                        android:layout_alignBottom="@id/optionADMU"
+                        android:layout_alignStart="@id/optionADMU"
+                        android:layout_alignEnd="@id/optionADMU" />
+                </RelativeLayout>
 
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_10_card"
-                android:padding="20dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
                     <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
+                        android:id="@+id/optionUST"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Ateneo De Manila University"
-                            android:layout_marginBottom="5dp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/cereal_bold"
-                            android:textSize="16dp"/>
-
+                        android:background="@drawable/round_10_card"
+                        android:padding="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-                            <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:src="@drawable/ic_location"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="Katipunan Ave, Quezon City"
-                                android:maxLines="1"
-                                android:ellipsize="end"
-                                />
+                                android:layout_gravity="center_vertical"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="University of Santo Tomas"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/cereal_bold"
+                                    android:textSize="16dp"/>
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    <ImageView
+                                        android:layout_width="15dp"
+                                        android:layout_height="15dp"
+                                        android:src="@drawable/ic_location"
+                                        />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Espana Blvd., Sampaloc, Manila    "
+                                        android:maxLines="1"
+                                        android:ellipsize="end"
+                                        />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:src="@mipmap/ust_logo"/>
+
+
                         </LinearLayout>
-
                     </LinearLayout>
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@mipmap/admu_logo"/>
+                    <Button
+                        android:id="@+id/btnUST"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:layout_alignTop="@id/optionUST"
+                        android:layout_alignBottom="@id/optionUST"
+                        android:layout_alignStart="@id/optionUST"
+                        android:layout_alignEnd="@id/optionUST" />
+                </RelativeLayout>
 
 
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_10_card"
-                android:padding="20dp"
-                android:layout_marginBottom="20dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content">
                     <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
+                        android:id="@+id/optionUP"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="University of Santo Tomas"
-                            android:layout_marginBottom="5dp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/cereal_bold"
-                            android:textSize="16dp"/>
-
+                        android:background="@drawable/round_10_card"
+                        android:padding="20dp"
+                        android:orientation="horizontal">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-                            <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:src="@drawable/ic_location"
-                                />
-
-                            <TextView
-                                android:layout_width="wrap_content"
+                            android:orientation="horizontal">
+                            <LinearLayout
+                                android:layout_weight="1"
+                                android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:text="Espana Blvd., Sampaloc, Manila    "
-                                android:maxLines="1"
-                                android:ellipsize="end"
-                                />
-                        </LinearLayout>
-
-                    </LinearLayout>
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@mipmap/ust_logo"/>
-
-
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/round_10_card"
-                android:padding="20dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="University of the Philippines"
-                            android:layout_marginBottom="5dp"
-                            android:textColor="@color/black"
-                            android:fontFamily="@font/cereal_bold"
-                            android:textSize="16dp"/>
+                                android:layout_gravity="center_vertical"
+                                android:orientation="vertical">
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="University of the Philippines"
+                                    android:layout_marginBottom="5dp"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/cereal_bold"
+                                    android:textSize="16dp"/>
 
 
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="center_vertical">
+                                    <ImageView
+                                        android:layout_width="15dp"
+                                        android:layout_height="15dp"
+                                        android:src="@drawable/ic_location"
+                                        />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Kalaw St. cor. Quirino St, Quezon City"
+                                        android:maxLines="1"
+                                        android:ellipsize="end"
+                                        />
+                                </LinearLayout>
+
+                            </LinearLayout>
                             <ImageView
-                                android:layout_width="15dp"
-                                android:layout_height="15dp"
-                                android:src="@drawable/ic_location"
-                                />
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:src="@mipmap/up_logo"/>
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Kalaw St. cor. Quirino St, Quezon City"
-                                android:maxLines="1"
-                                android:ellipsize="end"
-                                />
+
                         </LinearLayout>
-
                     </LinearLayout>
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@mipmap/up_logo"/>
+                    <Button
+                        android:id="@+id/btnUP"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:layout_alignTop="@id/optionUP"
+                        android:layout_alignBottom="@id/optionUP"
+                        android:layout_alignStart="@id/optionUP"
+                        android:layout_alignEnd="@id/optionUP" />
+                </RelativeLayout>
 
 
-                </LinearLayout>
+
+
             </LinearLayout>
-
-
-
-        </LinearLayout>
-
+        </ScrollView>
 
     </LinearLayout>
-
-
 </LinearLayout>
