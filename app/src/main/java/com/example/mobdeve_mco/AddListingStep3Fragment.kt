@@ -287,16 +287,10 @@ class AddListingStep3Fragment : Fragment() {
         val activity = requireActivity() as AppCompatActivity
         val btnNext = activity.findViewById<Button>(R.id.btnNext)
 
-        Log.d("test", "step3 next button")
-
         if(isUserInputFloor && isUserInputFloorArea){
-            Log.d("test", "can go")
-
             btnNext.isEnabled = true
             btnNext.setTextColor(resources.getColor(android.R.color.white))
         } else {
-            Log.d("test", "cannot go")
-
             btnNext.isEnabled = false
             btnNext.setTextColor(resources.getColor(android.R.color.darker_gray))
         }
