@@ -87,12 +87,12 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.clear()
-        editor.apply()
-    }
+//    override fun onDestroy() {
+//        super.onDestroy()
+//
+//        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+//        val editor = sharedPreferences.edit()
+//        editor.clear()
+//        editor.apply()
+//    }
 }
