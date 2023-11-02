@@ -71,7 +71,7 @@ class AddListingActivity : AppCompatActivity() {
                 viewPager.setCurrentItem(viewPager.currentItem + 1, true)
             } else {
                 // user clicks next on the last page
-                Log.d("hello", "hello world")
+
             }
             updateProgressBar()
         }
@@ -85,12 +85,13 @@ class AddListingActivity : AppCompatActivity() {
 
 
         builder.setNegativeButton("Go Back") { dialog: DialogInterface, which: Int ->
+            clearSharedPreferences()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
         builder.setPositiveButton("Continue Editing") { dialog: DialogInterface, which: Int ->
-            clearSharedPreferences()
+
         }
 
         val dialog = builder.create()
