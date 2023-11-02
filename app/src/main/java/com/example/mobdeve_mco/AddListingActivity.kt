@@ -111,7 +111,8 @@ class AddListingActivity : AppCompatActivity() {
         if (viewPager.currentItem > 0) {
             viewPager.setCurrentItem(viewPager.currentItem - 1, true)
         } else {
-            super.onBackPressed()
+            // user clicks back on the first page
+            showConfirmationDialog()
         }
     }
 
@@ -122,13 +123,4 @@ class AddListingActivity : AppCompatActivity() {
         editor.apply()
     }
 
-
-//    override fun onPause() {
-//        super.onPause()
-//
-//        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-//        val editor = sharedPreferences.edit()
-//        editor.clear()
-//        editor.apply()
-//    }
 }
