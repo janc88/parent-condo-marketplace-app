@@ -85,6 +85,7 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
         rvImages.layoutManager = GridLayoutManager(requireContext(), 2)
         rvImages.addItemDecoration(GridSpacingItemDecoration(2, 20))
         rvImages.adapter = imageAdapter
+        rvImages.itemAnimator = null
     }
 
     private fun setListeners() {
