@@ -2,9 +2,7 @@ package com.example.mobdeve_mco
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,6 +16,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mc.GridSpacingItemDecoration
 import com.example.mobdeve_mco.databinding.FragmentAddListingStep4Binding
 
+
+
 class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveClickListener {
 
     private var _binding: FragmentAddListingStep4Binding? = null
@@ -30,6 +30,7 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
     private val selectedImages: MutableList<ImageItem> = mutableListOf()
     private lateinit var rvImages: RecyclerView
     private val imageAdapter = ImageAdapter(this, this, selectedImages)
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,6 +68,7 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         bindViews(view)
         init()
         setListeners()
@@ -93,8 +95,13 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
             openGallery()
         }
 
-        // Implement the functionality for btnTakePhotos if needed
+        btnTakePhotos.setOnClickListener {
+            // not implemented
+        }
     }
+
+
+
 
     private fun openGallery() {
         val galleryIntent = Intent(Intent.ACTION_GET_CONTENT)

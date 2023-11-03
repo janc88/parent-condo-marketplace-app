@@ -30,6 +30,7 @@
             android:text="Take some captivating photos of your unit"
             />
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
