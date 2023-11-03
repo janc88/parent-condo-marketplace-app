@@ -40,9 +40,6 @@ class AddListingStep3Fragment : Fragment() {
     private lateinit var cbBalcony : CheckBox
     private lateinit var cbIsStudioType : CheckBox
 
-    private var isUserInputFloorArea = false
-    private var isUserInputFloor = false
-
     private var numBedroom = 1
     private var numBathroom = 1
 
@@ -52,8 +49,8 @@ class AddListingStep3Fragment : Fragment() {
     private val maxBedroom = 5
     private val minBedroom = 1
 
-    private var floorArea = -1
-    private var floor = -1
+    private var floorArea = 23
+    private var floor = 23
 
 
     override fun onCreateView(
@@ -70,11 +67,19 @@ class AddListingStep3Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
 
+        with(sharedPreferences.edit()) {
+            putInt("floorArea", floorArea)
+            putInt("floor", floor)
+            putInt("numBedroom", numBedroom)
+            putInt("numBathroom", numBathroom)
+            apply()
+        }
+
         bindViews(view)
         getSharedPreferences()
         init()
-        setListeners()
         setViewModels()
+        setListeners()
     }
 
     private fun setViewModels(){
@@ -114,13 +119,11 @@ class AddListingStep3Fragment : Fragment() {
     private fun getSharedPreferences(){
         numBedroom = sharedPreferences.getInt("numBedroom", 1)
         numBathroom = sharedPreferences.getInt("numBathroom", 1)
-        isUserInputFloorArea = sharedPreferences.getBoolean("isUserInputFloorArea", false)
-        isUserInputFloor = sharedPreferences.getBoolean("isUserInputFloor", false)
         cbIsFurnished.isChecked = sharedPreferences.getBoolean("isFurnished", false)
         cbBalcony.isChecked = sharedPreferences.getBoolean("withBalcony", false)
         cbIsStudioType.isChecked = sharedPreferences.getBoolean("isStudioType", false)
-        floorArea = sharedPreferences.getInt("floorArea", 23)
-        floor = sharedPreferences.getInt("floor", 23)
+        floorArea = sharedPreferences.getInt("floorArea", floorArea)
+        floor = sharedPreferences.getInt("floor", floor)
     }
 
 
@@ -150,15 +153,6 @@ class AddListingStep3Fragment : Fragment() {
         tvNumBathroom.text = numBathroom.toString()
         tvFloorArea.text = floorArea.toString()
         tvFloor.text = appendFloorSuffix(floor.toString())
-
-
-        if(isUserInputFloor){
-            tvFloor.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
-        }
-
-        if(isUserInputFloorArea){
-            tvFloorArea.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
-        }
 
     }
 
@@ -239,35 +233,11 @@ class AddListingStep3Fragment : Fragment() {
         tvFloorArea.setOnClickListener {
             val bottomSheetFragment = GetFloorAreaFragment.newInstance(tvFloorArea.text.toString().toInt())
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-            isUserInputFloorArea = true
-            with(sharedPreferences.edit()) {
-                putBoolean("isUserInputFloorArea", isUserInputFloorArea)
-                apply()
-            }
-            updateButtons()
-
-            val delayMillis = 300L
-            val handler = Handler()
-            handler.postDelayed({
-                tvFloorArea.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
-            }, delayMillis)
         }
 
         tvFloor.setOnClickListener {
             val bottomSheetFragment = GetFloorFragment.newInstance(extractNumericValue(tvFloor.text.toString()))
             bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
-            isUserInputFloor = true
-            with(sharedPreferences.edit()) {
-                putBoolean("isUserInputFloor", isUserInputFloor)
-                apply()
-            }
-            updateButtons()
-
-            val delayMillis = 300L
-            val handler = Handler()
-            handler.postDelayed({
-                tvFloor.typeface = ResourcesCompat.getFont(requireContext(), R.font.cereal_bold)
-            }, delayMillis)
         }
 
     }
@@ -277,24 +247,7 @@ class AddListingStep3Fragment : Fragment() {
         return numericValueString.toIntOrNull() ?: 0
     }
 
-    override fun onResume() {
-        super.onResume()
-        updateButtons()
-    }
 
-
-    private fun updateButtons() {
-        val activity = requireActivity() as AppCompatActivity
-        val btnNext = activity.findViewById<Button>(R.id.btnNext)
-
-        if(isUserInputFloor && isUserInputFloorArea){
-            btnNext.isEnabled = true
-            btnNext.setTextColor(resources.getColor(android.R.color.white))
-        } else {
-            btnNext.isEnabled = false
-            btnNext.setTextColor(resources.getColor(android.R.color.darker_gray))
-        }
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

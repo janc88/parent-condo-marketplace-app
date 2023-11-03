@@ -71,10 +71,31 @@ class AddListingActivity : AppCompatActivity() {
                 viewPager.setCurrentItem(viewPager.currentItem + 1, true)
             } else {
                 // user clicks next on the last page
-
+                saveListingToFirestore()
             }
             updateProgressBar()
         }
+
+    }
+
+    private fun saveListingToFirestore(){
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+
+        val title = sharedPreferences.getString("title", "") ?: ""
+        val description = sharedPreferences.getString("description", "") ?: ""
+        val price = sharedPreferences.getString("price", "") ?: ""
+        val university = mapNumberToUniversity(sharedPreferences.getInt("university", -1))
+        val propertyId = sharedPreferences.getInt("property", -1)
+        val area = sharedPreferences.getInt("floorArea", -1)
+        val floor = sharedPreferences.getInt("floor", -1)
+        val numBedroom = sharedPreferences.getInt("numBedroom", -1)
+        val numBathroom = sharedPreferences.getInt("numBathroom", -1)
+        val isFurnished = sharedPreferences.getBoolean("isFurnished", false)
+        val isStudioType = sharedPreferences.getBoolean("isStudioType", false)
+        val balcony = sharedPreferences.getBoolean("withBalcony", false)
+
+        val listing = Listing()
+
 
     }
 
@@ -101,6 +122,7 @@ class AddListingActivity : AppCompatActivity() {
         negativeButton.setTextColor(Color.BLACK)
 
     }
+
 
 
     private fun updateProgressBar(){
