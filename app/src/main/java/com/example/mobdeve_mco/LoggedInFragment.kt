@@ -79,7 +79,9 @@ class LoggedInFragment : Fragment() {
                         tvFirstNameTop.text = firstName
                         tvLastName.text = lastName
                         tvBio.text = bio
-                        Picasso.get().load(pfp).into(ivPfp);
+                        if(pfp != "") {
+                            Picasso.get().load(pfp).into(ivPfp);
+                        }
 
                     } else {
                         // Handle the case where the user document doesn't exist

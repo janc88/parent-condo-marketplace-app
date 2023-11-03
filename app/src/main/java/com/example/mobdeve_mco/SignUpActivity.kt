@@ -97,8 +97,6 @@ class SignUpActivity : AppCompatActivity() {
                 Toast.makeText(this, "Email is required", Toast.LENGTH_SHORT).show()
             } else if (password.isEmpty()) {
                 Toast.makeText(this, "Password is required", Toast.LENGTH_SHORT).show()
-            } else if (imageUri == null) {
-                Toast.makeText(this, "Please select a profile picture", Toast.LENGTH_SHORT).show()
             } else {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
@@ -110,39 +108,70 @@ class SignUpActivity : AppCompatActivity() {
                             val profilePictureRef: StorageReference =
                                 storageReference.child("profile_pictures/${user!!.uid}.jpg")
 
-                            profilePictureRef.putFile(imageUri!!)
-                                .addOnSuccessListener {
-                                    profilePictureRef.downloadUrl.addOnSuccessListener { downloadUrl ->
-                                        val downloadUrlString = downloadUrl.toString()
+                            if(imageUri == null){
+                                val db = Firebase.firestore
+                                val usersCollection = db.collection("users")
 
-                                        val db = Firebase.firestore
-                                        val usersCollection = db.collection("users")
+                                val newUser = User(
+                                    user.uid,
+                                    firstName,
+                                    lastName,
+                                    email,
+                                    Date(),
+                                    bio,
+                                    ""
+                                )
 
-                                        val newUser = User(
-                                            user.uid,
-                                            firstName,
-                                            lastName,
-                                            email,
-                                            Date(),
-                                            bio,
-                                            downloadUrlString
-                                        )
+                                usersCollection.document(user.uid)
+                                    .set(newUser)
+                                    .addOnSuccessListener {
+                                        Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
 
-                                        usersCollection.document(user.uid)
-                                            .set(newUser)
-                                            .addOnSuccessListener {
-                                                Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
-
-                                                val intent = Intent(this, MainActivity::class.java)
-                                                intent.putExtra("userLoggedIn", true)
-                                                startActivity(intent)
-                                                finish()
-                                            }
-                                            .addOnFailureListener { e ->
-                                                Toast.makeText(this, "Failed to store user data in Firestore: $e", Toast.LENGTH_SHORT).show()
-                                            }
+                                        val intent = Intent(this, MainActivity::class.java)
+                                        intent.putExtra("userLoggedIn", true)
+                                        startActivity(intent)
+                                        finish()
                                     }
-                                }
+                                    .addOnFailureListener { e ->
+                                        Toast.makeText(this, "Failed to store user data in Firestore: $e", Toast.LENGTH_SHORT).show()
+                                    }
+                            }else{
+                                profilePictureRef.putFile(imageUri!!)
+                                    .addOnSuccessListener {
+                                        profilePictureRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                                            val downloadUrlString = downloadUrl.toString()
+
+                                            val db = Firebase.firestore
+                                            val usersCollection = db.collection("users")
+
+                                            val newUser = User(
+                                                user.uid,
+                                                firstName,
+                                                lastName,
+                                                email,
+                                                Date(),
+                                                bio,
+                                                downloadUrlString
+                                            )
+
+                                            usersCollection.document(user.uid)
+                                                .set(newUser)
+                                                .addOnSuccessListener {
+                                                    Toast.makeText(this, "Account created successfully", Toast.LENGTH_SHORT).show()
+
+                                                    val intent = Intent(this, MainActivity::class.java)
+                                                    intent.putExtra("userLoggedIn", true)
+                                                    startActivity(intent)
+                                                    finish()
+                                                }
+                                                .addOnFailureListener { e ->
+                                                    Toast.makeText(this, "Failed to store user data in Firestore: $e", Toast.LENGTH_SHORT).show()
+                                                }
+                                        }
+                                    }
+                            }
+
+
                         } else {
                             val exception = task.exception
                             if (exception != null) {
