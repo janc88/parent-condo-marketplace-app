@@ -45,6 +45,7 @@
             android:layout_marginBottom="10dp"
             app:cardCornerRadius="75dp">
             <ImageView
+                android:scaleType="centerCrop"
                 android:id="@+id/ivProfilePic"
                 android:layout_width="150dp"
                 android:layout_height="150dp"

@@ -94,7 +94,6 @@ class AddListingActivity : AppCompatActivity() {
         val isStudioType = sharedPreferences.getBoolean("isStudioType", false)
         val balcony = sharedPreferences.getBoolean("withBalcony", false)
 
-        val listing = Listing()
 
 
     }
