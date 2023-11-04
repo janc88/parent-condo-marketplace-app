@@ -15,10 +15,12 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.widget.Button
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class AddListingActivity : AppCompatActivity() {
@@ -98,8 +100,41 @@ class AddListingActivity : AppCompatActivity() {
         val balcony = sharedPreferences.getBoolean("withBalcony", false)
 
         val imagePreferencesManager = ImagePreferencesManager(this)
-
         val imageUris: List<Uri> = imagePreferencesManager.getImages()
+
+        val newListing = Listing(
+            id = 0,
+            imageList = ArrayList(),
+            title = title,
+            price = price.toInt(),
+            property = "",
+            propertyId = propertyId,
+            university = university,
+            area = area.toDouble(),
+            isFurnished = isFurnished,
+            isStudioType = isStudioType,
+            numBedroom = numBedroom,
+            numBathroom = numBathroom,
+            floor = floor,
+            balcony = balcony,
+            ownerId = 0,
+            description = description,
+            isRented = false
+        )
+
+        val db = FirebaseFirestore.getInstance()
+        val listingsRef = db.collection("listings")
+
+        listingsRef.add(newListing)
+            .addOnSuccessListener { documentReference ->
+                val documentId = documentReference.id
+                Toast.makeText(this, "Listing created successfully", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener { e ->
+                // Error occurred while writing the document
+                // Handle the failure case, such as showing an error message to the user.
+                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
 
 
 
