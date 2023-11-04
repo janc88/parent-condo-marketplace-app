@@ -1,6 +1,7 @@
 package com.example.mobdeve_mco
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -33,7 +34,9 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
     private lateinit var llAddPhotos : LinearLayout
     private val selectedImages: MutableList<ImageItem> = mutableListOf()
     private lateinit var rvImages: RecyclerView
-    private val imageAdapter = ImageAdapter(this, this, selectedImages)
+
+    private lateinit var preferencesManager : ImagePreferencesManager
+    private lateinit var imageAdapter : ImageAdapter
 
 
     override fun onCreateView(
@@ -46,13 +49,18 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
     }
 
     override fun onImageRemoveClick(position: Int) {
+        val imageToRemove = selectedImages[position].imageUri
         imageAdapter.removeImage(position)
         updateButtonVisibility()
+
+        preferencesManager.removeImage(imageToRemove)
     }
+
     override fun onAddMoreClick() {
         openGallery()
         updateButtonVisibility()
     }
+
 
     private fun updateButtonVisibility() {
         if (selectedImages.isNotEmpty()) {
@@ -76,15 +84,17 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
         bindViews(view)
         init()
         setListeners()
-        val storedImages = retrieveImagesFromStorage()
-        if (storedImages.isNotEmpty()) {
-            selectedImages.addAll(storedImages.map { ImageItem(it) })
-            imageAdapter.submitList(selectedImages)
-        }
+
+        val storedImageURIs = preferencesManager.getImages()
+
+        selectedImages.clear()
+        selectedImages.addAll(storedImageURIs.map { ImageItem(it) })
+
+        imageAdapter.submitList(selectedImages)
         updateButtonVisibility()
-
-
     }
+
+
 
     private fun bindViews(view: View) {
         btnAddPhotos = binding.btnAddPhotos
@@ -95,11 +105,15 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
     }
 
     private fun init() {
+        preferencesManager = ImagePreferencesManager(requireContext())
+        imageAdapter = ImageAdapter(this, this, selectedImages, preferencesManager)
+
         rvImages.layoutManager = GridLayoutManager(requireContext(), 2)
         rvImages.addItemDecoration(GridSpacingItemDecoration(2, 20))
         rvImages.adapter = imageAdapter
         rvImages.itemAnimator = null
     }
+
 
     private fun setListeners() {
         btnAddPhotos.setOnClickListener {
@@ -115,11 +129,14 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
 
 
     private fun openGallery() {
-        val galleryIntent = Intent(Intent.ACTION_GET_CONTENT)
+        val galleryIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
         galleryIntent.type = "image/*"
         galleryIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
+        galleryIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         galleryLauncher.launch(galleryIntent)
     }
+
+
 
     private val galleryLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
@@ -128,60 +145,29 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
             val data: Intent? = result.data
             val selectedImageUris = data?.clipData
             if (selectedImageUris != null) {
-                selectedImages.clear() // Clear the previous selection
+                val newSelectedImages: MutableList<ImageItem> = mutableListOf()
+
                 for (i in 0 until selectedImageUris.itemCount) {
                     val selectedImageUri = selectedImageUris.getItemAt(i).uri
-                    selectedImages.add(ImageItem(selectedImageUri))
+                    newSelectedImages.add(ImageItem(selectedImageUri))
+
+                    val contentResolver = requireContext().contentResolver
+                    contentResolver.takePersistableUriPermission(selectedImageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+
+                    preferencesManager.saveImage(selectedImageUri)
                 }
 
-                // Now, the selected image URIs are stored in the selectedImages list
 
-                // Update the RecyclerView with the selected images
+                selectedImages.clear()
+                selectedImages.addAll(newSelectedImages)
                 imageAdapter.submitList(selectedImages)
-                saveImagesToStorage(selectedImages)
                 updateButtonVisibility()
             }
         }
     }
 
-    private fun saveImagesToStorage(selectedImages: List<ImageItem>) {
-        for ((index, imageItem) in selectedImages.withIndex()) {
-            val imageUri = imageItem.imageUri
-            val inputStream = requireContext().contentResolver.openInputStream(imageUri)
-            val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "image_$index.jpg")
-            val outputStream = FileOutputStream(file)
-            val buffer = ByteArray(1024)
-            var bytesRead: Int
 
-            while (inputStream?.read(buffer).also { bytesRead = it!! } != -1) {
-                outputStream.write(buffer, 0, bytesRead)
-            }
 
-            inputStream?.close()
-            outputStream.close()
-        }
-    }
-
-    private fun retrieveImagesFromStorage(): List<Uri> {
-        val imageUris: MutableList<Uri> = mutableListOf()
-        val directory = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-
-        if (directory != null && directory.exists()) {
-            val files = directory.listFiles()
-            if (files != null) {
-                for (file in files) {
-                    val imageUri = FileProvider.getUriForFile(
-                        requireContext(),
-                        "com.example.mobdeve_mco",
-                        file
-                    )
-                    imageUris.add(imageUri)
-                }
-            }
-        }
-
-        return imageUris
-    }
 
 
 

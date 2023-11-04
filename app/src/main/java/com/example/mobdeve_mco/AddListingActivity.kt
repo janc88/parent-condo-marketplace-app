@@ -138,11 +138,17 @@ class AddListingActivity : AppCompatActivity() {
         }
     }
 
-    private fun clearSharedPreferences(){
-        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.clear()
-        editor.apply()
+    private fun clearSharedPreferences() {
+        val myPrefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val imagePrefs = getSharedPreferences("image_prefs", Context.MODE_PRIVATE)
+
+        val myPrefsEditor = myPrefs.edit()
+        myPrefsEditor.clear()
+        myPrefsEditor.apply()
+
+        val imagePrefsEditor = imagePrefs.edit()
+        imagePrefsEditor.clear()
+        imagePrefsEditor.apply()
     }
 
 }
