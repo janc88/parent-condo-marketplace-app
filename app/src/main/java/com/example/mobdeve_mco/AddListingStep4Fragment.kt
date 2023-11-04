@@ -13,6 +13,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -38,6 +39,9 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
     private lateinit var preferencesManager : ImagePreferencesManager
     private lateinit var imageAdapter : ImageAdapter
 
+    private var photosUploaded = false
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +65,23 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
         updateButtonVisibility()
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateButtons()
+    }
+
+    private fun updateButtons() {
+        val activity = requireActivity() as AppCompatActivity
+        val btnNext = activity.findViewById<Button>(R.id.btnNext)
+
+        if (photosUploaded) {
+            btnNext.isEnabled = true
+            btnNext.setTextColor(resources.getColor(android.R.color.white))
+        } else {
+            btnNext.isEnabled = false
+            btnNext.setTextColor(resources.getColor(android.R.color.darker_gray))
+        }
+    }
 
     private fun updateButtonVisibility() {
         if (selectedImages.isNotEmpty()) {
@@ -68,13 +89,20 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
             btnTakePhotos.visibility = View.GONE
             llTakePhotos.visibility = View.GONE
             llAddPhotos.visibility = View.GONE
+
+            photosUploaded = true
         } else {
             btnAddPhotos.visibility = View.VISIBLE
             btnTakePhotos.visibility = View.VISIBLE
             llTakePhotos.visibility = View.VISIBLE
             llAddPhotos.visibility = View.VISIBLE
+
+            photosUploaded = false
         }
+
+        updateButtons()
     }
+
 
 
 

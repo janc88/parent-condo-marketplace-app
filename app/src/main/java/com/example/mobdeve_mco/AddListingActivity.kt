@@ -3,9 +3,11 @@ package com.example.mobdeve_mco
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PorterDuff
+import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
@@ -34,6 +36,7 @@ class AddListingActivity : AppCompatActivity() {
         bindViews()
         init()
         setListeners()
+        isAnyDataSaved()
     }
 
     private fun bindViews(){
@@ -94,9 +97,35 @@ class AddListingActivity : AppCompatActivity() {
         val isStudioType = sharedPreferences.getBoolean("isStudioType", false)
         val balcony = sharedPreferences.getBoolean("withBalcony", false)
 
+        val imagePreferencesManager = ImagePreferencesManager(this)
+
+        val imageUris: List<Uri> = imagePreferencesManager.getImages()
+
 
 
     }
+
+    private fun isAnyDataSaved() {
+        val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        if (sharedPreferences.contains("university")) {
+            showSavedDialog()
+        }
+    }
+
+    private fun showSavedDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Your previous progress has been saved.")
+
+        builder.setPositiveButton("OK") { dialog: DialogInterface, which: Int ->
+            // Handle "OK" button click
+            // You can add any action you want here
+        }
+
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+
 
     private fun showConfirmationDialog() {
         val builder = AlertDialog.Builder(this)
