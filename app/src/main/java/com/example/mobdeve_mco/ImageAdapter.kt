@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mco.R
 import com.google.android.material.card.MaterialCardView
+import java.io.File
 
 data class ImageItem(val imageUri: Uri)
 
@@ -26,11 +27,29 @@ class ImageAdapter(
     private val VIEW_TYPE_ADD_MORE = 2
 
     fun removeImage(position: Int) {
-        if (position in 0 until currentList.size) {
+        if (position in 0 until selectedImages.size) {
             selectedImages.removeAt(position)
             notifyItemRemoved(position)
+
+            if (position < currentList.size) {
+                val imageUri = currentList[position].imageUri
+                deleteImageFromStorage(imageUri)
+            }
         }
     }
+
+    private fun deleteImageFromStorage(imageUri: Uri) {
+        try {
+            val imageFile = File(imageUri.path)
+            if (imageFile.exists()) {
+                imageFile.delete()
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -83,13 +102,12 @@ class ImageViewHolder(itemView: View, private val callback: ImageRemoveClickList
         btnRemove.setOnClickListener {
             val position = adapterPosition
             if (position != RecyclerView.NO_POSITION) {
+                // Here, we directly remove the item from the selectedImages list and storage.
                 callback.onImageRemoveClick(position)
             }
-            Log.d("hello", "clicked")
         }
     }
 }
-
 
 
 

@@ -2,7 +2,9 @@ package com.example.mobdeve_mco
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +12,14 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mc.GridSpacingItemDecoration
 import com.example.mobdeve_mco.databinding.FragmentAddListingStep4Binding
-
+import java.io.File
+import java.io.FileOutputStream
 
 
 class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveClickListener {
@@ -72,7 +76,14 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
         bindViews(view)
         init()
         setListeners()
+        val storedImages = retrieveImagesFromStorage()
+        if (storedImages.isNotEmpty()) {
+            selectedImages.addAll(storedImages.map { ImageItem(it) })
+            imageAdapter.submitList(selectedImages)
+        }
         updateButtonVisibility()
+
+
     }
 
     private fun bindViews(view: View) {
@@ -127,10 +138,52 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
 
                 // Update the RecyclerView with the selected images
                 imageAdapter.submitList(selectedImages)
+                saveImagesToStorage(selectedImages)
                 updateButtonVisibility()
             }
         }
     }
+
+    private fun saveImagesToStorage(selectedImages: List<ImageItem>) {
+        for ((index, imageItem) in selectedImages.withIndex()) {
+            val imageUri = imageItem.imageUri
+            val inputStream = requireContext().contentResolver.openInputStream(imageUri)
+            val file = File(requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES), "image_$index.jpg")
+            val outputStream = FileOutputStream(file)
+            val buffer = ByteArray(1024)
+            var bytesRead: Int
+
+            while (inputStream?.read(buffer).also { bytesRead = it!! } != -1) {
+                outputStream.write(buffer, 0, bytesRead)
+            }
+
+            inputStream?.close()
+            outputStream.close()
+        }
+    }
+
+    private fun retrieveImagesFromStorage(): List<Uri> {
+        val imageUris: MutableList<Uri> = mutableListOf()
+        val directory = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+
+        if (directory != null && directory.exists()) {
+            val files = directory.listFiles()
+            if (files != null) {
+                for (file in files) {
+                    val imageUri = FileProvider.getUriForFile(
+                        requireContext(),
+                        "com.example.mobdeve_mco",
+                        file
+                    )
+                    imageUris.add(imageUri)
+                }
+            }
+        }
+
+        return imageUris
+    }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
