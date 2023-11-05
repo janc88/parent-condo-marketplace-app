@@ -59,7 +59,7 @@ fun mapUniversityToNumber(university: String): Int {
     }
 }
 
-fun getProperty(propertyId: Int): Property {
+fun getProperty(propertyId: String): Property {
     var property: Property? = null
     for(p in DummyData.propertyList){
         if(p.id == propertyId){
@@ -85,16 +85,17 @@ fun formatFloor(floor: Int): String {
     }
 }
 
-fun getRandomListings(maxNum: Int, listingIds:ArrayList<Int>): ArrayList<Listing> {
+fun getRandomListings(maxNum: Int, listingIds: ArrayList<String>): ArrayList<Listing> {
     val result = ArrayList<Listing>()
     val shuffledListings = DummyData.listingList.shuffled()
-    val filteredListings = shuffledListings.filter { listingIds.contains(it.id)}
+    val filteredListings = shuffledListings.filter { listingIds.contains(it.id.toString()) }
     val maxCount = minOf(maxNum, filteredListings.size)
     for (i in 0 until maxCount) {
         result.add(filteredListings[i])
     }
     return result
 }
+
 
 fun String.capitalizeAndReplaceUnderscore(): String {
     val words = this.split("_")
@@ -110,7 +111,7 @@ fun String.capitalizeAndReplaceUnderscore(): String {
     return result.trim().toString()
 }
 
-fun getSimilarListings(maxNum: Int, listingIds: ArrayList<Int>, listingId: Int): ArrayList<Listing> {
+fun getSimilarListings(maxNum: Int, listingIds: ArrayList<String>, listingId: String): ArrayList<Listing> {
     val result = ArrayList<Listing>()
 
     val filteredListingIds = listingIds.filter { it != listingId }
@@ -129,3 +130,4 @@ fun getSimilarListings(maxNum: Int, listingIds: ArrayList<Int>, listingId: Int):
 
     return result
 }
+

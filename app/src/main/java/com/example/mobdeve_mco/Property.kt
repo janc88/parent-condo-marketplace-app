@@ -5,7 +5,7 @@ import android.os.Parcelable
 
 
 
-data class Property(val id:Int,
+data class Property(val id:String,
                     val imageList:ArrayList<String>,
                     val description: String,
                     val name:String,
@@ -16,10 +16,20 @@ data class Property(val id:Int,
                     val lowestPrice:Int,
                     val numListings:Int,
                     val university: String,
-                    val amenities: Map<Amenity, Boolean>,
-                    val listingIds:ArrayList<Int>) : Parcelable {
+                    val SWIMMING_POOL: Boolean,
+                    val GYM: Boolean,
+                    val PARKING: Boolean,
+                    val WIFI: Boolean,
+                    val ELEVATORS: Boolean,
+                    val FIRE_ALARM: Boolean,
+                    val SECURITY: Boolean,
+                    val GENERATOR: Boolean,
+                    val CCTV: Boolean,
+                    val WATER_TANK: Boolean,
+                    val MAILROOM: Boolean,
+                    val listingIds:ArrayList<String>) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
+        parcel.readString()!!,
         parcel.createStringArray()?.toCollection(ArrayList()) ?: ArrayList(),
         parcel.readString()!!,
         parcel.readString()!!,
@@ -30,13 +40,23 @@ data class Property(val id:Int,
         parcel.readInt(),
         parcel.readInt(),
         parcel.readString()!!,
-        readAmenitiesFromParcel(parcel),
-        parcel.createIntArray()?.toCollection(ArrayList()) ?: ArrayList(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.readByte() != 0.toByte(),
+        parcel.createStringArray()?.toCollection(ArrayList()) ?: ArrayList(),
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
+        parcel.writeString(id)
         parcel.writeStringArray(imageList.toTypedArray())
         parcel.writeString(description)
         parcel.writeString(name)
@@ -47,8 +67,18 @@ data class Property(val id:Int,
         parcel.writeInt(lowestPrice)
         parcel.writeInt(numListings)
         parcel.writeString(university)
-        writeAmenitiesToParcel(amenities, parcel)
-        parcel.writeIntArray(listingIds.toIntArray())
+        parcel.writeByte(if (SWIMMING_POOL) 1 else 0)
+        parcel.writeByte(if (GYM) 1 else 0)
+        parcel.writeByte(if (PARKING) 1 else 0)
+        parcel.writeByte(if (WIFI) 1 else 0)
+        parcel.writeByte(if (ELEVATORS) 1 else 0)
+        parcel.writeByte(if (FIRE_ALARM) 1 else 0)
+        parcel.writeByte(if (SECURITY) 1 else 0)
+        parcel.writeByte(if (GENERATOR) 1 else 0)
+        parcel.writeByte(if (CCTV) 1 else 0)
+        parcel.writeByte(if (WATER_TANK) 1 else 0)
+        parcel.writeByte(if (MAILROOM) 1 else 0)
+        parcel.writeStringArray(listingIds.toTypedArray())
     }
 
     override fun describeContents(): Int {
@@ -62,25 +92,6 @@ data class Property(val id:Int,
 
         override fun newArray(size: Int): Array<Property?> {
             return arrayOfNulls(size)
-        }
-
-        private fun readAmenitiesFromParcel(parcel: Parcel): Map<Amenity, Boolean> {
-            val amenityMap = mutableMapOf<Amenity, Boolean>()
-            val amenityNames = Amenity.values().map { it.name }
-
-            for (amenityName in amenityNames) {
-                amenityMap[Amenity.valueOf(amenityName)] = parcel.readByte() != 0.toByte()
-            }
-
-            return amenityMap
-        }
-
-        private fun writeAmenitiesToParcel(amenities: Map<Amenity, Boolean>, parcel: Parcel) {
-            val amenityNames = Amenity.values().map { it.name }
-
-            for (amenityName in amenityNames) {
-                parcel.writeByte(if (amenities[Amenity.valueOf(amenityName)] == true) 1 else 0)
-            }
         }
     }
 }

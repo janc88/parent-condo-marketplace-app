@@ -114,12 +114,12 @@ class AddListingActivity : AppCompatActivity() {
         if (currentUser != null) {
             val ownerUid = currentUser.uid // This is the UID of the current logged-in user
             val newListing = Listing(
-                id = 0,
+                id = "0",
                 imageList = ArrayList(),
                 title = title,
                 price = price.toInt(),
                 property = "",
-                propertyId = propertyId,
+                propertyId = propertyId.toString(),
                 university = university,
                 area = area.toDouble(),
                 isFurnished = isFurnished,

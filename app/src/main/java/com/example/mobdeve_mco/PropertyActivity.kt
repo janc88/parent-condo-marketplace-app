@@ -193,11 +193,24 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
         for (amenity in Amenity.values()) {
             val textView = getTextViewForAmenity(amenity)
-            val amenityAvailable = property?.amenities?.get(amenity) ?: false
+            val amenityAvailable = when (amenity) {
+                Amenity.SWIMMING_POOL -> property.SWIMMING_POOL
+                Amenity.GYM -> property.GYM
+                Amenity.PARKING -> property.PARKING
+                Amenity.WIFI -> property.WIFI
+                Amenity.ELEVATORS -> property.ELEVATORS
+                Amenity.FIRE_ALARM -> property.FIRE_ALARM
+                Amenity.SECURITY -> property.SECURITY
+                Amenity.GENERATOR -> property.GENERATOR
+                Amenity.CCTV -> property.CCTV
+                Amenity.WATER_TANK -> property.WATER_TANK
+                Amenity.MAILROOM -> property.MAILROOM
+            }
             if (!amenityAvailable) {
                 textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             }
         }
+
 
         tvName.text = property.name
         imageSlider.setImageList(imageList)

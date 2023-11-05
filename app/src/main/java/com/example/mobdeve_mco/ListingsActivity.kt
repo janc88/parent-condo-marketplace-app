@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 
 class ListingsActivity : AppCompatActivity() {
 
-    private var listingIds: ArrayList<Int>? = null
+    private var listingIds: ArrayList<String>? = null
     private lateinit var propertyName: String
     private lateinit var listings: ArrayList<Listing>
     private lateinit var rvSearchResults: RecyclerView
@@ -25,7 +25,7 @@ class ListingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listings)
 
-        listingIds = intent.getIntegerArrayListExtra("listingIds")
+        listingIds = intent.getStringArrayExtra("listingIds")?.toCollection(ArrayList())
         propertyName = intent.getStringExtra("propertyName")!!
 
         listings = getListings()
@@ -56,7 +56,7 @@ class ListingsActivity : AppCompatActivity() {
 
     }
 
-    private fun getListings(): ArrayList<Listing>{
+    private fun getListings(): ArrayList<Listing> {
         val result = ArrayList<Listing>()
         listingIds?.let { nonNullListingIds ->
             for (listing in DummyData.listingList) {
@@ -67,5 +67,6 @@ class ListingsActivity : AppCompatActivity() {
         }
         return result
     }
+
 
 }

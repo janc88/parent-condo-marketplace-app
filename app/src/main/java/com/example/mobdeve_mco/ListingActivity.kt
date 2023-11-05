@@ -164,7 +164,7 @@ class ListingActivity : AppCompatActivity() {
 
         property = getProperty(listing.propertyId)
         setupRecyclerView()
-        addAmenitiesToGridLayout(this, glAmenities, property.amenities)
+        addAmenitiesToGridLayout(this, glAmenities, property)
     }
 
     private fun setupRecyclerView(){
@@ -184,17 +184,29 @@ class ListingActivity : AppCompatActivity() {
         }
     }
 
-    fun addAmenitiesToGridLayout(context: Context, gridLayout: GridLayout, amenitiesMap: Map<Amenity, Boolean>) {
+    fun addAmenitiesToGridLayout(context: Context, gridLayout: GridLayout, property: Property) {
         val maxAmenities = 6
+
+        val amenities = listOf(
+            Pair("Swimming Pool", property.SWIMMING_POOL),
+            Pair("Gym", property.GYM),
+            Pair("Parking", property.PARKING),
+            Pair("Wi-Fi", property.WIFI),
+            Pair("Elevators", property.ELEVATORS),
+            Pair("Fire Alarm", property.FIRE_ALARM),
+            Pair("Security", property.SECURITY),
+            Pair("Generator", property.GENERATOR),
+            Pair("CCTV", property.CCTV),
+            Pair("Water Tank", property.WATER_TANK),
+            Pair("Mailroom", property.MAILROOM)
+        )
 
         var addedAmenities = 0
 
-        for ((amenity, isAvailable) in amenitiesMap) {
+        for ((amenityText, isAvailable) in amenities) {
             if (!isAvailable) {
                 continue
             }
-
-            val amenityText = if (amenity == Amenity.CCTV) "CCTV" else amenity.name.capitalizeAndReplaceUnderscore()
 
             val itemLayout = LinearLayout(context)
             itemLayout.orientation = LinearLayout.HORIZONTAL
@@ -229,6 +241,7 @@ class ListingActivity : AppCompatActivity() {
             }
         }
     }
+
 
 
 }

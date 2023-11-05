@@ -3,12 +3,12 @@ package com.example.mobdeve_mco
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Listing(val id:Int,
+data class Listing(val id:String,
                    var imageList:ArrayList<String>,
                    val title:String,
                    val price:Int,
                    val property: String,
-                   val propertyId: Int,
+                   val propertyId: String,
                    val university: String,
 
                    val area: Double,
@@ -24,12 +24,12 @@ data class Listing(val id:Int,
                     val isRented: Boolean,
     ) : Parcelable {
     constructor(parcel: Parcel) : this(
-        parcel.readInt(),
+        parcel.readString()!!,
         parcel.createStringArray()?.toCollection(ArrayList()) ?: ArrayList(),
         parcel.readString()!!,
         parcel.readInt(),
         parcel.readString()!!,
-        parcel.readInt(),
+        parcel.readString()!!,
         parcel.readString()!!,
 
         parcel.readDouble(),
@@ -46,12 +46,12 @@ data class Listing(val id:Int,
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeInt(id)
+        parcel.writeString(id)
         parcel.writeStringArray(imageList.toTypedArray())
         parcel.writeString(title)
         parcel.writeInt(price)
         parcel.writeString(property)
-        parcel.writeInt(propertyId)
+        parcel.writeString(propertyId)
         parcel.writeString(university)
 
         parcel.writeDouble(area)
