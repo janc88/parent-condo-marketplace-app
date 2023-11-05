@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.example.mobdeve_mco.databinding.FragmentLoggedInBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -99,13 +100,22 @@ class LoggedInFragment : Fragment() {
         }
 
         btnLogOut.setOnClickListener{
-            FirebaseAuth.getInstance().signOut()
-            Toast.makeText(this.context, "Logged out successfully", Toast.LENGTH_SHORT).show()
+            AlertDialog.Builder(requireContext())
+                .setTitle("")
+                .setMessage("Are you sure you want to log out?")
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton("Yes") { _, _ ->
+                    FirebaseAuth.getInstance().signOut()
+                    Toast.makeText(this.context, "Logged out successfully", Toast.LENGTH_SHORT).show()
 
-            val transaction = requireActivity().supportFragmentManager.beginTransaction()
-            transaction.replace(R.id.frame_layout, LoggedOutFragment())
-            transaction.addToBackStack(null)
-            transaction.commit()
+                    val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.frame_layout, LoggedOutFragment())
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
+                .show()
         }
 
 
