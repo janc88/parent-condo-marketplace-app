@@ -1,6 +1,5 @@
 package com.example.mobdeve_mco
 
-import DummyData
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -18,9 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
 
 
 class ListingActivity : AppCompatActivity() {
@@ -188,17 +184,17 @@ class ListingActivity : AppCompatActivity() {
         val maxAmenities = 6
 
         val amenities = listOf(
-            Pair("Swimming Pool", property.SWIMMING_POOL),
-            Pair("Gym", property.GYM),
-            Pair("Parking", property.PARKING),
-            Pair("Wi-Fi", property.WIFI),
-            Pair("Elevators", property.ELEVATORS),
-            Pair("Fire Alarm", property.FIRE_ALARM),
-            Pair("Security", property.SECURITY),
-            Pair("Generator", property.GENERATOR),
-            Pair("CCTV", property.CCTV),
-            Pair("Water Tank", property.WATER_TANK),
-            Pair("Mailroom", property.MAILROOM)
+            Pair("Swimming Pool", property.swimmingPool),
+            Pair("Gym", property.gym),
+            Pair("Parking", property.parking),
+            Pair("Wi-Fi", property.wifi),
+            Pair("Elevators", property.elevators),
+            Pair("Fire Alarm", property.fireAlarm),
+            Pair("Security", property.security),
+            Pair("Generator", property.generator),
+            Pair("CCTV", property.cctv),
+            Pair("Water Tank", property.waterTank),
+            Pair("Mailroom", property.mailRoom)
         )
 
         var addedAmenities = 0

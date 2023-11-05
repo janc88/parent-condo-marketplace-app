@@ -5,29 +5,33 @@ import android.os.Parcelable
 
 
 
-data class Property(val id:String,
-                    val imageList:ArrayList<String>,
-                    val description: String,
-                    val name:String,
-                    val longitude: Double,
-                    val latitude: Double,
-                    val address: String,
-                    val highestPrice:Int,
-                    val lowestPrice:Int,
-                    val numListings:Int,
-                    val university: String,
-                    val SWIMMING_POOL: Boolean,
-                    val GYM: Boolean,
-                    val PARKING: Boolean,
-                    val WIFI: Boolean,
-                    val ELEVATORS: Boolean,
-                    val FIRE_ALARM: Boolean,
-                    val SECURITY: Boolean,
-                    val GENERATOR: Boolean,
-                    val CCTV: Boolean,
-                    val WATER_TANK: Boolean,
-                    val MAILROOM: Boolean,
-                    val listingIds:ArrayList<String>) : Parcelable {
+data class Property(
+    val id: String = "",
+    val imageList: ArrayList<String> = ArrayList(),
+    val description: String = "",
+    val name: String = "",
+    val longitude: Double = 0.0,
+    val latitude: Double = 0.0,
+    val address: String = "",
+    val highestPrice: Int = 0,
+    val lowestPrice: Int = 0,
+    val numListings: Int = 0,
+    val university: String = "",
+    val swimmingPool: Boolean = false,
+    val gym: Boolean = false,
+    val parking: Boolean = false,
+    val wifi: Boolean = false,
+    val elevators: Boolean = false,
+    val fireAlarm: Boolean = false,
+    val security: Boolean = false,
+    val generator: Boolean = false,
+    val cctv: Boolean = false,
+    val waterTank: Boolean = false,
+    val mailRoom: Boolean = false,
+    val listingIds: ArrayList<String> = ArrayList()
+) : Parcelable {
+
+
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.createStringArray()?.toCollection(ArrayList()) ?: ArrayList(),
@@ -67,17 +71,17 @@ data class Property(val id:String,
         parcel.writeInt(lowestPrice)
         parcel.writeInt(numListings)
         parcel.writeString(university)
-        parcel.writeByte(if (SWIMMING_POOL) 1 else 0)
-        parcel.writeByte(if (GYM) 1 else 0)
-        parcel.writeByte(if (PARKING) 1 else 0)
-        parcel.writeByte(if (WIFI) 1 else 0)
-        parcel.writeByte(if (ELEVATORS) 1 else 0)
-        parcel.writeByte(if (FIRE_ALARM) 1 else 0)
-        parcel.writeByte(if (SECURITY) 1 else 0)
-        parcel.writeByte(if (GENERATOR) 1 else 0)
-        parcel.writeByte(if (CCTV) 1 else 0)
-        parcel.writeByte(if (WATER_TANK) 1 else 0)
-        parcel.writeByte(if (MAILROOM) 1 else 0)
+        parcel.writeByte(if (swimmingPool) 1 else 0)
+        parcel.writeByte(if (gym) 1 else 0)
+        parcel.writeByte(if (parking) 1 else 0)
+        parcel.writeByte(if (wifi) 1 else 0)
+        parcel.writeByte(if (elevators) 1 else 0)
+        parcel.writeByte(if (fireAlarm) 1 else 0)
+        parcel.writeByte(if (security) 1 else 0)
+        parcel.writeByte(if (generator) 1 else 0)
+        parcel.writeByte(if (cctv) 1 else 0)
+        parcel.writeByte(if (waterTank) 1 else 0)
+        parcel.writeByte(if (mailRoom) 1 else 0)
         parcel.writeStringArray(listingIds.toTypedArray())
     }
 

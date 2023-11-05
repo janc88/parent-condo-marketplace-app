@@ -1,11 +1,8 @@
 import com.example.mobdeve_mco.Amenity
 import com.example.mobdeve_mco.Listing
 import com.example.mobdeve_mco.Property
-import com.example.mobdeve_mco.R
 import com.example.mobdeve_mco.User
 import com.example.mobdeve_mco.createDate
-import java.time.LocalDate
-import java.util.Date
 
 object DummyData {
     val imageList: ArrayList<String> = ArrayList()
@@ -57,17 +54,17 @@ object DummyData {
             15000,
             24,
             "DLSU",
-            SWIMMING_POOL = false,
-            GYM = false,
-            PARKING = true,
-            WIFI = true,
-            ELEVATORS = true,
-            FIRE_ALARM = true,
-            SECURITY = true,
-            GENERATOR = true,
-            CCTV = true,
-            WATER_TANK = true,
-            MAILROOM = true,
+            swimmingPool = false,
+            gym = false,
+            parking = true,
+            wifi = true,
+            elevators = true,
+            fireAlarm = true,
+            security = true,
+            generator = true,
+            cctv = true,
+            waterTank = true,
+            mailRoom = true,
             arrayListOf("22", "23")
         ),
         Property(
@@ -82,17 +79,17 @@ object DummyData {
             15000,
             8,
             "DLSU",
-            SWIMMING_POOL = true,
-            GYM = true,
-            PARKING = true,
-            WIFI = true,
-            ELEVATORS = true,
-            FIRE_ALARM = true,
-            SECURITY = true,
-            GENERATOR = true,
-            CCTV = true,
-            WATER_TANK = true,
-            MAILROOM = true,
+            swimmingPool = true,
+            gym = true,
+            parking = true,
+            wifi = true,
+            elevators = true,
+            fireAlarm = true,
+            security = true,
+            generator = true,
+            cctv = true,
+            waterTank = true,
+            mailRoom = true,
             arrayListOf()
         ),
         Property(
@@ -107,17 +104,17 @@ object DummyData {
             15000,
             24,
             "DLSU",
-            SWIMMING_POOL = true,
-            GYM = true,
-            PARKING = true,
-            WIFI = true,
-            ELEVATORS = true,
-            FIRE_ALARM = true,
-            SECURITY = true,
-            GENERATOR = true,
-            CCTV = true,
-            WATER_TANK = true,
-            MAILROOM = true,
+            swimmingPool = true,
+            gym = true,
+            parking = true,
+            wifi = true,
+            elevators = true,
+            fireAlarm = true,
+            security = true,
+            generator = true,
+            cctv = true,
+            waterTank = true,
+            mailRoom = true,
             arrayListOf("22", "23")
         ),
         Property(
@@ -132,17 +129,17 @@ object DummyData {
             15000,
             24,
             "DLSU",
-            SWIMMING_POOL = true,
-            GYM = true,
-            PARKING = true,
-            WIFI = true,
-            ELEVATORS = true,
-            FIRE_ALARM = true,
-            SECURITY = true,
-            GENERATOR = true,
-            CCTV = true,
-            WATER_TANK = true,
-            MAILROOM = true,
+            swimmingPool = true,
+            gym = true,
+            parking = true,
+            wifi = true,
+            elevators = true,
+            fireAlarm = true,
+            security = true,
+            generator = true,
+            cctv = true,
+            waterTank = true,
+            mailRoom = true,
             arrayListOf("22", "23")
         )
     )

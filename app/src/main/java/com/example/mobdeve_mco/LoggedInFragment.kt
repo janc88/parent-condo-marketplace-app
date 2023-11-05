@@ -100,24 +100,24 @@ class LoggedInFragment : Fragment() {
         }
 
         btnLogOut.setOnClickListener{
-            val properties = PropertyUtils.properties
-            PropertyUtils.addPropertiesToFirestore(properties)
-//            AlertDialog.Builder(requireContext())
-//                .setTitle("")
-//                .setMessage("Are you sure you want to log out?")
-//                .setNegativeButton("No") { dialog, _ ->
-//                    dialog.dismiss()
-//                }
-//                .setPositiveButton("Yes") { _, _ ->
-//                    FirebaseAuth.getInstance().signOut()
-//                    Toast.makeText(this.context, "Logged out successfully", Toast.LENGTH_SHORT).show()
-//
-//                    val transaction = requireActivity().supportFragmentManager.beginTransaction()
-//                    transaction.replace(R.id.frame_layout, LoggedOutFragment())
-//                    transaction.addToBackStack(null)
-//                    transaction.commit()
-//                }
-//                .show()
+//            val properties = PropertyUtils.properties
+//            PropertyUtils.addPropertiesToFirestore(properties)
+            AlertDialog.Builder(requireContext())
+                .setTitle("")
+                .setMessage("Are you sure you want to log out?")
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                .setPositiveButton("Yes") { _, _ ->
+                    FirebaseAuth.getInstance().signOut()
+                    Toast.makeText(this.context, "Logged out successfully", Toast.LENGTH_SHORT).show()
+
+                    val transaction = requireActivity().supportFragmentManager.beginTransaction()
+                    transaction.replace(R.id.frame_layout, LoggedOutFragment())
+                    transaction.addToBackStack(null)
+                    transaction.commit()
+                }
+                .show()
         }
 
 

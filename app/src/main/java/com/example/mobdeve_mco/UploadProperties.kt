@@ -23,7 +23,7 @@ object PropertyUtils {
     }
 
 
-    val properties = listOf(
+//    val properties = listOf(
 //        Property(
 //            id = 0,
 //            imageList = ArrayList(
@@ -88,70 +88,70 @@ object PropertyUtils {
 //            listingIds = ArrayList()
 //        ),
 
-        Property(
-            id = "0",
-            imageList = ArrayList(
-                listOf(
-                    "https://www.vistaresidences.com.ph/assets/blog-images/condo-living-_--vista-taft-min.png",
-                    "https://propertyreport.ph/wp-content/uploads/2019/03/V11.jpg",
-                    "https://pix10.agoda.net/hotelImages/578/5780906/5780906_18090621100067870200.jpg?ca=0&ce=1&s=414x232",
-                )
-            ),
-            description = "Take your condo living to the next level as Vista Taft by Vista Residences gives you the right combination of modernity and convenience. With its contemporary design, modern-day amenities, easy access, and walkability to various establishments, services, and universities, Vista Taft by Vista Residences speaks of what's young and innovative and brings about a taste of good life in the middle of downtown Manila. Vista Taft offers Studio and 1 Bedroom units ideal for students, young professionals, and starting families",
-            name = "Vista Taft Residences",
-            longitude = 120.994725622398,
-            latitude = 14.563108530999047,
-            address = "2587 Taft Ave, Malate, Manila",
-            highestPrice = 0,
-            lowestPrice = 0,
-            numListings = 0,
-            university = "DLSU",
-            SWIMMING_POOL = true,
-            GYM = true,
-            PARKING = true,
-            WIFI = true,
-            ELEVATORS = true,
-            FIRE_ALARM = true,
-            SECURITY = true,
-            GENERATOR = true,
-            CCTV = true,
-            WATER_TANK = true,
-            MAILROOM = true,
-            listingIds = ArrayList()
-        ),
-        Property(
-            id = "0",
-            imageList = ArrayList(
-                listOf(
-                    "https://www.santeco-realty.com/uploads/5/7/7/2/5772592/879440.jpg?382",
-                    "https://pinoydeal.ph/oc-content/uploads/194/21979_original.jpg",
-                    "https://media.karousell.com/media/photos/products/2023/10/2/r_square_residences_near_dlsu__1696231114_3a1fc6f7_progressive.jpg"
-                )
-            ),
-            description = "R Square Residences is a 50-storey high-end residential condominium in Manila. Towering above the rest, it offers larger and luxurious units with areas ranging from 20 sqm to 115 sqm. Having a 3-level Commercial Mall & 1 whole floor amenity area offers R Square Residences’ unit owners a one stop shop where everything they need is within their reach. A wide array of retail experience and recreational activities makes it more unique amongst other developments.\n" +
-                    "\n" +
-                    "With the aim to serve an increasing academic population, R Square Residences has chic and spacious studio units which can house up to 6 students. With its high-grade finishes, leasing a condominium has never been this cosy and secure. R Square Residences unit owners will get to witness the stunning sun set and sun rise on the east side and enjoy the extensive view of CBD on the west side. Residents here will savour a life full of convenience, security and elegance as the project is defined by its generous features and the best value proposition.",
-            name = "R Square Residences",
-            longitude = 120.99541876089093,
-            latitude = 14.56265449989046,
-            address = "Taft Avenue, corner P Ocampo St, Malate, Manila",
-            highestPrice = 0,
-            lowestPrice = 0,
-            numListings = 0,
-            university = "DLSU",
-            SWIMMING_POOL = true,
-            GYM = true,
-            PARKING = true,
-            WIFI = true,
-            ELEVATORS = true,
-            FIRE_ALARM = true,
-            SECURITY = true,
-            GENERATOR = true,
-            CCTV = true,
-            WATER_TANK = true,
-            MAILROOM = true,
-            listingIds = ArrayList()
-        ),
-    )
+//        Property(
+//            id = "0",
+//            imageList = ArrayList(
+//                listOf(
+//                    "https://www.vistaresidences.com.ph/assets/blog-images/condo-living-_--vista-taft-min.png",
+//                    "https://propertyreport.ph/wp-content/uploads/2019/03/V11.jpg",
+//                    "https://pix10.agoda.net/hotelImages/578/5780906/5780906_18090621100067870200.jpg?ca=0&ce=1&s=414x232",
+//                )
+//            ),
+//            description = "Take your condo living to the next level as Vista Taft by Vista Residences gives you the right combination of modernity and convenience. With its contemporary design, modern-day amenities, easy access, and walkability to various establishments, services, and universities, Vista Taft by Vista Residences speaks of what's young and innovative and brings about a taste of good life in the middle of downtown Manila. Vista Taft offers Studio and 1 Bedroom units ideal for students, young professionals, and starting families",
+//            name = "Vista Taft Residences",
+//            longitude = 120.994725622398,
+//            latitude = 14.563108530999047,
+//            address = "2587 Taft Ave, Malate, Manila",
+//            highestPrice = 0,
+//            lowestPrice = 0,
+//            numListings = 0,
+//            university = "DLSU",
+//            SWIMMING_POOL = true,
+//            GYM = true,
+//            PARKING = true,
+//            WIFI = true,
+//            ELEVATORS = true,
+//            FIRE_ALARM = true,
+//            SECURITY = true,
+//            GENERATOR = true,
+//            CCTV = true,
+//            WATER_TANK = true,
+//            MAILROOM = true,
+//            listingIds = ArrayList()
+//        ),
+//        Property(
+//            id = "0",
+//            imageList = ArrayList(
+//                listOf(
+//                    "https://www.santeco-realty.com/uploads/5/7/7/2/5772592/879440.jpg?382",
+//                    "https://pinoydeal.ph/oc-content/uploads/194/21979_original.jpg",
+//                    "https://media.karousell.com/media/photos/products/2023/10/2/r_square_residences_near_dlsu__1696231114_3a1fc6f7_progressive.jpg"
+//                )
+//            ),
+//            description = "R Square Residences is a 50-storey high-end residential condominium in Manila. Towering above the rest, it offers larger and luxurious units with areas ranging from 20 sqm to 115 sqm. Having a 3-level Commercial Mall & 1 whole floor amenity area offers R Square Residences’ unit owners a one stop shop where everything they need is within their reach. A wide array of retail experience and recreational activities makes it more unique amongst other developments.\n" +
+//                    "\n" +
+//                    "With the aim to serve an increasing academic population, R Square Residences has chic and spacious studio units which can house up to 6 students. With its high-grade finishes, leasing a condominium has never been this cosy and secure. R Square Residences unit owners will get to witness the stunning sun set and sun rise on the east side and enjoy the extensive view of CBD on the west side. Residents here will savour a life full of convenience, security and elegance as the project is defined by its generous features and the best value proposition.",
+//            name = "R Square Residences",
+//            longitude = 120.99541876089093,
+//            latitude = 14.56265449989046,
+//            address = "Taft Avenue, corner P Ocampo St, Malate, Manila",
+//            highestPrice = 0,
+//            lowestPrice = 0,
+//            numListings = 0,
+//            university = "DLSU",
+//            SWIMMING_POOL = true,
+//            GYM = true,
+//            PARKING = true,
+//            WIFI = true,
+//            ELEVATORS = true,
+//            FIRE_ALARM = true,
+//            SECURITY = true,
+//            GENERATOR = true,
+//            CCTV = true,
+//            WATER_TANK = true,
+//            MAILROOM = true,
+//            listingIds = ArrayList()
+//        ),
+//    )
 }
 

@@ -194,17 +194,17 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         for (amenity in Amenity.values()) {
             val textView = getTextViewForAmenity(amenity)
             val amenityAvailable = when (amenity) {
-                Amenity.SWIMMING_POOL -> property.SWIMMING_POOL
-                Amenity.GYM -> property.GYM
-                Amenity.PARKING -> property.PARKING
-                Amenity.WIFI -> property.WIFI
-                Amenity.ELEVATORS -> property.ELEVATORS
-                Amenity.FIRE_ALARM -> property.FIRE_ALARM
-                Amenity.SECURITY -> property.SECURITY
-                Amenity.GENERATOR -> property.GENERATOR
-                Amenity.CCTV -> property.CCTV
-                Amenity.WATER_TANK -> property.WATER_TANK
-                Amenity.MAILROOM -> property.MAILROOM
+                Amenity.SWIMMING_POOL -> property.swimmingPool
+                Amenity.GYM -> property.gym
+                Amenity.PARKING -> property.parking
+                Amenity.WIFI -> property.wifi
+                Amenity.ELEVATORS -> property.elevators
+                Amenity.FIRE_ALARM -> property.fireAlarm
+                Amenity.SECURITY -> property.security
+                Amenity.GENERATOR -> property.generator
+                Amenity.CCTV -> property.cctv
+                Amenity.WATER_TANK -> property.waterTank
+                Amenity.MAILROOM -> property.mailRoom
             }
             if (!amenityAvailable) {
                 textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG

@@ -3,6 +3,7 @@ package com.example.mobdeve_mco
 import DummyData
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mco.databinding.FragmentExploreBinding
 import java.util.Locale
 import com.example.mobdeve_mco.Amenity
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class ExploreFragment : Fragment() {
@@ -36,7 +38,9 @@ class ExploreFragment : Fragment() {
     private lateinit var btnUST : ToggleButton
     private lateinit var tvNoFound: TextView
 
+    private val db = FirebaseFirestore.getInstance()
 
+    private var properties : ArrayList<Property> = ArrayList()
 
     private var selectedUniversity: String? = null
 
@@ -59,16 +63,8 @@ class ExploreFragment : Fragment() {
         rvSearchResults.setHasFixedSize(true)
         rvSearchResults.layoutManager = LinearLayoutManager(this.activity)
 
+        fetchPropertiesFromFirestore()
 
-
-        propertyAdapter = PropertyAdapter(DummyData.propertyList)
-        rvSearchResults.adapter = propertyAdapter
-
-        propertyAdapter.onItemClick = {
-            val intent = Intent(this.activity, PropertyActivity::class.java)
-            intent.putExtra("property", it)
-            startActivity(intent)
-        }
 
 
         svExplore.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
@@ -114,6 +110,30 @@ class ExploreFragment : Fragment() {
                 }
             })
         }
+    }
+
+    private fun fetchPropertiesFromFirestore(){
+        db.collection("properties")
+            .get()
+            .addOnSuccessListener { result ->
+                for (document in result) {
+                    val property = document.toObject(Property::class.java)
+                    properties.add(property)
+                }
+
+                propertyAdapter = PropertyAdapter(properties)
+                rvSearchResults.adapter = propertyAdapter
+
+                propertyAdapter.onItemClick = {
+                    val intent = Intent(this.activity, PropertyActivity::class.java)
+                    intent.putExtra("property", it)
+                    startActivity(intent)
+                }
+
+            }
+            .addOnFailureListener { exception ->
+                Log.d("test", "fetching properties failed")
+            }
     }
 
     private fun searchAndFilterList(query: String?) {
