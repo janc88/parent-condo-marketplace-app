@@ -20,7 +20,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.gms.tasks.Task
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 
 
 class AddListingActivity : AppCompatActivity() {
@@ -122,23 +126,68 @@ class AddListingActivity : AppCompatActivity() {
             isRented = false
         )
 
-        val db = FirebaseFirestore.getInstance()
-        val listingsRef = db.collection("listings")
+        val imageUploadTasks = uploadImagesToFirebaseStorage(imageUris)
 
-        listingsRef.add(newListing)
-            .addOnSuccessListener { documentReference ->
-                val documentId = documentReference.id
-                Toast.makeText(this, "Listing created successfully", Toast.LENGTH_SHORT).show()
+        Tasks.whenAllComplete(imageUploadTasks)
+            .addOnSuccessListener { _ ->
+                getImageDownloadURLs(imageUploadTasks)
+                    .addOnSuccessListener { downloadUrls ->
+                        val imageUrls = downloadUrls.map { it.toString() }
+                        newListing.imageList = ArrayList(imageUrls)
+
+                        val db = FirebaseFirestore.getInstance()
+                        val listingsRef = db.collection("listings")
+
+                        listingsRef.add(newListing)
+                            .addOnSuccessListener { documentReference ->
+                                val documentId = documentReference.id
+                                Toast.makeText(this, "Listing created successfully", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener { e ->
+                                // Handle the Firestore write failure
+                                Toast.makeText(this, "Error creating listing: ${e.message}", Toast.LENGTH_SHORT).show()
+                            }
+                    }
+                    .addOnFailureListener { e ->
+                        // Handle the image URL retrieval failure
+                        Toast.makeText(this, "Error retrieving image URLs: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
             }
             .addOnFailureListener { e ->
-                // Error occurred while writing the document
-                // Handle the failure case, such as showing an error message to the user.
-                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                // Handle the image upload failure
+                Toast.makeText(this, "Error uploading images: ${e.message}", Toast.LENGTH_SHORT).show()
             }
 
-
-
     }
+
+    private fun uploadImagesToFirebaseStorage(imageUris: List<Uri>): List<Task<UploadTask.TaskSnapshot>> {
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageUploadTasks = ArrayList<Task<UploadTask.TaskSnapshot>>()
+
+        for ((index, uri) in imageUris.withIndex()) {
+            val imageRef = storageRef.child("images/listing_$index.jpg")
+            val uploadTask = imageRef.putFile(uri)
+
+            imageUploadTasks.add(uploadTask)
+        }
+
+        return imageUploadTasks
+    }
+
+    private fun getImageDownloadURLs(imageUploadTasks: List<Task<UploadTask.TaskSnapshot>>): Task<List<Uri>> {
+        val tasks = imageUploadTasks.map { task ->
+            task.continueWithTask { uploadTask ->
+                if (!uploadTask.isSuccessful) {
+                    throw uploadTask.exception!!
+                }
+                return@continueWithTask uploadTask.result?.storage?.downloadUrl
+            }
+        }
+
+        return Tasks.whenAllSuccess<Uri>(tasks)
+    }
+
+
 
     private fun isAnyDataSaved() {
         val sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)

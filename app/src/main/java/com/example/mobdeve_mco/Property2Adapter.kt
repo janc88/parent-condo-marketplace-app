@@ -14,6 +14,7 @@ import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
+import com.squareup.picasso.Picasso
 
 class Property2Adapter(private var properties: ArrayList<Property>, private val itemSelectedCallback: (Int) -> Unit
 ) : RecyclerView.Adapter<Property2Adapter.PropertyViewHolder>() {
@@ -53,7 +54,9 @@ class Property2Adapter(private var properties: ArrayList<Property>, private val 
 
         holder.tvPropertyName.text = property.name
         holder.tvAddress.text = property.address
-        holder.ivImage.setImageResource(property.imageList[0])
+
+        val imageUrl = property.imageList[0]
+        Picasso.get().load(imageUrl).into(holder.ivImage)
 
         if (position == selectedPosition) {
             holder.itemView.setBackgroundResource(R.drawable.round_10_card_selected)

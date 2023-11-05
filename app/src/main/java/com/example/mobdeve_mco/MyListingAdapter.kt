@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 
 class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<MyListingAdapter.ListingViewHolder>(){
@@ -53,7 +54,8 @@ class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ad
         if(!listing.isRented){
             holder.tvIsRented.isVisible = false
         }
-        holder.ivImage.setImageResource(listing.imageList[0])
+        val imageUrl = listing.imageList[0]
+        Picasso.get().load(imageUrl).into(holder.ivImage)
         holder.tvPrice.text = listing.price.formatPrice()
         holder.tvNumBedroom.text = listing.numBedroom.toString()
         holder.tvNumBathroom.text = listing.numBathroom.toString()

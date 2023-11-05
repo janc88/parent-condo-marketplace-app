@@ -157,10 +157,10 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
 
 
     private fun openGallery() {
-        val galleryIntent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        val galleryIntent = Intent(Intent.ACTION_GET_CONTENT)
+        galleryIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         galleryIntent.type = "image/*"
         galleryIntent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-        galleryIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         galleryLauncher.launch(galleryIntent)
     }
 
@@ -179,8 +179,8 @@ class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveC
                     val selectedImageUri = selectedImageUris.getItemAt(i).uri
                     newSelectedImages.add(ImageItem(selectedImageUri))
 
-                    val contentResolver = requireContext().contentResolver
-                    contentResolver.takePersistableUriPermission(selectedImageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+//                    val contentResolver = requireContext().contentResolver
+//                    contentResolver.takePersistableUriPermission(selectedImageUri, Intent.FLAG_GRANT_READ_URI_PERMISSION or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
 
                     preferencesManager.saveImage(selectedImageUri)
                 }

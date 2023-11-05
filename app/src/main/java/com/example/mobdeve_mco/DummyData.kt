@@ -8,13 +8,13 @@ import java.time.LocalDate
 import java.util.Date
 
 object DummyData {
-    val imageList: ArrayList<Int> = ArrayList()
+    val imageList: ArrayList<String> = ArrayList()
 
     init {
-        imageList.add(R.drawable.bed)
-        imageList.add(R.drawable.bed)
-        imageList.add(R.drawable.bed)
-        imageList.add(R.drawable.bed)
+        imageList.add("https://static.wixstatic.com/media/a46818_5565205f4b3741fdab3b3f9c4e73db7b~mv2.jpg/v1/fill/w_500,h_472,al_c,lg_1,q_80,enc_auto/a46818_5565205f4b3741fdab3b3f9c4e73db7b~mv2.jpg")
+        imageList.add("https://static.wixstatic.com/media/a46818_5565205f4b3741fdab3b3f9c4e73db7b~mv2.jpg/v1/fill/w_500,h_472,al_c,lg_1,q_80,enc_auto/a46818_5565205f4b3741fdab3b3f9c4e73db7b~mv2.jpg")
+        imageList.add("https://static.wixstatic.com/media/a46818_5565205f4b3741fdab3b3f9c4e73db7b~mv2.jpg/v1/fill/w_500,h_472,al_c,lg_1,q_80,enc_auto/a46818_5565205f4b3741fdab3b3f9c4e73db7b~mv2.jpg")
+
     }
 
     val amenitiesMap = mapOf(

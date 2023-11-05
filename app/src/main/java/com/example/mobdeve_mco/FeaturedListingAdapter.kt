@@ -11,6 +11,7 @@ import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
+import com.squareup.picasso.Picasso
 
 class FeaturedListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<FeaturedListingAdapter.ListingViewHolder>(){
 
@@ -38,7 +39,8 @@ class FeaturedListingAdapter(private var listings:ArrayList<Listing>) :RecyclerV
         val listing = listings[position]
 
         holder.tvTitle.text = listing.title
-        holder.ivImage.setImageResource(listing.imageList[0])
+        val imageUrl = listing.imageList[0]
+        Picasso.get().load(imageUrl).into(holder.ivImage)
         holder.tvPrice.text = listing.price.formatPrice()
 
         holder.itemView.setOnClickListener {

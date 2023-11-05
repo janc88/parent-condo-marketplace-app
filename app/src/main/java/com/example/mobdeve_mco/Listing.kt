@@ -4,7 +4,7 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Listing(val id:Int,
-                   val imageList:ArrayList<Int>,
+                   var imageList:ArrayList<String>,
                    val title:String,
                    val price:Int,
                    val property: String,
@@ -25,7 +25,7 @@ data class Listing(val id:Int,
     ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
-        parcel.createIntArray()?.toCollection(ArrayList()) ?: ArrayList(),
+        parcel.createStringArray()?.toCollection(ArrayList()) ?: ArrayList(),
         parcel.readString()!!,
         parcel.readInt(),
         parcel.readString()!!,
@@ -47,7 +47,7 @@ data class Listing(val id:Int,
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)
-        parcel.writeIntArray(imageList.toIntArray())
+        parcel.writeStringArray(imageList.toTypedArray())
         parcel.writeString(title)
         parcel.writeInt(price)
         parcel.writeString(property)
