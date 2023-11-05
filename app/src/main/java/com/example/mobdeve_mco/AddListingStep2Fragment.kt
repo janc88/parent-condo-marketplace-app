@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mco.databinding.FragmentAddListingStep2Binding
+import com.google.firebase.firestore.FirebaseFirestore
 
 class AddListingStep2Fragment : Fragment() {
     private var _binding: FragmentAddListingStep2Binding? = null
@@ -25,6 +26,8 @@ class AddListingStep2Fragment : Fragment() {
     private lateinit var sharedPreferences: SharedPreferences
     private var selectedUniversity : String? = ""
     private var selectedItemPosition : Int = -1
+
+    private val db = FirebaseFirestore.getInstance()
 
 
     override fun onCreateView(
@@ -49,8 +52,16 @@ class AddListingStep2Fragment : Fragment() {
 
         bindViews(view)
         init()
-        getUniversity()
+
+        property2Adapter = Property2Adapter(ArrayList()) { selectedPosition ->
+//            selectedItemPosition = selectedPosition
+            updateButtons()
+        }
+        rvProperties.adapter = property2Adapter
+
         retrieveSelectedItemPosition()
+        getUniversity()
+        fetchPropertiesFromFirestore(selectedUniversity!!)
     }
 
     private fun updateButtons() {
@@ -71,6 +82,7 @@ class AddListingStep2Fragment : Fragment() {
         if (selectedItemPosition != -1) {
             property2Adapter.setSelectedPosition(selectedItemPosition)
             property2Adapter.notifyItemChanged(selectedItemPosition)
+            property2Adapter.notifyDataSetChanged()
         }
     }
 
@@ -88,23 +100,36 @@ class AddListingStep2Fragment : Fragment() {
         rvProperties.setHasFixedSize(true)
         rvProperties.layoutManager = LinearLayoutManager(this.context)
 
-        // TODO: filter listings by the university the user selected in step 1
-        property2Adapter = Property2Adapter(DummyData.propertyList) { selectedPosition ->
-            selectedItemPosition = selectedPosition
-            updateButtons()
-        }
-        rvProperties.adapter = property2Adapter
-
-        property2Adapter.onItemClick = {
-
-        }
-
         val verticalSpacingHeightInPixels = 55
         val itemDecoration = VerticalSpaceItemDecoration(verticalSpacingHeightInPixels)
 
         rvProperties.addItemDecoration(itemDecoration)
-
     }
+
+    private fun fetchPropertiesFromFirestore(universityToMatch: String) {
+        db.collection("properties")
+            .whereEqualTo("university", universityToMatch)
+            .get()
+            .addOnSuccessListener { result ->
+                val properties = ArrayList<Property>()
+
+                for (document in result) {
+                    val property = document.toObject(Property::class.java)
+                    properties.add(property)
+                }
+
+                property2Adapter = Property2Adapter(properties) { selectedPosition ->
+                    selectedItemPosition = selectedPosition
+                    updateButtons()
+                }
+                rvProperties.adapter = property2Adapter
+
+            }
+            .addOnFailureListener { exception ->
+                Log.d("test", "fetching properties failed")
+            }
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()

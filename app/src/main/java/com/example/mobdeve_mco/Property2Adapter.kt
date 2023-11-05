@@ -74,8 +74,10 @@ class Property2Adapter(private var properties: ArrayList<Property>, private val 
 
             itemSelectedCallback(position)
 
-            sharedPreferences?.edit()?.putString("property", property.id)?.apply()
-            sharedPreferences?.edit()?.putInt("propertyPosition", selectedPosition)?.apply()
+            sharedPreferences!!.edit().putString("property", property.id).apply()
+            sharedPreferences!!.edit().putInt("propertyPosition", selectedPosition).apply()
+
+            Log.d("test", selectedPosition.toString())
 
         }
     }

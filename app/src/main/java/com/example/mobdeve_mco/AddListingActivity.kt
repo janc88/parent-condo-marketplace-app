@@ -169,8 +169,6 @@ class AddListingActivity : AppCompatActivity() {
         }
 
 
-
-
     }
 
     private fun uploadImagesToFirebaseStorage(imageUris: List<Uri>): List<Task<UploadTask.TaskSnapshot>> {

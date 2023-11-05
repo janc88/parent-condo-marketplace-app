@@ -66,7 +66,6 @@ class ExploreFragment : Fragment() {
         fetchPropertiesFromFirestore()
 
 
-
         svExplore.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
