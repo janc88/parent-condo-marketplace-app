@@ -18,7 +18,7 @@ data class Listing(val id:Int,
                    val numBathroom: Int,
                    val floor: Int,
                    val balcony: Boolean,
-                   val ownerId: Int,
+                   val ownerId: String,
                    val description: String,
 
                     val isRented: Boolean,
@@ -39,7 +39,7 @@ data class Listing(val id:Int,
         parcel.readInt(),
         parcel.readInt(),
         parcel.readByte() != 0.toByte(),
-        parcel.readInt(),
+        parcel.readString()!!,
         parcel.readString()!!,
         parcel.readByte() != 0.toByte(),
     ) {
@@ -61,7 +61,7 @@ data class Listing(val id:Int,
         parcel.writeInt(numBathroom)
         parcel.writeInt(floor)
         parcel.writeByte(if (balcony) 1 else 0)
-        parcel.writeInt(ownerId)
+        parcel.writeString(ownerId)
         parcel.writeString(description)
         parcel.writeByte(if (isRented) 1 else 0)
     }

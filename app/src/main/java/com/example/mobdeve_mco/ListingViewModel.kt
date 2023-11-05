@@ -17,7 +17,7 @@ class ListingViewModel : ViewModel() {
         numBathroom = -1,
         floor = -1,
         balcony = false,
-        ownerId = -1,
+        ownerId = "-1",
         description = "",
         isRented = false
     )

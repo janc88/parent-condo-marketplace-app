@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
@@ -106,57 +107,69 @@ class AddListingActivity : AppCompatActivity() {
         val imagePreferencesManager = ImagePreferencesManager(this)
         val imageUris: List<Uri> = imagePreferencesManager.getImages()
 
-        val newListing = Listing(
-            id = 0,
-            imageList = ArrayList(),
-            title = title,
-            price = price.toInt(),
-            property = "",
-            propertyId = propertyId,
-            university = university,
-            area = area.toDouble(),
-            isFurnished = isFurnished,
-            isStudioType = isStudioType,
-            numBedroom = numBedroom,
-            numBathroom = numBathroom,
-            floor = floor,
-            balcony = balcony,
-            ownerId = 0,
-            description = description,
-            isRented = false
-        )
+        // Assuming you're using Firebase Authentication
+        val firebaseAuth = FirebaseAuth.getInstance()
+        val currentUser = firebaseAuth.currentUser
 
-        val imageUploadTasks = uploadImagesToFirebaseStorage(imageUris)
+        if (currentUser != null) {
+            val ownerUid = currentUser.uid // This is the UID of the current logged-in user
+            val newListing = Listing(
+                id = 0,
+                imageList = ArrayList(),
+                title = title,
+                price = price.toInt(),
+                property = "",
+                propertyId = propertyId,
+                university = university,
+                area = area.toDouble(),
+                isFurnished = isFurnished,
+                isStudioType = isStudioType,
+                numBedroom = numBedroom,
+                numBathroom = numBathroom,
+                floor = floor,
+                balcony = balcony,
+                ownerId = ownerUid,
+                description = description,
+                isRented = false
+            )
 
-        Tasks.whenAllComplete(imageUploadTasks)
-            .addOnSuccessListener { _ ->
-                getImageDownloadURLs(imageUploadTasks)
-                    .addOnSuccessListener { downloadUrls ->
-                        val imageUrls = downloadUrls.map { it.toString() }
-                        newListing.imageList = ArrayList(imageUrls)
+            val imageUploadTasks = uploadImagesToFirebaseStorage(imageUris)
 
-                        val db = FirebaseFirestore.getInstance()
-                        val listingsRef = db.collection("listings")
+            Tasks.whenAllComplete(imageUploadTasks)
+                .addOnSuccessListener { _ ->
+                    getImageDownloadURLs(imageUploadTasks)
+                        .addOnSuccessListener { downloadUrls ->
+                            val imageUrls = downloadUrls.map { it.toString() }
+                            newListing.imageList = ArrayList(imageUrls)
 
-                        listingsRef.add(newListing)
-                            .addOnSuccessListener { documentReference ->
-                                val documentId = documentReference.id
-                                Toast.makeText(this, "Listing created successfully", Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnFailureListener { e ->
-                                // Handle the Firestore write failure
-                                Toast.makeText(this, "Error creating listing: ${e.message}", Toast.LENGTH_SHORT).show()
-                            }
-                    }
-                    .addOnFailureListener { e ->
-                        // Handle the image URL retrieval failure
-                        Toast.makeText(this, "Error retrieving image URLs: ${e.message}", Toast.LENGTH_SHORT).show()
-                    }
-            }
-            .addOnFailureListener { e ->
-                // Handle the image upload failure
-                Toast.makeText(this, "Error uploading images: ${e.message}", Toast.LENGTH_SHORT).show()
-            }
+                            val db = FirebaseFirestore.getInstance()
+                            val listingsRef = db.collection("listings")
+
+                            listingsRef.add(newListing)
+                                .addOnSuccessListener { documentReference ->
+                                    val documentId = documentReference.id
+                                    Toast.makeText(this, "Listing created successfully", Toast.LENGTH_SHORT).show()
+                                }
+                                .addOnFailureListener { e ->
+                                    // Handle the Firestore write failure
+                                    Toast.makeText(this, "Error creating listing: ${e.message}", Toast.LENGTH_SHORT).show()
+                                }
+                        }
+                        .addOnFailureListener { e ->
+                            // Handle the image URL retrieval failure
+                            Toast.makeText(this, "Error retrieving image URLs: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                }
+                .addOnFailureListener { e ->
+                    // Handle the image upload failure
+                    Toast.makeText(this, "Error uploading images: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            // Handle the case where no user is logged in
+        }
+
+
+
 
     }
 
