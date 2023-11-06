@@ -27,6 +27,8 @@ class AddListingStep2Fragment : Fragment() {
     private var selectedUniversity : String? = ""
     private var selectedItemPosition : Int = -1
 
+    private var properties = ArrayList<Property>()
+
     private val db = FirebaseFirestore.getInstance()
 
 
@@ -52,16 +54,9 @@ class AddListingStep2Fragment : Fragment() {
 
         bindViews(view)
         init()
-
-        property2Adapter = Property2Adapter(ArrayList()) { selectedPosition ->
-//            selectedItemPosition = selectedPosition
-            updateButtons()
-        }
-        rvProperties.adapter = property2Adapter
-
-        retrieveSelectedItemPosition()
         getUniversity()
         fetchPropertiesFromFirestore(selectedUniversity!!)
+        retrieveSelectedItemPosition()
     }
 
     private fun updateButtons() {
@@ -100,6 +95,12 @@ class AddListingStep2Fragment : Fragment() {
         rvProperties.setHasFixedSize(true)
         rvProperties.layoutManager = LinearLayoutManager(this.context)
 
+        property2Adapter = Property2Adapter(properties) { selectedPosition ->
+            selectedItemPosition = selectedPosition
+            updateButtons()
+        }
+        rvProperties.adapter = property2Adapter
+
         val verticalSpacingHeightInPixels = 55
         val itemDecoration = VerticalSpaceItemDecoration(verticalSpacingHeightInPixels)
 
@@ -111,19 +112,12 @@ class AddListingStep2Fragment : Fragment() {
             .whereEqualTo("university", universityToMatch)
             .get()
             .addOnSuccessListener { result ->
-                val properties = ArrayList<Property>()
 
                 for (document in result) {
                     val property = document.toObject(Property::class.java)
                     properties.add(property)
                 }
-
-                property2Adapter = Property2Adapter(properties) { selectedPosition ->
-                    selectedItemPosition = selectedPosition
-                    updateButtons()
-                }
-                rvProperties.adapter = property2Adapter
-
+                property2Adapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Log.d("test", "fetching properties failed")
