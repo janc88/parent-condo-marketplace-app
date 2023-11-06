@@ -60,6 +60,15 @@ class ExploreFragment : Fragment() {
         rvSearchResults= view.findViewById(R.id.rvSearchResults)
         svExplore = view.findViewById(R.id.svExplore)
 
+        propertyAdapter = PropertyAdapter(properties)
+        rvSearchResults.adapter = propertyAdapter
+
+        propertyAdapter.onItemClick = {
+            val intent = Intent(this.activity, PropertyActivity::class.java)
+            intent.putExtra("property", it)
+            startActivity(intent)
+        }
+
         rvSearchResults.setHasFixedSize(true)
         rvSearchResults.layoutManager = LinearLayoutManager(this.activity)
 
@@ -119,16 +128,7 @@ class ExploreFragment : Fragment() {
                     val property = document.toObject(Property::class.java)
                     properties.add(property)
                 }
-
-                propertyAdapter = PropertyAdapter(properties)
-                rvSearchResults.adapter = propertyAdapter
-
-                propertyAdapter.onItemClick = {
-                    val intent = Intent(this.activity, PropertyActivity::class.java)
-                    intent.putExtra("property", it)
-                    startActivity(intent)
-                }
-
+                propertyAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
                 Log.d("test", "fetching properties failed")

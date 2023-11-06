@@ -246,7 +246,7 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun seeListings(){
         val intent = Intent(this, ListingsActivity::class.java)
         if(property != null){
-            intent.putExtra("listingIds", property.listingIds)
+            intent.putExtra("listingIds", property.listingIds.toTypedArray())
             intent.putExtra("propertyName", property.name)
         }
         startActivity(intent)

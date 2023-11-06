@@ -3,26 +3,25 @@ package com.example.mobdeve_mco
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Listing(val id:String = "",
-                   var imageList:ArrayList<String>,
-                   val title:String,
-                   val price:Int,
-                   val property: String,
-                   val propertyId: String,
-                   val university: String,
-
-                   val area: Double,
-                   val isFurnished: Boolean,
-                   val isStudioType: Boolean,
-                   val numBedroom: Int,
-                   val numBathroom: Int,
-                   val floor: Int,
-                   val balcony: Boolean,
-                   val ownerId: String,
-                   val description: String,
-
-                    val isRented: Boolean,
-    ) : Parcelable {
+data class Listing(
+        val id: String = "",
+        var imageList: ArrayList<String> = ArrayList(),
+        val title: String = "",
+        val price: Int = 0,
+        val property: String = "",
+        val propertyId: String = "",
+        val university: String = "",
+        val area: Double = 0.0,
+        val isFurnished: Boolean = false,
+        val isStudioType: Boolean = false,
+        val numBedroom: Int = 0,
+        val numBathroom: Int = 0,
+        val floor: Int = 0,
+        val balcony: Boolean = false,
+        val ownerId: String = "",
+        val description: String = "",
+        val isRented: Boolean = false
+): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
         parcel.createStringArray()?.toCollection(ArrayList()) ?: ArrayList(),

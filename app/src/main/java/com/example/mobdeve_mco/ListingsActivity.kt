@@ -4,17 +4,20 @@ import DummyData
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ListingsActivity : AppCompatActivity() {
 
-    private var listingIds: ArrayList<String>? = null
+    private var listingIds: ArrayList<String> = ArrayList()
     private lateinit var propertyName: String
-    private lateinit var listings: ArrayList<Listing>
+    private var listings: ArrayList<Listing> = ArrayList()
     private lateinit var rvSearchResults: RecyclerView
     private lateinit var listingAdapter: ListingAdapter
     private lateinit var tvPropertyName: TextView
@@ -25,10 +28,12 @@ class ListingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listings)
 
-        listingIds = intent.getStringArrayExtra("listingIds")?.toCollection(ArrayList())
+        listingIds = intent.getStringArrayExtra("listingIds")?.toCollection(ArrayList()) ?: ArrayList()
         propertyName = intent.getStringExtra("propertyName")!!
 
-        listings = getListings()
+
+        getListingsFromFirestore(listingIds!!)
+
 
         tvPropertyName = findViewById(R.id.tvPropertyName)
         tvPropertyName.text = propertyName
@@ -52,21 +57,49 @@ class ListingsActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-
-
     }
 
-    private fun getListings(): ArrayList<Listing> {
-        val result = ArrayList<Listing>()
-        listingIds?.let { nonNullListingIds ->
-            for (listing in DummyData.listingList) {
-                if (listing.id in nonNullListingIds) {
-                    result.add(listing)
+    private fun getListingsFromFirestore(uids: ArrayList<String>) {
+        val db = FirebaseFirestore.getInstance()
+        val listingsRef = db.collection("listings")
+
+        val listings = mutableListOf<Listing>()
+
+        for (uid in uids) {
+            val documentRef = listingsRef.document(uid)
+
+            documentRef.get()
+                .addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        val listing = documentSnapshot.toObject(Listing::class.java)
+                        if (listing != null) {
+                            listings.add(listing)
+                            listingAdapter.notifyDataSetChanged()
+                        }
+                    }
+                    Log.d("gettinglistings", "success in getting listings")
+                    Log.d("gettinglistings", listings[0].title)
                 }
-            }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error fetching listing with UID $uid: ${e.message}", Toast.LENGTH_SHORT).show()
+                    Log.d("gettinglistings", "failure in getting listings")
+                }
         }
-        return result
     }
+
+
+
+//    private fun getListings(): ArrayList<Listing> {
+//        val result = ArrayList<Listing>()
+//        listingIds?.let { nonNullListingIds ->
+//            for (listing in DummyData.listingList) {
+//                if (listing.id in nonNullListingIds) {
+//                    result.add(listing)
+//                }
+//            }
+//        }
+//        return result
+//    }
 
 
 }
