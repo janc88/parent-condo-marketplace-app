@@ -95,7 +95,7 @@ class AddListingActivity : AppCompatActivity() {
         val description = sharedPreferences.getString("description", "") ?: ""
         val price = sharedPreferences.getString("price", "") ?: ""
         val university = mapNumberToUniversity(sharedPreferences.getInt("university", -1))
-        val propertyId = sharedPreferences.getInt("property", -1)
+        val propertyId = sharedPreferences.getString("property", "")
         val area = sharedPreferences.getInt("floorArea", -1)
         val floor = sharedPreferences.getInt("floor", -1)
         val numBedroom = sharedPreferences.getInt("numBedroom", -1)
@@ -114,7 +114,6 @@ class AddListingActivity : AppCompatActivity() {
         if (currentUser != null) {
             val ownerUid = currentUser.uid // This is the UID of the current logged-in user
             val newListing = Listing(
-                id = "0",
                 imageList = ArrayList(),
                 title = title,
                 price = price.toInt(),

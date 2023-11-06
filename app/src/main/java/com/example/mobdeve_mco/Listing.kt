@@ -3,7 +3,7 @@ package com.example.mobdeve_mco
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Listing(val id:String,
+data class Listing(val id:String = "",
                    var imageList:ArrayList<String>,
                    val title:String,
                    val price:Int,
