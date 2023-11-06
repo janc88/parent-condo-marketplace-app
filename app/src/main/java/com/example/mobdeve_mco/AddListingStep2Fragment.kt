@@ -1,8 +1,6 @@
 package com.example.mobdeve_mco
 
-import DummyData
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -27,7 +25,9 @@ class AddListingStep2Fragment : Fragment() {
     private var selectedUniversity : String? = ""
     private var selectedItemPosition : Int = -1
 
-    private var properties = ArrayList<Property>()
+    private var allProperties = ArrayList<Property>()
+
+    private var filteredProperties = ArrayList<Property>()
 
     private val db = FirebaseFirestore.getInstance()
 
@@ -45,6 +45,7 @@ class AddListingStep2Fragment : Fragment() {
     override fun onResume() {
         super.onResume()
         updateButtons()
+        getUniversity()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -55,9 +56,10 @@ class AddListingStep2Fragment : Fragment() {
         bindViews(view)
         init()
         getUniversity()
-        fetchPropertiesFromFirestore(selectedUniversity!!)
+        fetchPropertiesFromFirestore()
         retrieveSelectedItemPosition()
     }
+
 
     private fun updateButtons() {
         val activity = requireActivity() as AppCompatActivity
@@ -81,6 +83,17 @@ class AddListingStep2Fragment : Fragment() {
         }
     }
 
+    private fun filterPropertiesByUniversity() {
+        filteredProperties.clear()
+        for (property in allProperties) {
+            if (property.university == selectedUniversity!!) {
+                filteredProperties.add(property)
+            }
+        }
+        property2Adapter.notifyDataSetChanged()
+    }
+
+
     private fun bindViews(view: View){
         rvProperties = view.findViewById(R.id.rvProperties)
     }
@@ -88,6 +101,7 @@ class AddListingStep2Fragment : Fragment() {
     private fun getUniversity(){
         val sharedPreferences = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         selectedUniversity = mapNumberToUniversity(sharedPreferences.getInt("university", -1))
+        filterPropertiesByUniversity()
     }
 
 
@@ -95,7 +109,7 @@ class AddListingStep2Fragment : Fragment() {
         rvProperties.setHasFixedSize(true)
         rvProperties.layoutManager = LinearLayoutManager(this.context)
 
-        property2Adapter = Property2Adapter(properties) { selectedPosition ->
+        property2Adapter = Property2Adapter(filteredProperties) { selectedPosition ->
             selectedItemPosition = selectedPosition
             updateButtons()
         }
@@ -107,17 +121,15 @@ class AddListingStep2Fragment : Fragment() {
         rvProperties.addItemDecoration(itemDecoration)
     }
 
-    private fun fetchPropertiesFromFirestore(universityToMatch: String) {
+    private fun fetchPropertiesFromFirestore() {
         db.collection("properties")
-            .whereEqualTo("university", universityToMatch)
             .get()
             .addOnSuccessListener { result ->
-
                 for (document in result) {
                     val property = document.toObject(Property::class.java)
-                    properties.add(property)
+                    allProperties.add(property)
                 }
-                property2Adapter.notifyDataSetChanged()
+                filterPropertiesByUniversity()
             }
             .addOnFailureListener { exception ->
                 Log.d("test", "fetching properties failed")
