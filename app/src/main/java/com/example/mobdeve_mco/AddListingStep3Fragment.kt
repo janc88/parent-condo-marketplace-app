@@ -126,6 +126,20 @@ class AddListingStep3Fragment : Fragment() {
         floor = sharedPreferences.getInt("floor", floor)
     }
 
+    private fun updateButtons() {
+        val activity = requireActivity() as AppCompatActivity
+        val btnNext = activity.findViewById<Button>(R.id.btnNext)
+
+        btnNext.isEnabled = true
+        btnNext.setTextColor(resources.getColor(android.R.color.white))
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateButtons()
+    }
+
 
     private fun bindViews(view: View) {
         btnAddBedroom = view.findViewById(R.id.btnAddBedroom)
