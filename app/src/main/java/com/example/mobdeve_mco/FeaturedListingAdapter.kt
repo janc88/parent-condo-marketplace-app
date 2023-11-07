@@ -42,7 +42,7 @@ class FeaturedListingAdapter(private var listings:ArrayList<Listing>) :RecyclerV
 
         holder.tvTitle.text = listing.title
         val imageUrl = listing.imageList[0]
-        Picasso.get().load(imageUrl).into(holder.ivImage)
+        Picasso.get().load(imageUrl).resize(500,500).centerCrop().into(holder.ivImage)
         holder.tvPrice.text = listing.price.formatPrice()
 
         holder.itemView.setOnClickListener {
