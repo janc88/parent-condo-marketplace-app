@@ -112,6 +112,8 @@ class ListingActivity : AppCompatActivity() {
         getPropertyFromFirestore(listing.propertyId) { property ->
             if (property != null) {
                 tvPropertyNameTop.text = property.name
+                tvPropertyNameBottom.text = property.name
+                tvAddress.text = property.address
                 addAmenitiesToGridLayout(this, glAmenities, property)
                 Picasso.get().load(property.imageList[0]).into(ivPropertyImg)
 
