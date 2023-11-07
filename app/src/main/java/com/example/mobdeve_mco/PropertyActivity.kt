@@ -104,6 +104,7 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
         rvFeaturedListings = findViewById(R.id.rvFeaturedListings)
 
+        rvFeaturedListings.isNestedScrollingEnabled = false;
         rvFeaturedListings.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvFeaturedListings.layoutManager = layoutManager
@@ -111,6 +112,7 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         getRandomListingsFromFirestore(property.id, 5){listings ->
             if(listings != null){
                 featuredListingAdapter = FeaturedListingAdapter(ArrayList(listings))
+                featuredListingAdapter.setHasStableIds(true)
                 rvFeaturedListings.adapter = featuredListingAdapter
 
                 featuredListingAdapter.onItemClick = {

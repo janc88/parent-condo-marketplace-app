@@ -40,6 +40,8 @@ class ExploreFragment : Fragment() {
 
     private val db = FirebaseFirestore.getInstance()
 
+    private var properties : ArrayList<Property> = ArrayList()
+
     private var selectedUniversity: String? = null
 
     override fun onCreateView(
@@ -58,20 +60,19 @@ class ExploreFragment : Fragment() {
         rvSearchResults= view.findViewById(R.id.rvSearchResults)
         svExplore = view.findViewById(R.id.svExplore)
 
-        fetchPropertiesFromFirestore(){properties ->
-            propertyAdapter = PropertyAdapter(ArrayList(properties))
-            rvSearchResults.adapter = propertyAdapter
+        propertyAdapter = PropertyAdapter(properties)
+        rvSearchResults.adapter = propertyAdapter
 
-            propertyAdapter.onItemClick = {
-                val intent = Intent(this.activity, PropertyActivity::class.java)
-                intent.putExtra("property", it)
-                startActivity(intent)
-            }
-
-            rvSearchResults.setHasFixedSize(true)
-            rvSearchResults.layoutManager = LinearLayoutManager(this.activity)
+        propertyAdapter.onItemClick = {
+            val intent = Intent(this.activity, PropertyActivity::class.java)
+            intent.putExtra("property", it)
+            startActivity(intent)
         }
 
+        rvSearchResults.setHasFixedSize(true)
+        rvSearchResults.layoutManager = LinearLayoutManager(this.activity)
+
+        fetchPropertiesFromFirestore()
 
 
         svExplore.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
@@ -119,20 +120,18 @@ class ExploreFragment : Fragment() {
         }
     }
 
-    private fun fetchPropertiesFromFirestore(onPropertiesReceived: (List<Property>) -> Unit){
+    private fun fetchPropertiesFromFirestore(){
         db.collection("properties")
             .get()
             .addOnSuccessListener { result ->
-                val properties = mutableListOf<Property>()
-
                 for (document in result) {
                     val property = document.toObject(Property::class.java)
                     properties.add(property)
                 }
-                onPropertiesReceived(properties)
+                propertyAdapter.notifyDataSetChanged()
             }
             .addOnFailureListener { exception ->
-                onPropertiesReceived(emptyList())
+                Log.d("test", "fetching properties failed")
             }
     }
 
