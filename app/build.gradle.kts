@@ -62,7 +62,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.7.0")
     implementation("com.google.firebase:firebase-auth-ktx")
     implementation("com.squareup.picasso:picasso:2.8")
-
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 
 
 }
