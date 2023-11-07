@@ -3,16 +3,11 @@ package com.example.mobdeve_mco
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Bundle
-import android.text.SpannableString
-import android.text.style.BackgroundColorSpan
-import android.text.style.ForegroundColorSpan
-import android.util.Log
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -26,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
-import java.util.Date
 import java.util.UUID
 
 
@@ -122,15 +116,15 @@ class AddListingActivity : AppCompatActivity() {
                 propertyId = propertyId.toString(),
                 university = university,
                 area = area.toDouble(),
-                isFurnished = isFurnished,
-                isStudioType = isStudioType,
+                furnished = isFurnished,
+                studioType = isStudioType,
                 numBedroom = numBedroom,
                 numBathroom = numBathroom,
                 floor = floor,
                 balcony = balcony,
                 ownerId = ownerUid,
                 description = description,
-                isRented = false
+                rented = false
             )
 
             val imageUploadTasks = uploadImagesToFirebaseStorage(imageUris)

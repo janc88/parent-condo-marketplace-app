@@ -12,15 +12,15 @@ data class Listing(
     val propertyId: String = "",
     val university: String = "",
     val area: Double = 0.0,
-    val isFurnished: Boolean = false,
-    val isStudioType: Boolean = false,
+    val furnished: Boolean = false,
+    val studioType: Boolean = false,
     val numBedroom: Int = 0,
     val numBathroom: Int = 0,
     val floor: Int = 0,
     val balcony: Boolean = false,
     val ownerId: String = "",
     val description: String = "",
-    val isRented: Boolean = false
+    val rented: Boolean = false
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,
@@ -54,15 +54,15 @@ data class Listing(
         parcel.writeString(university)
 
         parcel.writeDouble(area)
-        parcel.writeByte(if (isFurnished) 1 else 0)
-        parcel.writeByte(if (isStudioType) 1 else 0)
+        parcel.writeByte(if (furnished) 1 else 0)
+        parcel.writeByte(if (studioType) 1 else 0)
         parcel.writeInt(numBedroom)
         parcel.writeInt(numBathroom)
         parcel.writeInt(floor)
         parcel.writeByte(if (balcony) 1 else 0)
         parcel.writeString(ownerId)
         parcel.writeString(description)
-        parcel.writeByte(if (isRented) 1 else 0)
+        parcel.writeByte(if (rented) 1 else 0)
     }
 
     override fun describeContents(): Int {

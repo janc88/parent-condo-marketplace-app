@@ -1,14 +1,11 @@
 package com.example.mobdeve_mco
 
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -51,7 +48,7 @@ class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ad
     override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
         val listing = listings[position]
 
-        if(!listing.isRented){
+        if(!listing.rented){
             holder.tvIsRented.isVisible = false
         }
         val imageUrl = listing.imageList[0]

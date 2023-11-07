@@ -15,14 +15,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 
@@ -148,10 +146,10 @@ class ListingActivity : AppCompatActivity() {
         imageSlider.setImageList(imageList)
 
         tvListingTitle.text = listing.title
-        tvStudioType.isVisible = listing.isStudioType
+        tvStudioType.isVisible = listing.studioType
         tvSqm.text = "${listing.area} sqm"
 
-        if(listing.isFurnished){
+        if(listing.furnished){
             tvFurnished.text = "Furnished"
         }else{
             tvFurnished.text = "Unfurnished"
