@@ -17,7 +17,9 @@ class ListingsActivity : AppCompatActivity() {
 
     private var listingIds: ArrayList<String> = ArrayList()
     private lateinit var propertyName: String
-    private var listings: ArrayList<Listing> = ArrayList()
+
+    private var listings = ArrayList<Listing>()
+
     private lateinit var rvSearchResults: RecyclerView
     private lateinit var listingAdapter: ListingAdapter
     private lateinit var tvPropertyName: TextView
@@ -31,9 +33,7 @@ class ListingsActivity : AppCompatActivity() {
         listingIds = intent.getStringArrayExtra("listingIds")?.toCollection(ArrayList()) ?: ArrayList()
         propertyName = intent.getStringExtra("propertyName")!!
 
-
-        getListingsFromFirestore(listingIds!!)
-
+        listings = intent.getParcelableArrayListExtra<Listing>("listings")!!
 
         tvPropertyName = findViewById(R.id.tvPropertyName)
         tvPropertyName.text = propertyName
@@ -58,48 +58,6 @@ class ListingsActivity : AppCompatActivity() {
         }
 
     }
-
-    private fun getListingsFromFirestore(uids: ArrayList<String>) {
-        val db = FirebaseFirestore.getInstance()
-        val listingsRef = db.collection("listings")
-
-        val listings = mutableListOf<Listing>()
-
-        for (uid in uids) {
-            val documentRef = listingsRef.document(uid)
-
-            documentRef.get()
-                .addOnSuccessListener { documentSnapshot ->
-                    if (documentSnapshot.exists()) {
-                        val listing = documentSnapshot.toObject(Listing::class.java)
-                        if (listing != null) {
-                            listings.add(listing)
-                            listingAdapter.notifyDataSetChanged()
-                        }
-                    }
-                    Log.d("gettinglistings", "success in getting listings")
-                    Log.d("gettinglistings", listings[0].title)
-                }
-                .addOnFailureListener { e ->
-                    Toast.makeText(this, "Error fetching listing with UID $uid: ${e.message}", Toast.LENGTH_SHORT).show()
-                    Log.d("gettinglistings", "failure in getting listings")
-                }
-        }
-    }
-
-
-
-//    private fun getListings(): ArrayList<Listing> {
-//        val result = ArrayList<Listing>()
-//        listingIds?.let { nonNullListingIds ->
-//            for (listing in DummyData.listingList) {
-//                if (listing.id in nonNullListingIds) {
-//                    result.add(listing)
-//                }
-//            }
-//        }
-//        return result
-//    }
 
 
 }

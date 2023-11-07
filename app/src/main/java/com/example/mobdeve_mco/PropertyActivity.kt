@@ -4,10 +4,12 @@ import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -23,7 +25,14 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-
+import com.google.firebase.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.tasks.await
 
 
 class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -89,6 +98,7 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
         property = intent.getParcelableExtra<Property>("property")!!
+
 
         bindViews()
         init()
@@ -245,11 +255,43 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun seeListings(){
         val intent = Intent(this, ListingsActivity::class.java)
-        if(property != null){
+
+        if (property != null) {
             intent.putExtra("listingIds", property.listingIds.toTypedArray())
             intent.putExtra("propertyName", property.name)
+
+            GlobalScope.launch(Dispatchers.Main) {
+                val listings = getListingsFromFirestore(property.listingIds)
+                intent.putParcelableArrayListExtra("listings", listings)
+                startActivity(intent)
+            }
         }
-        startActivity(intent)
+
+    }
+
+    private suspend fun getListingsFromFirestore(uids: ArrayList<String>): ArrayList<Listing> = runBlocking {
+        val listings = mutableListOf<Listing>()
+        val db = Firebase.firestore
+        val listingsRef = db.collection("listings")
+
+        for (uid in uids) {
+            val documentRef = listingsRef.document(uid)
+
+            try {
+                val documentSnapshot = documentRef.get().await()
+                if (documentSnapshot.exists()) {
+                    val listing = documentSnapshot.toObject(Listing::class.java)
+                    if (listing != null) {
+                        listings.add(listing)
+                    }
+                }
+            } catch (e: Exception) {
+                // Handle any exceptions
+                // You can log or handle errors here
+            }
+        }
+
+        return@runBlocking ArrayList(listings)
     }
 
 
