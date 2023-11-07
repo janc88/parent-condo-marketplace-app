@@ -3,6 +3,7 @@ package com.example.mobdeve_mco
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.WindowManager
 import android.widget.GridLayout
 import android.widget.ImageView
@@ -17,6 +18,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.FirebaseFirestoreException
+import com.squareup.picasso.Picasso
+import java.lang.Exception
 
 
 class ListingActivity : AppCompatActivity() {
@@ -38,6 +45,9 @@ class ListingActivity : AppCompatActivity() {
     private lateinit var tvPropertyNameBottom : TextView
     private lateinit var tvAddress : TextView
     private lateinit var tvPrice : TextView
+    private lateinit var ivUserPfp : ImageView
+    private lateinit var ivPropertyImg : ImageView
+
 
     private lateinit var tvStudioType : TextView
 
@@ -50,8 +60,8 @@ class ListingActivity : AppCompatActivity() {
 
     private lateinit var listing: Listing
     private lateinit var similarListings: ArrayList<Listing>
-    private lateinit var user: User
-    private lateinit var property: Property
+//    private lateinit var user: User
+    private var property: Property = Property()
 
     private lateinit var featuredListingAdapter: FeaturedListingAdapter
     private var isLiked = false
@@ -94,10 +104,25 @@ class ListingActivity : AppCompatActivity() {
         btnBack = findViewById(R.id.btnBack)
         cvHeart = findViewById(R.id.cvHeart)
         btnHeart = findViewById(R.id.btnHeart)
-
+        ivUserPfp = findViewById(R.id.ivUserPfp)
+        ivPropertyImg = findViewById(R.id.ivPropertyImg)
     }
 
     private fun init(){
+        getPropertyFromFirestore(listing.propertyId) { property ->
+            if (property != null) {
+                tvPropertyNameTop.text = property.name
+                addAmenitiesToGridLayout(this, glAmenities, property)
+                Picasso.get().load(property.imageList[0]).into(ivPropertyImg)
+
+                ivPropertyImg.setOnClickListener{
+                    val intent = Intent(this, PropertyActivity::class.java)
+                    intent.putExtra("property", property)
+                    startActivity(intent)
+                }
+            }
+        }
+
         btnBack.setOnClickListener{
             onBackPressed()
         }
@@ -119,7 +144,6 @@ class ListingActivity : AppCompatActivity() {
         }
         imageSlider.setImageList(imageList)
 
-        tvPropertyNameTop.text = listing.property
         tvListingTitle.text = listing.title
         tvStudioType.isVisible = listing.isStudioType
         tvSqm.text = "${listing.area} sqm"
@@ -153,31 +177,116 @@ class ListingActivity : AppCompatActivity() {
         tvOwner.text = "Temp owner"
         tvDateJoined.text = "Joined Temp 2022"
         tvDescription.text = listing.description
-        user = getUser(listing.ownerId.toString())
-        tvOwner.text = "${user.firstname} ${user.lastname}"
-        tvDateJoined.text = "Joined in ${formatDateJoined(user.dateAccountCreated)}"
+
+        getUserFromFirestore(listing.ownerId) { user ->
+            if (user != null) {
+                tvOwner.text = "${user.firstname} ${user.lastname}"
+                tvDateJoined.text = "Joined in ${formatDateJoined(user.dateAccountCreated)}"
+                Picasso.get().load(user.pfp).into(ivUserPfp)
+            }
+        }
+
         tvPrice.text = listing.price.formatPrice()
 
-        property = getProperty(listing.propertyId)
         setupRecyclerView()
-        addAmenitiesToGridLayout(this, glAmenities, property)
+
     }
+
+    private fun getUserFromFirestore(userId: String, onUserReceived: (User?) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val usersCollection = db.collection("users")
+
+        val userDocumentRef: DocumentReference = usersCollection.document(userId)
+
+        userDocumentRef.get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val document: DocumentSnapshot? = task.result
+
+                    if (document != null && document.exists()) {
+                        val user = document.toObject(User::class.java)
+                        onUserReceived(user)
+                    } else {
+                        onUserReceived(null)
+                    }
+                } else {
+                    val exception: Exception? = task.exception
+                    onUserReceived(null)
+                }
+            }
+    }
+
+    private fun getPropertyFromFirestore(propertyId: String, onPropertyReceived: (Property?) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val propertiesCollection = db.collection("properties")
+
+        val propertyDocumentRef: DocumentReference = propertiesCollection.document(propertyId)
+
+        propertyDocumentRef.get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val document: DocumentSnapshot? = task.result
+
+                    if (document != null && document.exists()) {
+                        val property = document.toObject(Property::class.java)
+                        onPropertyReceived(property)
+                    } else {
+                        onPropertyReceived(null)
+                    }
+                    Log.d("listingactivity", "property found")
+                } else {
+                    val exception: Exception? = task.exception
+                    onPropertyReceived(null)
+                    Log.d("listingactivity", "property not found")
+                }
+            }
+    }
+
+    private fun getSimilarListings(listing: Listing, onListingsReceived: (List<Listing>) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val listingsRef = db.collection("listings")
+
+        listingsRef.whereEqualTo("propertyId", listing.propertyId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val similarListings = mutableListOf<Listing>()
+
+                for (document in querySnapshot.documents) {
+                    if (document.id != listing.id) {
+                        val listingData = document.toObject(Listing::class.java)
+                        if (listingData != null) {
+                            similarListings.add(listingData)
+                        }
+                    }
+                }
+
+                onListingsReceived(similarListings)
+            }
+            .addOnFailureListener { e ->
+                onListingsReceived(emptyList())
+            }
+    }
+
 
     private fun setupRecyclerView(){
         rvSimilarListings.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvSimilarListings.layoutManager = layoutManager
 
-        similarListings = getSimilarListings(8, property.listingIds, listing.id)
 
-        featuredListingAdapter = FeaturedListingAdapter(similarListings)
-        rvSimilarListings.adapter = featuredListingAdapter
+        getSimilarListings(listing) { similarListings ->
+            if (similarListings != null) {
+                featuredListingAdapter = FeaturedListingAdapter(similarListings as ArrayList<Listing>)
+                rvSimilarListings.adapter = featuredListingAdapter
 
-        featuredListingAdapter.onItemClick = {
-            val intent = Intent(this, ListingActivity::class.java)
-            intent.putExtra("listing", it)
-            startActivity(intent)
+                featuredListingAdapter.onItemClick = {
+                    val intent = Intent(this, ListingActivity::class.java)
+                    intent.putExtra("listing", it)
+                    startActivity(intent)
+                }
+            }
         }
+
     }
 
     fun addAmenitiesToGridLayout(context: Context, gridLayout: GridLayout, property: Property) {

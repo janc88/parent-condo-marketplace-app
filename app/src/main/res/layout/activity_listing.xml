@@ -318,6 +318,7 @@
                                     android:layout_height="wrap_content"
                                     app:cardCornerRadius="20dp">
                                     <ImageView
+                                        android:id="@+id/ivUserPfp"
                                         android:layout_width="40dp"
                                         android:layout_height="40dp"
                                         android:src="@drawable/bed"
@@ -447,6 +448,7 @@
                             app:cardCornerRadius="12dp"
                             app:cardElevation="0dp">
                             <ImageView
+                                android:id="@+id/ivPropertyImg"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:src="@drawable/bed"
