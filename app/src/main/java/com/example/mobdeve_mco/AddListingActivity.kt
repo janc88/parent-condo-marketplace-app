@@ -184,7 +184,9 @@ class AddListingActivity : AppCompatActivity() {
                                             // Commit the batch update
                                             batch.commit()
                                                 .addOnSuccessListener {
-                                                    Toast.makeText(this, "Property references updated successfully", Toast.LENGTH_SHORT).show()
+                                                    clearSharedPreferences()
+
+                                                    Toast.makeText(this, "Listing created successfully", Toast.LENGTH_SHORT).show()
                                                 }
                                                 .addOnFailureListener { e ->
                                                     // Handle the batch update failure
