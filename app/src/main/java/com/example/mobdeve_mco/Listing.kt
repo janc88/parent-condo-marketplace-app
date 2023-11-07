@@ -4,23 +4,23 @@ import android.os.Parcel
 import android.os.Parcelable
 
 data class Listing(
-        val id: String = "",
-        var imageList: ArrayList<String> = ArrayList(),
-        val title: String = "",
-        val price: Int = 0,
-        val property: String = "",
-        val propertyId: String = "",
-        val university: String = "",
-        val area: Double = 0.0,
-        val isFurnished: Boolean = false,
-        val isStudioType: Boolean = false,
-        val numBedroom: Int = 0,
-        val numBathroom: Int = 0,
-        val floor: Int = 0,
-        val balcony: Boolean = false,
-        val ownerId: String = "",
-        val description: String = "",
-        val isRented: Boolean = false
+    var id: String = "",
+    var imageList: ArrayList<String> = ArrayList(),
+    val title: String = "",
+    val price: Int = 0,
+    val property: String = "",
+    val propertyId: String = "",
+    val university: String = "",
+    val area: Double = 0.0,
+    val isFurnished: Boolean = false,
+    val isStudioType: Boolean = false,
+    val numBedroom: Int = 0,
+    val numBathroom: Int = 0,
+    val floor: Int = 0,
+    val balcony: Boolean = false,
+    val ownerId: String = "",
+    val description: String = "",
+    val isRented: Boolean = false
 ): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString()!!,

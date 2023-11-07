@@ -26,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.UploadTask
+import java.util.Date
+import java.util.UUID
 
 
 class AddListingActivity : AppCompatActivity() {
@@ -107,104 +109,122 @@ class AddListingActivity : AppCompatActivity() {
         val imagePreferencesManager = ImagePreferencesManager(this)
         val imageUris: List<Uri> = imagePreferencesManager.getImages()
 
-        // Assuming you're using Firebase Authentication
         val firebaseAuth = FirebaseAuth.getInstance()
         val currentUser = firebaseAuth.currentUser
 
-            if (currentUser != null) {
-                val ownerUid = currentUser.uid // This is the UID of the current logged-in user
-                val newListing = Listing(
-                    imageList = ArrayList(),
-                    title = title,
-                    price = price.toInt(),
-                    property = "",
-                    propertyId = propertyId.toString(),
-                    university = university,
-                    area = area.toDouble(),
-                    isFurnished = isFurnished,
-                    isStudioType = isStudioType,
-                    numBedroom = numBedroom,
-                    numBathroom = numBathroom,
-                    floor = floor,
-                    balcony = balcony,
-                    ownerId = ownerUid,
-                    description = description,
-                    isRented = false
-                )
+        if (currentUser != null) {
+            val ownerUid = currentUser.uid // This is the UID of the current logged-in user
+            val newListing = Listing(
+                imageList = ArrayList(),
+                title = title,
+                price = price.toInt(),
+                property = "",
+                propertyId = propertyId.toString(),
+                university = university,
+                area = area.toDouble(),
+                isFurnished = isFurnished,
+                isStudioType = isStudioType,
+                numBedroom = numBedroom,
+                numBathroom = numBathroom,
+                floor = floor,
+                balcony = balcony,
+                ownerId = ownerUid,
+                description = description,
+                isRented = false
+            )
 
-                val imageUploadTasks = uploadImagesToFirebaseStorage(imageUris)
+            val imageUploadTasks = uploadImagesToFirebaseStorage(imageUris)
 
-                Tasks.whenAllComplete(imageUploadTasks)
-                    .addOnSuccessListener { _ ->
-                        getImageDownloadURLs(imageUploadTasks)
-                            .addOnSuccessListener { downloadUrls ->
-                                val imageUrls = downloadUrls.map { it.toString() }
-                                newListing.imageList = ArrayList(imageUrls)
+            Tasks.whenAllComplete(imageUploadTasks)
+                .addOnSuccessListener { _ ->
+                    getImageDownloadURLs(imageUploadTasks)
+                        .addOnSuccessListener { downloadUrls ->
+                            val imageUrls = downloadUrls.map { it.toString() }
+                            newListing.imageList = ArrayList(imageUrls)
 
-                                val db = FirebaseFirestore.getInstance()
-                                val listingsRef = db.collection("listings")
+                            val db = FirebaseFirestore.getInstance()
+                            val listingsRef = db.collection("listings")
 
-                                listingsRef.add(newListing)
-                                    .addOnSuccessListener { documentReference ->
-                                        val documentId = documentReference.id
-                                        Toast.makeText(this, "Listing created successfully", Toast.LENGTH_SHORT).show()
+                            listingsRef.add(newListing)
+                                .addOnSuccessListener { documentReference ->
+                                    val documentId = documentReference.id
+                                    newListing.id = documentId
 
-                                        // Update the properties collection
-                                        val propertiesRef = db.collection("properties")
-                                        val query = propertiesRef.whereEqualTo("id", propertyId)
+                                    // Update the properties collection
+                                    val propertiesRef = db.collection("properties")
+                                    val query = propertiesRef.whereEqualTo("id", propertyId)
 
-                                        query.get()
-                                            .addOnSuccessListener { querySnapshot ->
-                                                val batch = db.batch()
-                                                for (document in querySnapshot.documents) {
-                                                    // Update the listingIds field with the new listingId
-                                                    val listingIds = document.get("listingIds") as MutableList<String>? ?: mutableListOf()
-                                                    listingIds.add(documentId)
-                                                    batch.update(document.reference, "listingIds", listingIds)
+                                    query.get()
+                                        .addOnSuccessListener { querySnapshot ->
+                                            val batch = db.batch()
+                                            for (document in querySnapshot.documents) {
+                                                // Update the listingIds field with the new listingId
+                                                val listingIds = document.get("listingIds") as MutableList<String>? ?: mutableListOf()
+                                                listingIds.add(documentId)
+                                                batch.update(document.reference, "listingIds", listingIds)
+
+                                                // Increment the numListings field by 1
+                                                val currentNumListings = document.getLong("numListings") ?: 0
+                                                batch.update(document.reference, "numListings", currentNumListings + 1)
+
+                                                val currentHighestPrice = document.getLong("highestPrice") ?: 0
+                                                val currentLowestPrice = document.getLong("lowestPrice") ?: 0
+
+                                                val newListingPrice = newListing.price.toLong()
+
+                                                if (newListingPrice > currentHighestPrice) {
+                                                    batch.update(document.reference, "highestPrice", newListingPrice)
                                                 }
 
-                                                // Commit the batch update
-                                                batch.commit()
-                                                    .addOnSuccessListener {
-                                                        Toast.makeText(this, "Property references updated successfully", Toast.LENGTH_SHORT).show()
-                                                    }
-                                                    .addOnFailureListener { e ->
-                                                        // Handle the batch update failure
-                                                        Toast.makeText(this, "Error updating property references: ${e.message}", Toast.LENGTH_SHORT).show()
-                                                    }
+                                                if (newListingPrice < currentLowestPrice || currentLowestPrice.toInt() == 0) {
+                                                    batch.update(document.reference, "lowestPrice", newListingPrice)
+                                                }
                                             }
-                                            .addOnFailureListener { e ->
-                                                // Handle the Firestore query failure
-                                                Toast.makeText(this, "Error querying properties: ${e.message}", Toast.LENGTH_SHORT).show()
-                                            }
-                                    }
-                                    .addOnFailureListener { e ->
-                                        // Handle the Firestore write failure
-                                        Toast.makeText(this, "Error creating listing: ${e.message}", Toast.LENGTH_SHORT).show()
-                                    }
-                            }
-                            .addOnFailureListener { e ->
-                                // Handle the image URL retrieval failure
-                                Toast.makeText(this, "Error retrieving image URLs: ${e.message}", Toast.LENGTH_SHORT).show()
-                            }
-                    }
-                    .addOnFailureListener { e ->
-                        // Handle the image upload failure
-                        Toast.makeText(this, "Error uploading images: ${e.message}", Toast.LENGTH_SHORT).show()
-                    }
-            } else {
-                // Handle the case where no user is logged in
-            }
 
+                                            // Commit the batch update
+                                            batch.commit()
+                                                .addOnSuccessListener {
+                                                    Toast.makeText(this, "Property references updated successfully", Toast.LENGTH_SHORT).show()
+                                                }
+                                                .addOnFailureListener { e ->
+                                                    // Handle the batch update failure
+                                                    Toast.makeText(this, "Error updating property references: ${e.message}", Toast.LENGTH_SHORT).show()
+                                                }
+                                        }
+                                        .addOnFailureListener { e ->
+                                            // Handle the Firestore query failure
+                                            Toast.makeText(this, "Error querying properties: ${e.message}", Toast.LENGTH_SHORT).show()
+                                        }
+                                }
+                                .addOnFailureListener { e ->
+                                    // Handle the Firestore write failure
+                                    Toast.makeText(this, "Error creating listing: ${e.message}", Toast.LENGTH_SHORT).show()
+                                }
 
+                        }
+                        .addOnFailureListener { e ->
+                            // Handle the image URL retrieval failure
+                            Toast.makeText(this, "Error retrieving image URLs: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
+                }
+                .addOnFailureListener { e ->
+                    // Handle the image upload failure
+                    Toast.makeText(this, "Error uploading images: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            // Handle the case where no user is logged in
         }
+
+
+    }
 
     private fun uploadImagesToFirebaseStorage(imageUris: List<Uri>): List<Task<UploadTask.TaskSnapshot>> {
         val storageRef = FirebaseStorage.getInstance().reference
         val imageUploadTasks = ArrayList<Task<UploadTask.TaskSnapshot>>()
 
         for ((index, uri) in imageUris.withIndex()) {
-            val imageRef = storageRef.child("images/listing_$index.jpg")
+            val id = UUID.randomUUID().toString()
+            val imageRef = storageRef.child("images/$id.jpg")
             val uploadTask = imageRef.putFile(uri)
 
             imageUploadTasks.add(uploadTask)
