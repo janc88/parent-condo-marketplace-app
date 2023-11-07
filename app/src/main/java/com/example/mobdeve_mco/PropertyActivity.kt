@@ -110,7 +110,7 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
         getRandomListingsFromFirestore(property.id, 5){listings ->
             if(listings != null){
-                featuredListingAdapter = FeaturedListingAdapter(listings as ArrayList<Listing>)
+                featuredListingAdapter = FeaturedListingAdapter(ArrayList(listings))
                 rvFeaturedListings.adapter = featuredListingAdapter
 
                 featuredListingAdapter.onItemClick = {
@@ -120,7 +120,6 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
-
 
 
         if (property.listingIds.isNullOrEmpty()) {
@@ -298,7 +297,6 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun getRandomListingsFromFirestore(propertyId: String, num: Int, onListingsReceived: (List<Listing>) -> Unit) {
-        val listings = mutableListOf<Listing>()
         val db = Firebase.firestore
         val listingsRef = db.collection("listings")
 
