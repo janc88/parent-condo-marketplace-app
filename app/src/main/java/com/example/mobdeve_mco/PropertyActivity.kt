@@ -109,13 +109,15 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         rvFeaturedListings.layoutManager = layoutManager
 
         getRandomListingsFromFirestore(property.id, 5){listings ->
-            featuredListingAdapter = FeaturedListingAdapter(listings as ArrayList<Listing>)
-            rvFeaturedListings.adapter = featuredListingAdapter
+            if(listings != null){
+                featuredListingAdapter = FeaturedListingAdapter(listings as ArrayList<Listing>)
+                rvFeaturedListings.adapter = featuredListingAdapter
 
-            featuredListingAdapter.onItemClick = {
-                val intent = Intent(this, ListingActivity::class.java)
-                intent.putExtra("listing", it)
-                startActivity(intent)
+                featuredListingAdapter.onItemClick = {
+                    val intent = Intent(this, ListingActivity::class.java)
+                    intent.putExtra("listing", it)
+                    startActivity(intent)
+                }
             }
         }
 
