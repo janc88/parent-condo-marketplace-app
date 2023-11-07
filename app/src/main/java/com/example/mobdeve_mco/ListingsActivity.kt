@@ -11,12 +11,16 @@ import androidx.appcompat.widget.SearchView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 class ListingsActivity : AppCompatActivity() {
 
     private var listingIds: ArrayList<String> = ArrayList()
     private lateinit var propertyName: String
+    private lateinit var propertyId: String
+
 
     private var listings = ArrayList<Listing>()
 
@@ -30,27 +34,31 @@ class ListingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listings)
 
-        listingIds = intent.getStringArrayExtra("listingIds")?.toCollection(ArrayList()) ?: ArrayList()
-        propertyName = intent.getStringExtra("propertyName")!!
 
-        listings = intent.getParcelableArrayListExtra<Listing>("listings")!!
+        propertyName = intent.getStringExtra("propertyName")!!
+        propertyId = intent.getStringExtra("propertyId")!!
+
+
+        getListingsFromFirestore(propertyId){listings ->
+            rvSearchResults.setHasFixedSize(true)
+            rvSearchResults.layoutManager = LinearLayoutManager(this)
+
+            listingAdapter = ListingAdapter(ArrayList(listings))
+            rvSearchResults.adapter = listingAdapter
+
+            listingAdapter.onItemClick = {
+                val intent = Intent(this, ListingActivity::class.java)
+                intent.putExtra("listing", it)
+                startActivity(intent)
+            }
+        }
+
 
         tvPropertyName = findViewById(R.id.tvPropertyName)
         tvPropertyName.text = propertyName
 
         rvSearchResults= findViewById(R.id.rvSearchResults)
 
-        rvSearchResults.setHasFixedSize(true)
-        rvSearchResults.layoutManager = LinearLayoutManager(this)
-
-        listingAdapter = ListingAdapter(listings)
-        rvSearchResults.adapter = listingAdapter
-
-        listingAdapter.onItemClick = {
-            val intent = Intent(this, ListingActivity::class.java)
-            intent.putExtra("listing", it)
-            startActivity(intent)
-        }
 
         btnBack = findViewById(R.id.btnBack)
         btnBack.setOnClickListener{
@@ -58,6 +66,31 @@ class ListingsActivity : AppCompatActivity() {
         }
 
     }
+
+    private fun getListingsFromFirestore(propertyId: String, onListingsReceived: (List<Listing>) -> Unit) {
+        val db = Firebase.firestore
+        val listingsRef = db.collection("listings")
+
+        listingsRef
+            .whereEqualTo("propertyId", propertyId)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val matchingListings = mutableListOf<Listing>()
+
+                for (document in querySnapshot.documents) {
+                    val listingData = document.toObject(Listing::class.java)
+                    if (listingData != null) {
+                        matchingListings.add(listingData)
+                    }
+                }
+
+                onListingsReceived(matchingListings)
+            }
+            .addOnFailureListener { e ->
+                onListingsReceived(emptyList())
+            }
+    }
+
 
 
 }

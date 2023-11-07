@@ -259,41 +259,11 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         val intent = Intent(this, ListingsActivity::class.java)
 
         if (property != null) {
-            intent.putExtra("listingIds", property.listingIds.toTypedArray())
             intent.putExtra("propertyName", property.name)
-
-            GlobalScope.launch(Dispatchers.Main) {
-                val listings = getListingsFromFirestore(property.listingIds)
-                intent.putParcelableArrayListExtra("listings", listings)
-                startActivity(intent)
-            }
+            intent.putExtra("propertyId", property.id)
+            startActivity(intent)
         }
 
-    }
-
-    private suspend fun getListingsFromFirestore(uids: ArrayList<String>): ArrayList<Listing> = runBlocking {
-        val listings = mutableListOf<Listing>()
-        val db = Firebase.firestore
-        val listingsRef = db.collection("listings")
-
-        for (uid in uids) {
-            val documentRef = listingsRef.document(uid)
-
-            try {
-                val documentSnapshot = documentRef.get().await()
-                if (documentSnapshot.exists()) {
-                    val listing = documentSnapshot.toObject(Listing::class.java)
-                    if (listing != null) {
-                        listings.add(listing)
-                    }
-                }
-            } catch (e: Exception) {
-                // Handle any exceptions
-                // You can log or handle errors here
-            }
-        }
-
-        return@runBlocking ArrayList(listings)
     }
 
     private fun getRandomListingsFromFirestore(propertyId: String, num: Int, onListingsReceived: (List<Listing>) -> Unit) {
