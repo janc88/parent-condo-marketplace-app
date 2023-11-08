@@ -51,6 +51,31 @@ class FirebaseHelper {
             }
     }
 
+    fun toggleRentedStatus(listingId: String, onComplete: (Boolean?) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val listingsCollection = db.collection("listings")
+
+        val listingRef: DocumentReference = listingsCollection.document(listingId)
+
+        listingRef.get().addOnSuccessListener { listingSnapshot ->
+            if (listingSnapshot.exists()) {
+                val currentRentedStatus = listingSnapshot.getBoolean("rented") ?: false
+                val updatedRentedStatus = !currentRentedStatus
+
+                // Update the 'rented' field in the listing document
+                listingRef.update("rented", updatedRentedStatus)
+                    .addOnSuccessListener {
+                        onComplete(updatedRentedStatus) // Return the new 'rented' status
+                    }
+                    .addOnFailureListener { e ->
+                        onComplete(null) // Update failed, return null
+                    }
+            } else {
+                onComplete(null) // Listing not found, return null
+            }
+        }
+    }
+
     // Add more Firestore operations as needed
 
     // Singleton pattern for FirebaseHelper

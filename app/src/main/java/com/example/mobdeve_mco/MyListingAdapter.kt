@@ -13,6 +13,8 @@ import com.squareup.picasso.Picasso
 
 class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<MyListingAdapter.ListingViewHolder>(){
 
+    private val firebaseHelper = FirebaseHelper.getInstance()
+
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
 
         val ivImage : ImageView = itemView.findViewById(R.id.ivImage)
@@ -48,10 +50,14 @@ class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ad
 
     override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
         val listing = listings[position]
+        holder.tvIsRented.isVisible = listing.rented
 
-        if(!listing.rented){
-            holder.tvIsRented.isVisible = false
+        if(listing.rented){
+            holder.btnMarkAsRented.text = "Mark as available"
+        } else{
+            holder.btnMarkAsRented.text = "Mark as rented"
         }
+
         val imageUrl = listing.imageList[0]
         Picasso.get().load(imageUrl).resize(500,500).centerCrop().into(holder.ivImage)
 
@@ -63,7 +69,16 @@ class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ad
         holder.tvFloor.text = formatFloor(listing.floor)
 
         holder.btnMarkAsRented.setOnClickListener{
-
+            firebaseHelper.toggleRentedStatus(listing.id){rented ->
+                if(rented != null){
+                    holder.tvIsRented.isVisible = rented
+                    if(rented){
+                        holder.btnMarkAsRented.text = "Mark as available"
+                    } else{
+                        holder.btnMarkAsRented.text = "Mark as rented"
+                    }
+                }
+            }
         }
 
         holder.ivImage.setOnClickListener{
