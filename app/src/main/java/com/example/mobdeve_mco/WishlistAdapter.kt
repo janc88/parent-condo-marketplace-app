@@ -54,6 +54,16 @@ class WishlistAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ada
     override fun onBindViewHolder(holder: ListingViewHolder, position: Int) {
         val listing = listings[position]
 
+        val likesHelper = LikesHelper()
+
+        likesHelper.isListingLiked(listing.id) { isLiked ->
+            if (isLiked) {
+                holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_liked)
+            } else {
+                holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_unliked)
+            }
+        }
+
         val imageList = ArrayList<SlideModel>()
 
         for(image in listing.imageList){
@@ -79,12 +89,14 @@ class WishlistAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ada
         })
 
         holder.btnHeartBorder.setOnClickListener{
-            if (isLiked) {
-                holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_unliked)
-            } else {
-                holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_liked)
+            likesHelper.handleLikeButtonClick(listing.id){
+                if (isLiked) {
+                    holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_unliked)
+                } else {
+                    holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_liked)
+                }
+                isLiked = !isLiked
             }
-            isLiked = !isLiked
         }
 
 

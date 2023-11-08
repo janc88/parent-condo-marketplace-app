@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mc.GridSpacingItemDecoration
 import com.example.mobdeve_mco.databinding.FragmentWishlistBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 
 class WishlistFragment : Fragment() {
     private var _binding: FragmentWishlistBinding? = null
@@ -32,22 +35,73 @@ class WishlistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         rvWishlist = view.findViewById(R.id.rvWishlist)
 
-        rvWishlist.setHasFixedSize(true)
-        rvWishlist.layoutManager = LinearLayoutManager(this.activity)
+        getWishlistFromFirestore(){ listings ->
 
-        val wishlistAdapter = WishlistAdapter(DummyData.listingList)
-        rvWishlist.adapter = wishlistAdapter
+//            if(listings.isEmpty()) {
+                rvWishlist.setHasFixedSize(true)
+                rvWishlist.layoutManager = LinearLayoutManager(this.activity)
 
-        wishlistAdapter.onItemClick = {
-            val intent = Intent(this.activity, ListingActivity::class.java)
-            intent.putExtra("listing", it)
-            startActivity(intent)
+                val wishlistAdapter = WishlistAdapter(listings)
+                rvWishlist.adapter = wishlistAdapter
+
+                wishlistAdapter.onItemClick = {
+                    val intent = Intent(this.activity, ListingActivity::class.java)
+                    intent.putExtra("listing", it)
+                    startActivity(intent)
+                }
+//            }
+
         }
 
 
+
+    }
+
+    fun getWishlistFromFirestore(onComplete: (ArrayList<Listing>) -> Unit) {
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val db = FirebaseFirestore.getInstance()
+
+        if (currentUser != null) {
+            val userId = currentUser.uid
+            val userRef: DocumentReference = db.collection("users").document(userId)
+
+            userRef.get().addOnSuccessListener { userSnapshot ->
+                if (userSnapshot.exists()) {
+                    val likes = userSnapshot.data?.get("likes") as? ArrayList<String>
+                    if (likes != null && likes.isNotEmpty()) {
+                        val listingsCollection = db.collection("listings")
+                        val likedListings = ArrayList<Listing>()
+
+                        // Fetch listings with matching IDs
+                        listingsCollection.whereIn("id", likes)
+                            .get()
+                            .addOnSuccessListener { querySnapshot ->
+                                for (document in querySnapshot.documents) {
+                                    val listing = document.toObject(Listing::class.java)
+                                    if (listing != null) {
+                                        likedListings.add(listing)
+                                    }
+                                }
+
+                                onComplete(likedListings)
+                            }
+                            .addOnFailureListener { exception ->
+                                onComplete(ArrayList()) // Handle errors
+                            }
+                    } else {
+                        onComplete(ArrayList()) // No liked listings
+                    }
+                } else {
+                    onComplete(ArrayList()) // User document doesn't exist
+                }
+            }.addOnFailureListener { e ->
+                onComplete(ArrayList()) // Handle any errors that may occur
+            }
+        } else {
+            onComplete(ArrayList()) // User is not logged in
+        }
     }
 
     override fun onDestroyView() {
