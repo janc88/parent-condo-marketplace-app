@@ -64,6 +64,8 @@ class ListingActivity : AppCompatActivity() {
     private lateinit var featuredListingAdapter: FeaturedListingAdapter
     private var isLiked = false
 
+    private lateinit var likesHelper: LikesHelper
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_listing)
@@ -107,7 +109,9 @@ class ListingActivity : AppCompatActivity() {
     }
 
     private fun init(){
-        isListingLiked(listing.id) { isLiked ->
+        likesHelper = LikesHelper()
+
+        likesHelper.isListingLiked(listing.id) { isLiked ->
             if (!isLiked) {
                 btnHeart.setImageResource(R.drawable.ic_heart)
                 Log.d("likes", "liked")
@@ -137,7 +141,7 @@ class ListingActivity : AppCompatActivity() {
         }
 
         cvHeart.setOnClickListener{
-            handleLikeButtonClick(listing.id){
+            likesHelper.handleLikeButtonClick(listing.id){
                 if (isLiked) {
                     btnHeart.setImageResource(R.drawable.ic_heart)
                 } else {
@@ -203,83 +207,6 @@ class ListingActivity : AppCompatActivity() {
 
     }
 
-
-
-    fun isListingLiked(listingId: String, onResult: (Boolean) -> Unit) {
-        val db = FirebaseFirestore.getInstance()
-        val auth = FirebaseAuth.getInstance()
-
-        val currentUser = auth.currentUser
-
-        if (currentUser != null) {
-            val userId = currentUser.uid
-            val userRef: DocumentReference = db.collection("users").document(userId)
-
-            userRef.get().addOnSuccessListener { userSnapshot ->
-                if (userSnapshot.exists()) {
-                    val likes = userSnapshot.data?.get("likes") as? List<String> ?: emptyList()
-                    val isLiked = likes.contains(listingId)
-                    onResult(isLiked)
-                } else {
-                    // The user document doesn't exist or has no likes
-                    onResult(false)
-                }
-            }.addOnFailureListener { e ->
-                // Handle any errors that may occur
-                // You can display an error message or perform other error handling here.
-                onResult(false)
-            }
-        } else {
-            // The user is not logged in, so they cannot like or unlike listings
-            onResult(false)
-        }
-    }
-
-
-    fun handleLikeButtonClick(listingId: String, onSuccess: () -> Unit) {
-        val db = FirebaseFirestore.getInstance()
-        val auth = FirebaseAuth.getInstance()
-
-        val currentUser = auth.currentUser
-
-        if (currentUser != null) {
-            val userId = currentUser.uid
-            val userRef: DocumentReference = db.collection("users").document(userId)
-
-            userRef.get().addOnSuccessListener { userSnapshot ->
-                if (userSnapshot.exists()) {
-                    val likes = userSnapshot.data?.get("likes") as? List<String> ?: emptyList()
-
-                    if (likes.contains(listingId)) {
-                        // The item is already liked, so remove it from the list
-                        userRef.update("likes", FieldValue.arrayRemove(listingId))
-                            .addOnSuccessListener {
-                                // Unlike button click was successful
-                                onSuccess()
-                            }
-                            .addOnFailureListener { e ->
-                                // Handle any errors that may occur
-                                // You can display an error message or perform other error handling here.
-                            }
-                    } else {
-                        // The item is not liked, so add it to the list
-                        userRef.update("likes", FieldValue.arrayUnion(listingId))
-                            .addOnSuccessListener {
-                                // Like button click was successful
-                                onSuccess()
-                            }
-                            .addOnFailureListener { e ->
-                                // Handle any errors that may occur
-                                // You can display an error message or perform other error handling here.
-                            }
-                    }
-                }
-            }
-        } else {
-            // The user is not logged in. Handle the case where the user is not authenticated.
-            // You can show a message or redirect them to the login screen.
-        }
-    }
 
     private fun getUserFromFirestore(userId: String, onUserReceived: (User?) -> Unit) {
         val db = FirebaseFirestore.getInstance()
