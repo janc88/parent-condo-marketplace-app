@@ -48,22 +48,6 @@
                             android:src="@drawable/ic_back"/>
                     </androidx.cardview.widget.CardView>
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cvHeart"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="end"
-                        android:layout_marginRight="16dp"
-                        android:layout_marginTop="50dp"
-                        app:cardCornerRadius="16dp"
-                        app:cardElevation="2dp">
-                        <ImageView
-                            android:id="@+id/btnHeart"
-                            android:padding="5dp"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_heart"/>
-                    </androidx.cardview.widget.CardView>
 
                     <com.denzcoskun.imageslider.ImageSlider
                         android:id="@+id/imageSlider"

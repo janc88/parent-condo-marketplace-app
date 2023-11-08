@@ -10,5 +10,6 @@ data class User(
     val email: String = "",
     val dateAccountCreated: Date = Date(),
     val bio: String? = "",
-    val pfp: String? = ""
+    val pfp: String? = "",
+    val likes: ArrayList<String>? = ArrayList()
 )

@@ -65,8 +65,6 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var property: Property
 
     private lateinit var btnBack: CardView
-    private lateinit var cvHeart: CardView
-    private lateinit var btnHeart: ImageView
 
     private var longitude: Double? = null
     private var latitude: Double? = null
@@ -74,8 +72,6 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var rvFeaturedListings: RecyclerView
     private lateinit var featuredListingAdapter: FeaturedListingAdapter
 
-
-    private var isLiked = false
     private var isExpanded = false
 
     override fun onMapReady(map: GoogleMap) {
@@ -181,22 +177,11 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         tvAddress = findViewById(R.id.tvListingTitle)
         tvNoFound = findViewById(R.id.tvNoFound)
         btnBack = findViewById(R.id.btnBack)
-        cvHeart = findViewById(R.id.cvHeart)
-        btnHeart = findViewById(R.id.btnHeart)
     }
 
     private fun init(){
         btnBack.setOnClickListener{
             onBackPressed()
-        }
-
-        cvHeart.setOnClickListener{
-            if (isLiked) {
-                btnHeart.setImageResource(R.drawable.ic_heart)
-            } else {
-                btnHeart.setImageResource(R.drawable.ic_heart_liked)
-            }
-            isLiked = !isLiked
         }
 
 
