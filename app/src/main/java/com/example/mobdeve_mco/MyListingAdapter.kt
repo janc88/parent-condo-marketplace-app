@@ -16,6 +16,7 @@ class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ad
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
 
         val ivImage : ImageView = itemView.findViewById(R.id.ivImage)
+        val tvPropertyName : TextView = itemView.findViewById(R.id.tvPropertyName)
         val tvPrice : TextView = itemView.findViewById(R.id.tvPrice)
         val tvNumBedroom : TextView = itemView.findViewById(R.id.tvNumBedroom)
         val tvNumBathroom : TextView = itemView.findViewById(R.id.tvNumBathroom)
@@ -52,7 +53,9 @@ class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ad
             holder.tvIsRented.isVisible = false
         }
         val imageUrl = listing.imageList[0]
-        Picasso.get().load(imageUrl).into(holder.ivImage)
+        Picasso.get().load(imageUrl).resize(500,500).centerCrop().into(holder.ivImage)
+
+        holder.tvPropertyName.text = listing.property
         holder.tvPrice.text = listing.price.formatPrice()
         holder.tvNumBedroom.text = listing.numBedroom.toString()
         holder.tvNumBathroom.text = listing.numBathroom.toString()

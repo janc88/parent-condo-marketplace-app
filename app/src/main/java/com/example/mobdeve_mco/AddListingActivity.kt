@@ -91,7 +91,8 @@ class AddListingActivity : AppCompatActivity() {
         val description = sharedPreferences.getString("description", "") ?: ""
         val price = sharedPreferences.getString("price", "") ?: ""
         val university = mapNumberToUniversity(sharedPreferences.getInt("university", -1))
-        val propertyId = sharedPreferences.getString("property", "")
+        val propertyId = sharedPreferences.getString("propertyId", "")
+        val propertyName = sharedPreferences.getString("propertyName", "")
         val area = sharedPreferences.getInt("floorArea", -1)
         val floor = sharedPreferences.getInt("floor", -1)
         val numBedroom = sharedPreferences.getInt("numBedroom", -1)
@@ -112,7 +113,7 @@ class AddListingActivity : AppCompatActivity() {
                 imageList = ArrayList(),
                 title = title,
                 price = price.toInt(),
-                property = "",
+                property = propertyName.toString(),
                 propertyId = propertyId.toString(),
                 university = university,
                 area = area.toDouble(),

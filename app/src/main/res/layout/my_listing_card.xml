@@ -80,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/cereal_bold"
                     android:textColor="@color/black"
+                    android:layout_marginBottom="3dp"
                     android:text="P25,000"/>
 
                 <LinearLayout
