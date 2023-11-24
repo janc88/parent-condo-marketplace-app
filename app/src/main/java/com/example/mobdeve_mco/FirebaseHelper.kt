@@ -92,6 +92,30 @@ class FirebaseHelper {
             }
     }
 
+    fun getAvailableListingsForProperty(propertyId: String, onListingsReceived: (List<Listing>) -> Unit) {
+        val listingsRef = db.collection("listings")
+
+        listingsRef
+            .whereEqualTo("propertyId", propertyId)
+            .whereEqualTo("rented", false)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val matchingListings = mutableListOf<Listing>()
+
+                for (document in querySnapshot.documents) {
+                    val listingData = document.toObject(Listing::class.java)
+                    if (listingData != null) {
+                        matchingListings.add(listingData)
+                    }
+                }
+
+                onListingsReceived(matchingListings)
+            }
+            .addOnFailureListener { e ->
+                onListingsReceived(emptyList())
+            }
+    }
+
     // Add more Firestore operations as needed
 
     // Singleton pattern for FirebaseHelper

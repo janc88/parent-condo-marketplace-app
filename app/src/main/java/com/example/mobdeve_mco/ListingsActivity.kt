@@ -29,6 +29,9 @@ class ListingsActivity : AppCompatActivity() {
     private lateinit var tvPropertyName: TextView
     private lateinit var btnBack: CardView
 
+    private val firebaseHelper = FirebaseHelper.getInstance()
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +42,7 @@ class ListingsActivity : AppCompatActivity() {
         propertyId = intent.getStringExtra("propertyId")!!
 
 
-        getListingsFromFirestore(propertyId){listings ->
+        firebaseHelper.getAvailableListingsForProperty(propertyId){listings ->
             rvSearchResults.setHasFixedSize(true)
             rvSearchResults.layoutManager = LinearLayoutManager(this)
 
@@ -67,29 +70,29 @@ class ListingsActivity : AppCompatActivity() {
 
     }
 
-    private fun getListingsFromFirestore(propertyId: String, onListingsReceived: (List<Listing>) -> Unit) {
-        val db = Firebase.firestore
-        val listingsRef = db.collection("listings")
-
-        listingsRef
-            .whereEqualTo("propertyId", propertyId)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                val matchingListings = mutableListOf<Listing>()
-
-                for (document in querySnapshot.documents) {
-                    val listingData = document.toObject(Listing::class.java)
-                    if (listingData != null) {
-                        matchingListings.add(listingData)
-                    }
-                }
-
-                onListingsReceived(matchingListings)
-            }
-            .addOnFailureListener { e ->
-                onListingsReceived(emptyList())
-            }
-    }
+//    private fun getListingsFromFirestore(propertyId: String, onListingsReceived: (List<Listing>) -> Unit) {
+//        val db = Firebase.firestore
+//        val listingsRef = db.collection("listings")
+//
+//        listingsRef
+//            .whereEqualTo("propertyId", propertyId)
+//            .get()
+//            .addOnSuccessListener { querySnapshot ->
+//                val matchingListings = mutableListOf<Listing>()
+//
+//                for (document in querySnapshot.documents) {
+//                    val listingData = document.toObject(Listing::class.java)
+//                    if (listingData != null) {
+//                        matchingListings.add(listingData)
+//                    }
+//                }
+//
+//                onListingsReceived(matchingListings)
+//            }
+//            .addOnFailureListener { e ->
+//                onListingsReceived(emptyList())
+//            }
+//    }
 
 
 
