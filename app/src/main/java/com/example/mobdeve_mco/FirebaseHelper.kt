@@ -116,6 +116,31 @@ class FirebaseHelper {
             }
     }
 
+    fun getSimilarAvailableListings(listing: Listing, onListingsReceived: (List<Listing>) -> Unit) {
+        val listingsRef = db.collection("listings")
+
+        listingsRef.whereEqualTo("propertyId", listing.propertyId)
+            .whereEqualTo("rented", false)
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val similarListings = mutableListOf<Listing>()
+
+                for (document in querySnapshot.documents) {
+                    if (document.id != listing.id) {
+                        val listingData = document.toObject(Listing::class.java)
+                        if (listingData != null) {
+                            similarListings.add(listingData)
+                        }
+                    }
+                }
+
+                onListingsReceived(similarListings)
+            }
+            .addOnFailureListener { e ->
+                onListingsReceived(emptyList())
+            }
+    }
+
     // Add more Firestore operations as needed
 
     // Singleton pattern for FirebaseHelper

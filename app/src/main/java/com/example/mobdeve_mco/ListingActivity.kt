@@ -65,6 +65,8 @@ class ListingActivity : AppCompatActivity() {
     private var isLiked = false
 
     private lateinit var likesHelper: LikesHelper
+    private val firebaseHelper = FirebaseHelper.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -258,30 +260,30 @@ class ListingActivity : AppCompatActivity() {
             }
     }
 
-    private fun getSimilarListings(listing: Listing, onListingsReceived: (List<Listing>) -> Unit) {
-        val db = FirebaseFirestore.getInstance()
-        val listingsRef = db.collection("listings")
-
-        listingsRef.whereEqualTo("propertyId", listing.propertyId)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                val similarListings = mutableListOf<Listing>()
-
-                for (document in querySnapshot.documents) {
-                    if (document.id != listing.id) {
-                        val listingData = document.toObject(Listing::class.java)
-                        if (listingData != null) {
-                            similarListings.add(listingData)
-                        }
-                    }
-                }
-
-                onListingsReceived(similarListings)
-            }
-            .addOnFailureListener { e ->
-                onListingsReceived(emptyList())
-            }
-    }
+//    private fun getSimilarListings(listing: Listing, onListingsReceived: (List<Listing>) -> Unit) {
+//        val db = FirebaseFirestore.getInstance()
+//        val listingsRef = db.collection("listings")
+//
+//        listingsRef.whereEqualTo("propertyId", listing.propertyId)
+//            .get()
+//            .addOnSuccessListener { querySnapshot ->
+//                val similarListings = mutableListOf<Listing>()
+//
+//                for (document in querySnapshot.documents) {
+//                    if (document.id != listing.id) {
+//                        val listingData = document.toObject(Listing::class.java)
+//                        if (listingData != null) {
+//                            similarListings.add(listingData)
+//                        }
+//                    }
+//                }
+//
+//                onListingsReceived(similarListings)
+//            }
+//            .addOnFailureListener { e ->
+//                onListingsReceived(emptyList())
+//            }
+//    }
 
 
     private fun setupRecyclerView(){
@@ -290,7 +292,7 @@ class ListingActivity : AppCompatActivity() {
         rvSimilarListings.layoutManager = layoutManager
 
 
-        getSimilarListings(listing) { similarListings ->
+        firebaseHelper.getSimilarAvailableListings(listing) { similarListings ->
             if (similarListings != null) {
                 featuredListingAdapter = FeaturedListingAdapter(similarListings as ArrayList<Listing>)
                 rvSimilarListings.adapter = featuredListingAdapter
