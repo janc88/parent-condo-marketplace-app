@@ -76,6 +76,22 @@ class FirebaseHelper {
         }
     }
 
+    fun getProperties(onComplete: (List<Property>) -> Unit) {
+        db.collection("properties")
+            .get()
+            .addOnSuccessListener { result ->
+                val properties = mutableListOf<Property>()
+                for (document in result) {
+                    val property = document.toObject(Property::class.java)
+                    properties.add(property)
+                }
+                onComplete(properties)
+            }
+            .addOnFailureListener { exception ->
+                onComplete(emptyList())
+            }
+    }
+
     // Add more Firestore operations as needed
 
     // Singleton pattern for FirebaseHelper

@@ -38,11 +38,10 @@ class ExploreFragment : Fragment() {
     private lateinit var btnUST : ToggleButton
     private lateinit var tvNoFound: TextView
 
-    private val db = FirebaseFirestore.getInstance()
-
-    private var properties : ArrayList<Property> = ArrayList()
-
     private var selectedUniversity: String? = null
+
+    private val firebaseHelper = FirebaseHelper.getInstance()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,19 +59,21 @@ class ExploreFragment : Fragment() {
         rvSearchResults= view.findViewById(R.id.rvSearchResults)
         svExplore = view.findViewById(R.id.svExplore)
 
-        propertyAdapter = PropertyAdapter(properties)
-        rvSearchResults.adapter = propertyAdapter
-
-        propertyAdapter.onItemClick = {
-            val intent = Intent(this.activity, PropertyActivity::class.java)
-            intent.putExtra("property", it)
-            startActivity(intent)
-        }
-
         rvSearchResults.setHasFixedSize(true)
         rvSearchResults.layoutManager = LinearLayoutManager(this.activity)
 
-        fetchPropertiesFromFirestore()
+        firebaseHelper.getProperties { properties ->
+            if(properties != null){
+                propertyAdapter = PropertyAdapter(properties as ArrayList<Property>)
+                rvSearchResults.adapter = propertyAdapter
+
+                propertyAdapter.onItemClick = {
+                    val intent = Intent(this.activity, PropertyActivity::class.java)
+                    intent.putExtra("property", it)
+                    startActivity(intent)
+                }
+            }
+        }
 
 
         svExplore.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
@@ -120,20 +121,20 @@ class ExploreFragment : Fragment() {
         }
     }
 
-    private fun fetchPropertiesFromFirestore(){
-        db.collection("properties")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    val property = document.toObject(Property::class.java)
-                    properties.add(property)
-                }
-                propertyAdapter.notifyDataSetChanged()
-            }
-            .addOnFailureListener { exception ->
-                Log.d("test", "fetching properties failed")
-            }
-    }
+//    private fun fetchPropertiesFromFirestore(){
+//        db.collection("properties")
+//            .get()
+//            .addOnSuccessListener { result ->
+//                for (document in result) {
+//                    val property = document.toObject(Property::class.java)
+//                    properties.add(property)
+//                }
+//                propertyAdapter.notifyDataSetChanged()
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.d("test", "fetching properties failed")
+//            }
+//    }
 
     private fun searchAndFilterList(query: String?) {
         val filteredList = ArrayList<Property>()
