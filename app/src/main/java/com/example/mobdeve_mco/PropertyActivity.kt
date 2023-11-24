@@ -72,7 +72,12 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var rvFeaturedListings: RecyclerView
     private lateinit var featuredListingAdapter: FeaturedListingAdapter
 
+    private val firebaseHelper = FirebaseHelper.getInstance()
+
     private var isExpanded = false
+
+    private val maxListingsToShow = 5
+
 
     override fun onMapReady(map: GoogleMap) {
         googleMap = map
@@ -105,9 +110,12 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         val layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         rvFeaturedListings.layoutManager = layoutManager
 
-        getRandomListingsFromFirestore(property.id, 5){listings ->
-            if(listings != null){
-                featuredListingAdapter = FeaturedListingAdapter(ArrayList(listings))
+        firebaseHelper.getAvailableListingsForProperty(property.id){listings ->
+            if (listings != null) {
+                val shuffledListings = listings.shuffled()
+                val selectedListings = shuffledListings.take(maxListingsToShow)
+
+                featuredListingAdapter = FeaturedListingAdapter(ArrayList(selectedListings))
                 featuredListingAdapter.setHasStableIds(true)
                 rvFeaturedListings.adapter = featuredListingAdapter
 
@@ -253,33 +261,33 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-    private fun getRandomListingsFromFirestore(propertyId: String, num: Int, onListingsReceived: (List<Listing>) -> Unit) {
-        val db = Firebase.firestore
-        val listingsRef = db.collection("listings")
-
-        listingsRef
-            .whereEqualTo("propertyId", propertyId)
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                val matchingListings = mutableListOf<Listing>()
-
-                for (document in querySnapshot.documents) {
-                    val listingData = document.toObject(Listing::class.java)
-                    if (listingData != null) {
-                        matchingListings.add(listingData)
-                    }
-                }
-
-                matchingListings.shuffle()
-
-                val randomListings = matchingListings.take(num)
-
-                onListingsReceived(randomListings)
-            }
-            .addOnFailureListener { e ->
-                onListingsReceived(emptyList())
-            }
-    }
+//    private fun getRandomListingsFromFirestore(propertyId: String, num: Int, onListingsReceived: (List<Listing>) -> Unit) {
+//        val db = Firebase.firestore
+//        val listingsRef = db.collection("listings")
+//
+//        listingsRef
+//            .whereEqualTo("propertyId", propertyId)
+//            .get()
+//            .addOnSuccessListener { querySnapshot ->
+//                val matchingListings = mutableListOf<Listing>()
+//
+//                for (document in querySnapshot.documents) {
+//                    val listingData = document.toObject(Listing::class.java)
+//                    if (listingData != null) {
+//                        matchingListings.add(listingData)
+//                    }
+//                }
+//
+//                matchingListings.shuffle()
+//
+//                val randomListings = matchingListings.take(num)
+//
+//                onListingsReceived(randomListings)
+//            }
+//            .addOnFailureListener { e ->
+//                onListingsReceived(emptyList())
+//            }
+//    }
 
 
 
