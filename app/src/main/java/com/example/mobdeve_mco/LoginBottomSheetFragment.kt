@@ -55,7 +55,7 @@ class LoginBottomSheetFragment : BottomSheetDialogFragment() {
         }
 
         btnClose.setOnClickListener{
-
+            dismiss()
         }
     }
 
