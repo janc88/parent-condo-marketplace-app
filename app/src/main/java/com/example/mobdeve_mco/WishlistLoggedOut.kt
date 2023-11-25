@@ -36,7 +36,10 @@ class WishlistLoggedOut : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnLogin = view.findViewById(R.id.btnLogIn)
-
+        btnLogin.setOnClickListener {
+            val bottomSheetFragment = LoginBottomSheetFragment()
+            bottomSheetFragment.show(requireActivity().supportFragmentManager, bottomSheetFragment.tag)
+        }
 
     }
 
