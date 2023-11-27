@@ -141,6 +141,37 @@ class FirebaseHelper {
             }
     }
 
+    fun getCurrentUserListings(onComplete: (ArrayList<Listing>) -> Unit) {
+        val currentUser = getCurrentUser()
+
+        if (currentUser != null) {
+            val userId = currentUser.uid
+            val listingsCollection = db.collection("listings")
+
+            // Query Firestore to get listings with matching ownerId (the current user's ID)
+            listingsCollection.whereEqualTo("ownerId", userId)
+                .get()
+                .addOnSuccessListener { querySnapshot ->
+                    val userListings = ArrayList<Listing>()
+
+                    for (document in querySnapshot.documents) {
+                        val listing = document.toObject(Listing::class.java)
+                        if (listing != null) {
+                            userListings.add(listing)
+                        }
+                    }
+
+                    onComplete(userListings)
+                }
+                .addOnFailureListener { exception ->
+                    onComplete(ArrayList()) // Handle errors
+                }
+        } else {
+            onComplete(ArrayList()) // User is not logged in
+        }
+    }
+
+
     // Add more Firestore operations as needed
 
     // Singleton pattern for FirebaseHelper

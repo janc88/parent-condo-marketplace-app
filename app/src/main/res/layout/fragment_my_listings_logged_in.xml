@@ -4,10 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_marginLeft="@dimen/frame_margin"
-    android:layout_marginRight="@dimen/frame_margin"
-    android:layout_marginTop="20dp"
-    tools:context=".WishlistLoggedIn">
+    tools:context=".MyListingsLoggedIn"
+    android:layout_margin="20dp">
 
     <LinearLayout
         android:id="@+id/label"
@@ -19,12 +17,12 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_heart_30"
+            android:src="@drawable/ic_home_30"
             android:layout_marginRight="8dp"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wishlist"
+            android:text="Your Listings"
             android:textColor="@color/black"
             android:textSize="26dp"
             android:fontFamily="@font/cereal_bold"/>
@@ -36,5 +34,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
+
 
 </LinearLayout>
