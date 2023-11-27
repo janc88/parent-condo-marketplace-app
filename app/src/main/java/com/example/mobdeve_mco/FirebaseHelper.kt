@@ -5,6 +5,10 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import android.net.Uri
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+
 
 class FirebaseHelper {
     private val auth = FirebaseAuth.getInstance()
@@ -220,6 +224,63 @@ class FirebaseHelper {
 
                 }
             }
+    }
+
+    fun updateProfile(
+        bio: String,
+        contactNum: String,
+        imageUri: Uri?,
+        onComplete: (Boolean) -> Unit
+    ) {
+        val currentUser = getCurrentUser()
+
+        if (currentUser != null) {
+            val storageReference = FirebaseStorage.getInstance().reference
+            val profilePictureRef: StorageReference =
+                storageReference.child("profile_pictures/${currentUser.uid}.jpg")
+
+            val userDocument = getUserDocument(currentUser.uid)
+
+            val dataToUpdate = mutableMapOf<String, Any>(
+                "bio" to bio,
+                "contactNum" to contactNum
+                // Add other fields you want to update here
+            )
+
+            if (imageUri != null) {
+                // Update the profile picture if imageUri is provided
+                profilePictureRef.putFile(imageUri)
+                    .addOnSuccessListener {
+                        profilePictureRef.downloadUrl.addOnSuccessListener { downloadUrl ->
+                            val downloadUrlString = downloadUrl.toString()
+                            dataToUpdate["pfp"] = downloadUrlString
+
+                            // Update the user document with the new data
+                            userDocument.update(dataToUpdate)
+                                .addOnSuccessListener {
+                                    onComplete(true)
+                                }
+                                .addOnFailureListener {
+                                    onComplete(false)
+                                }
+                        }
+                    }
+                    .addOnFailureListener {
+                        onComplete(false)
+                    }
+            } else {
+                // If no new image is provided, update other fields only
+                userDocument.update(dataToUpdate)
+                    .addOnSuccessListener {
+                        onComplete(true)
+                    }
+                    .addOnFailureListener {
+                        onComplete(false)
+                    }
+            }
+        } else {
+            onComplete(false) // User is not logged in
+        }
     }
 
 
