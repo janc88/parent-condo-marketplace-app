@@ -10,6 +10,9 @@ class AddListingStepsActivity : AppCompatActivity() {
 
     private lateinit var btnGetStarted : Button
     private lateinit var btnBack : ImageButton
+
+    private val firebaseHelper = FirebaseHelper.getInstance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_listing_steps)
@@ -18,8 +21,13 @@ class AddListingStepsActivity : AppCompatActivity() {
         btnBack = findViewById(R.id.btnBack)
 
         btnGetStarted.setOnClickListener{
-            val intent = Intent(this, AddListingActivity::class.java)
-            startActivity(intent)
+            if(firebaseHelper.isUserLoggedIn()){
+                val intent = Intent(this, AddListingActivity::class.java)
+                startActivity(intent)
+            }else{
+                val bottomSheetFragment = LoginBottomSheetFragment()
+                bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+            }
         }
 
         btnBack.setOnClickListener{

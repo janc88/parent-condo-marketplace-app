@@ -41,6 +41,14 @@
             android:layout_marginBottom="10dp"
             android:background="#20000000" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login to enjoy all the features in Parent"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:textSize="22dp"
+            android:fontFamily="@font/cereal_bold"/>
 
         <Button
             android:backgroundTint="@color/red"
@@ -49,7 +57,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/cereal_bold"
             android:text="Log In"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:textAllCaps="false"
             android:textSize="15dp"
             android:padding="12dp" />
