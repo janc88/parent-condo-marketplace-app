@@ -2,13 +2,16 @@ package com.example.mobdeve_mco
 
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
+import android.widget.Button
 import android.widget.GridLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
@@ -18,13 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FieldValue
-import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
-import java.lang.Exception
 
 
 class ListingActivity : AppCompatActivity() {
@@ -48,6 +45,10 @@ class ListingActivity : AppCompatActivity() {
     private lateinit var tvPrice : TextView
     private lateinit var ivUserPfp : ImageView
     private lateinit var ivPropertyImg : ImageView
+
+    private lateinit var btnCall : CardView
+    private lateinit var btnMessage : CardView
+    private lateinit var btnContact : Button
 
 
     private lateinit var tvStudioType : TextView
@@ -108,6 +109,9 @@ class ListingActivity : AppCompatActivity() {
         btnHeart = findViewById(R.id.btnHeart)
         ivUserPfp = findViewById(R.id.ivUserPfp)
         ivPropertyImg = findViewById(R.id.ivPropertyImg)
+        btnContact = findViewById(R.id.btnContact)
+        btnMessage = findViewById(R.id.btnMessage)
+        btnCall = findViewById(R.id.btnCall)
     }
 
     private fun init(){
@@ -122,7 +126,7 @@ class ListingActivity : AppCompatActivity() {
             }
         }
 
-        getPropertyFromFirestore(listing.propertyId) { property ->
+        firebaseHelper.getPropertyFromFirestore(listing.propertyId) { property ->
             if (property != null) {
                 tvPropertyNameTop.text = property.name
                 tvPropertyNameBottom.text = property.name
@@ -195,11 +199,49 @@ class ListingActivity : AppCompatActivity() {
         tvDateJoined.text = "Joined Temp 2022"
         tvDescription.text = listing.description
 
-        getUserFromFirestore(listing.ownerId) { user ->
+        firebaseHelper.getUserFromFirestore(listing.ownerId) { user ->
             if (user != null) {
                 tvOwner.text = "${user.firstname} ${user.lastname}"
                 tvDateJoined.text = "Joined in ${formatDateJoined(user.dateAccountCreated)}"
                 Picasso.get().load(user.pfp).into(ivUserPfp)
+
+
+                btnCall.setOnClickListener{
+                    if(user.contactNum != ""){
+                        val intent = Intent(Intent.ACTION_DIAL)
+                        intent.data = Uri.parse("tel:" + user.contactNum)
+                        startActivity(intent)
+                    }else{
+                        Toast.makeText(this, "This user has not provided a contact number.", Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+
+                btnMessage.setOnClickListener{
+//                    val smsIntent = Intent(Intent.ACTION_VIEW)
+//                    smsIntent.type = "vnd.android-dir/mms-sms"
+//                    smsIntent.putExtra("address", user.contactNum)
+//                    smsIntent.putExtra("sms_body", "Hi, I'm interested to know more about your unit in Parent.")
+//                    startActivity(smsIntent)
+                    if(user.contactNum != "") {
+                        val recipientNumber = user.contactNum
+                        val messageBody = "Hi, I'm interested to know more about your unit in Parent."
+
+                        val intent = Intent(Intent.ACTION_VIEW)
+                        intent.data = Uri.parse("smsto:$recipientNumber")
+                        intent.putExtra("sms_body", messageBody)
+                        startActivity(intent)
+                    }else{
+                        Toast.makeText(this, "This user has not provided a contact number.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                btnContact.setOnClickListener{
+                    val email = user.email
+                    val contactNum = user.contactNum
+                    val bottomSheetFragment = ContactBottomSheetFragment.newInstance(email, contactNum)
+                    bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
+                }
             }
         }
 
@@ -210,80 +252,6 @@ class ListingActivity : AppCompatActivity() {
     }
 
 
-    private fun getUserFromFirestore(userId: String, onUserReceived: (User?) -> Unit) {
-        val db = FirebaseFirestore.getInstance()
-        val usersCollection = db.collection("users")
-
-        val userDocumentRef: DocumentReference = usersCollection.document(userId)
-
-        userDocumentRef.get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val document: DocumentSnapshot? = task.result
-
-                    if (document != null && document.exists()) {
-                        val user = document.toObject(User::class.java)
-                        onUserReceived(user)
-                    } else {
-                        onUserReceived(null)
-                    }
-                } else {
-                    val exception: Exception? = task.exception
-                    onUserReceived(null)
-                }
-            }
-    }
-
-    private fun getPropertyFromFirestore(propertyId: String, onPropertyReceived: (Property?) -> Unit) {
-        val db = FirebaseFirestore.getInstance()
-        val propertiesCollection = db.collection("properties")
-
-        val propertyDocumentRef: DocumentReference = propertiesCollection.document(propertyId)
-
-        propertyDocumentRef.get()
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val document: DocumentSnapshot? = task.result
-
-                    if (document != null && document.exists()) {
-                        val property = document.toObject(Property::class.java)
-                        onPropertyReceived(property)
-                    } else {
-                        onPropertyReceived(null)
-                    }
-                    Log.d("listingactivity", "property found")
-                } else {
-                    val exception: Exception? = task.exception
-                    onPropertyReceived(null)
-                    Log.d("listingactivity", "property not found")
-                }
-            }
-    }
-
-//    private fun getSimilarListings(listing: Listing, onListingsReceived: (List<Listing>) -> Unit) {
-//        val db = FirebaseFirestore.getInstance()
-//        val listingsRef = db.collection("listings")
-//
-//        listingsRef.whereEqualTo("propertyId", listing.propertyId)
-//            .get()
-//            .addOnSuccessListener { querySnapshot ->
-//                val similarListings = mutableListOf<Listing>()
-//
-//                for (document in querySnapshot.documents) {
-//                    if (document.id != listing.id) {
-//                        val listingData = document.toObject(Listing::class.java)
-//                        if (listingData != null) {
-//                            similarListings.add(listingData)
-//                        }
-//                    }
-//                }
-//
-//                onListingsReceived(similarListings)
-//            }
-//            .addOnFailureListener { e ->
-//                onListingsReceived(emptyList())
-//            }
-//    }
 
 
     private fun setupRecyclerView(){

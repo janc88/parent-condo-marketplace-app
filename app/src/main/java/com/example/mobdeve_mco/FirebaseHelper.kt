@@ -3,6 +3,7 @@ package com.example.mobdeve_mco
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 
 class FirebaseHelper {
@@ -169,6 +170,56 @@ class FirebaseHelper {
         } else {
             onComplete(ArrayList()) // User is not logged in
         }
+    }
+
+    fun getUserFromFirestore(userId: String, onUserReceived: (User?) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val usersCollection = db.collection("users")
+
+        val userDocumentRef: DocumentReference = usersCollection.document(userId)
+
+        userDocumentRef.get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val document: DocumentSnapshot? = task.result
+
+                    if (document != null && document.exists()) {
+                        val user = document.toObject(User::class.java)
+                        onUserReceived(user)
+                    } else {
+                        onUserReceived(null)
+                    }
+                } else {
+                    val exception: Exception? = task.exception
+                    onUserReceived(null)
+                }
+            }
+    }
+
+    fun getPropertyFromFirestore(propertyId: String, onPropertyReceived: (Property?) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val propertiesCollection = db.collection("properties")
+
+        val propertyDocumentRef: DocumentReference = propertiesCollection.document(propertyId)
+
+        propertyDocumentRef.get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val document: DocumentSnapshot? = task.result
+
+                    if (document != null && document.exists()) {
+                        val property = document.toObject(Property::class.java)
+                        onPropertyReceived(property)
+                    } else {
+                        onPropertyReceived(null)
+                    }
+
+                } else {
+                    val exception: Exception? = task.exception
+                    onPropertyReceived(null)
+
+                }
+            }
     }
 
 
