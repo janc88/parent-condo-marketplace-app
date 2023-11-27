@@ -29,6 +29,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var etLastName : TextInputEditText
     private lateinit var etEmail : TextInputEditText
     private lateinit var etPassword : TextInputEditText
+    private lateinit var etContactNum : TextInputEditText
     private lateinit var etBio : EditText
     private lateinit var ivProfilePic : ImageView
     private lateinit var cvProfilePic : CardView
@@ -62,6 +63,7 @@ class SignUpActivity : AppCompatActivity() {
         etLastName = findViewById(R.id.etLastName);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
+        etContactNum = findViewById(R.id.etContactNum);
         etBio = findViewById(R.id.etBio);
         ivProfilePic = findViewById(R.id.ivProfilePic);
         cvProfilePic = findViewById(R.id.cvProfilePic);
@@ -91,6 +93,7 @@ class SignUpActivity : AppCompatActivity() {
             val lastName = etLastName.text.toString()
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
+            val contactNum = etContactNum.text.toString()
             val bio = etBio.text.toString()
 
             if (email.isEmpty()) {
@@ -117,6 +120,7 @@ class SignUpActivity : AppCompatActivity() {
                                     firstName,
                                     lastName,
                                     email,
+                                    contactNum,
                                     Date(),
                                     bio,
                                     ""
@@ -149,6 +153,7 @@ class SignUpActivity : AppCompatActivity() {
                                                 firstName,
                                                 lastName,
                                                 email,
+                                                contactNum,
                                                 Date(),
                                                 bio,
                                                 downloadUrlString

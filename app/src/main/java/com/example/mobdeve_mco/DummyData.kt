@@ -36,6 +36,7 @@ object DummyData {
             "Arturo",
             "Caronongan",
             "dlsu.edu.ph",
+            "09171234567",
             createDate(2023, 12, 30),
             "hello!",
             "pfp"),

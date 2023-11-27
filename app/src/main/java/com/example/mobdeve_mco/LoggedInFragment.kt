@@ -27,6 +27,7 @@ class LoggedInFragment : Fragment() {
     private lateinit var tvFirstName : TextView
     private lateinit var tvFirstNameTop : TextView
     private lateinit var tvLastName : TextView
+    private lateinit var tvContactNum : TextView
     private lateinit var tvBio : TextView
     private lateinit var ivPfp : ShapeableImageView
     private lateinit var btnLogOut : Button
@@ -49,6 +50,7 @@ class LoggedInFragment : Fragment() {
         tvFirstNameTop = view.findViewById(R.id.tvFirstNameTop)
         tvFirstName = view.findViewById(R.id.tvFirstName)
         tvLastName = view.findViewById(R.id.tvLastName)
+        tvContactNum = view.findViewById(R.id.tvContactNum)
         tvBio = view.findViewById(R.id.tvBio)
         ivPfp = view.findViewById(R.id.ivPfp)
         btnLogOut = view.findViewById(R.id.btnLogOut)
@@ -74,11 +76,18 @@ class LoggedInFragment : Fragment() {
                         val userData = document.data
                         val firstName = userData!!.get("firstname").toString()
                         val lastName = userData!!.get("lastname").toString()
+                        val contactNum = userData!!.get("contactNum")
                         val bio = userData!!.get("bio").toString()
                         val pfp = userData!!.get("pfp").toString()
                         tvFirstName.text = firstName
                         tvFirstNameTop.text = firstName
                         tvLastName.text = lastName
+                        if(contactNum != null){
+                            tvContactNum.text = contactNum.toString()
+                        } else {
+                            tvContactNum.text = "Not available"
+                        }
+
                         tvBio.text = bio
                         if(pfp != "") {
                             Picasso.get().load(pfp).into(ivPfp);

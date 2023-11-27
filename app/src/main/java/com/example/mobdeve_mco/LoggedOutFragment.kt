@@ -135,6 +135,7 @@ class LoggedOutFragment : Fragment() {
                                         firstName,
                                         lastName,
                                         email!!,
+                                        "",
                                         Date(),
                                         "",
                                         photoUrl

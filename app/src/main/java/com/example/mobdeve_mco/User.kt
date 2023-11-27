@@ -8,6 +8,7 @@ data class User(
     val firstname: String = "",
     val lastname: String = "",
     val email: String = "",
+    val contactNum : String = "",
     val dateAccountCreated: Date = Date(),
     val bio: String? = "",
     val pfp: String? = "",
