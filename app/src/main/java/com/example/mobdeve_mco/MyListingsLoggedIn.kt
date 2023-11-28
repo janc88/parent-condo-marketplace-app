@@ -10,8 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mc.GridSpacingItemDecoration
 import com.example.mobdeve_mco.databinding.FragmentMyListingsLoggedInBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MyListingsLoggedIn : Fragment() {

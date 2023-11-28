@@ -1,17 +1,11 @@
 package com.example.mobdeve_mco
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.mobdeve_mc.GridSpacingItemDecoration
 import com.example.mobdeve_mco.databinding.FragmentMyListingsBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MyListingsFragment : Fragment() {

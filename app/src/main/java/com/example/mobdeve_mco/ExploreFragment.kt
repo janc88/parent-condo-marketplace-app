@@ -3,25 +3,20 @@ package com.example.mobdeve_mco
 import DummyData
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.TextView
-import android.widget.Toast
 import android.widget.ToggleButton
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mco.databinding.FragmentExploreBinding
 import java.util.Locale
-import com.example.mobdeve_mco.Amenity
-import com.google.firebase.firestore.FirebaseFirestore
 
 
 class ExploreFragment : Fragment() {

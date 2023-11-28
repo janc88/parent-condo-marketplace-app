@@ -14,15 +14,12 @@ import androidx.fragment.app.Fragment
 import com.example.mobdeve_mco.databinding.FragmentLoggedOutBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInApi
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.SignInMethodQueryResult
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.ktx.firestore
 import java.util.Date

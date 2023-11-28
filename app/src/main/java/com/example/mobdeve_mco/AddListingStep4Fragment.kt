@@ -1,11 +1,8 @@
 package com.example.mobdeve_mco
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,14 +11,11 @@ import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mobdeve_mc.GridSpacingItemDecoration
 import com.example.mobdeve_mco.databinding.FragmentAddListingStep4Binding
-import java.io.File
-import java.io.FileOutputStream
 
 
 class AddListingStep4Fragment : Fragment(), OnAddMoreClickListener, ImageRemoveClickListener {

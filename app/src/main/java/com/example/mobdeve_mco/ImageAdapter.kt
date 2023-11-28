@@ -1,22 +1,15 @@
 package com.example.mobdeve_mco
 
-import android.content.Context
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mobdeve_mco.R
 import com.google.android.material.card.MaterialCardView
-import java.io.File
 
 data class ImageItem(val imageUri: Uri)
 
