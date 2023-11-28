@@ -149,9 +149,9 @@ class ListingActivity : AppCompatActivity() {
             if(firebaseHelper.isUserLoggedIn()){
                 likesHelper.handleLikeButtonClick(listing.id){
                     if (isLiked) {
-                        btnHeart.setBackgroundResource(R.drawable.ic_heart_unliked)
+                        btnHeart.setImageResource(R.drawable.ic_heart)
                     } else {
-                        btnHeart.setBackgroundResource(R.drawable.ic_heart_liked)
+                        btnHeart.setImageResource(R.drawable.ic_heart_liked)
                     }
                     isLiked = !isLiked
                 }
