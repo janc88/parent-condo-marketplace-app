@@ -53,7 +53,7 @@
                         android:id="@+id/imageSlider"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:iss_placeholder="@drawable/bed"
+                        app:iss_placeholder="@drawable/loading_property_activity"
                         app:iss_selected_dot="@drawable/default_selected_dot"
                         app:iss_unselected_dot="@drawable/default_unselected_dot"
                         app:layout_constraintEnd_toEndOf="parent"
