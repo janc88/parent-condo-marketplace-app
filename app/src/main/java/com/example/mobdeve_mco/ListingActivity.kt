@@ -120,7 +120,6 @@ class ListingActivity : AppCompatActivity() {
         likesHelper.isListingLiked(listing.id) { isLiked ->
             if (!isLiked) {
                 btnHeart.setImageResource(R.drawable.ic_heart)
-                Log.d("likes", "liked")
             } else {
                 btnHeart.setImageResource(R.drawable.ic_heart_liked)
             }
@@ -147,15 +146,22 @@ class ListingActivity : AppCompatActivity() {
         }
 
         cvHeart.setOnClickListener{
-            likesHelper.handleLikeButtonClick(listing.id){
-                if (isLiked) {
-                    btnHeart.setImageResource(R.drawable.ic_heart)
-                } else {
-                    btnHeart.setImageResource(R.drawable.ic_heart_liked)
+            if(firebaseHelper.isUserLoggedIn()){
+                likesHelper.handleLikeButtonClick(listing.id){
+                    if (isLiked) {
+                        btnHeart.setBackgroundResource(R.drawable.ic_heart_unliked)
+                    } else {
+                        btnHeart.setBackgroundResource(R.drawable.ic_heart_liked)
+                    }
+                    isLiked = !isLiked
                 }
-                isLiked = !isLiked
+            }else{
+                val bottomSheetFragment = LoginBottomSheetFragment()
+                bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)
             }
         }
+
+
 
         tvListingTitle.text = listing.title
 

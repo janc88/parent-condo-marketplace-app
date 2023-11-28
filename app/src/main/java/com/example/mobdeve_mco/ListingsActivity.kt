@@ -46,7 +46,7 @@ class ListingsActivity : AppCompatActivity() {
             rvSearchResults.setHasFixedSize(true)
             rvSearchResults.layoutManager = LinearLayoutManager(this)
 
-            listingAdapter = ListingAdapter(ArrayList(listings))
+            listingAdapter = ListingAdapter(ArrayList(listings), supportFragmentManager)
             rvSearchResults.adapter = listingAdapter
 
             listingAdapter.onItemClick = {
