@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.denzcoskun.imageslider.ImageSlider
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -13,9 +14,11 @@ import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.example.mobdeve_mco.formatPrice
 
-class WishlistAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Adapter<WishlistAdapter.ListingViewHolder>(){
+class WishlistAdapter(private var listings:ArrayList<Listing>, private val fragmentManager: FragmentManager) :RecyclerView.Adapter<WishlistAdapter.ListingViewHolder>(){
 
     private var isLiked = false
+    private val firebaseHelper = FirebaseHelper.getInstance()
+
     class ListingViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val imageSlider : ImageSlider = itemView.findViewById(R.id.imageSlider)
         val tvPrice : TextView = itemView.findViewById(R.id.tvPrice)
@@ -89,15 +92,22 @@ class WishlistAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ada
         })
 
         holder.btnHeartBorder.setOnClickListener{
-            likesHelper.handleLikeButtonClick(listing.id){
-                if (isLiked) {
-                    holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_unliked)
-                } else {
-                    holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_liked)
+            if(firebaseHelper.isUserLoggedIn()){
+                likesHelper.handleLikeButtonClick(listing.id){
+                    if (isLiked) {
+                        holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_unliked)
+                    } else {
+                        holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_liked)
+                    }
+                    isLiked = !isLiked
                 }
-                isLiked = !isLiked
+            }else{
+                val bottomSheetFragment = LoginBottomSheetFragment()
+                bottomSheetFragment.show(fragmentManager, bottomSheetFragment.tag)
             }
+
         }
+
 
 
         holder.itemView.setOnClickListener {

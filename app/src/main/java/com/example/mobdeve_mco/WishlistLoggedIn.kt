@@ -40,7 +40,7 @@ class WishlistLoggedIn : Fragment() {
                 rvWishlist.setHasFixedSize(true)
                 rvWishlist.layoutManager = LinearLayoutManager(this.activity)
 
-                val wishlistAdapter = WishlistAdapter(listings)
+                val wishlistAdapter = WishlistAdapter(listings, requireActivity().supportFragmentManager)
                 rvWishlist.adapter = wishlistAdapter
 
                 wishlistAdapter.onItemClick = {
