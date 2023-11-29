@@ -24,6 +24,7 @@ class AddListingStepsActivity : AppCompatActivity() {
             if(firebaseHelper.isUserLoggedIn()){
                 val intent = Intent(this, AddListingActivity::class.java)
                 startActivity(intent)
+                finish()
             }else{
                 val bottomSheetFragment = LoginBottomSheetFragment()
                 bottomSheetFragment.show(supportFragmentManager, bottomSheetFragment.tag)

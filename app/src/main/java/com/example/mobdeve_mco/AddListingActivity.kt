@@ -143,6 +143,7 @@ class AddListingActivity : AppCompatActivity() {
                             listingsRef.add(newListing)
                                 .addOnSuccessListener { documentReference ->
                                     val documentId = documentReference.id
+                                    newListing.id = documentId
                                     val updatedData = mapOf("id" to documentId)
 
                                     // Update the Firestore document with the new data
@@ -193,6 +194,10 @@ class AddListingActivity : AppCompatActivity() {
                                                     clearSharedPreferences()
 
                                                     Toast.makeText(this, "Listing created successfully", Toast.LENGTH_SHORT).show()
+                                                    val intent = Intent(this, ListingActivity::class.java)
+                                                    intent.putExtra("listing", newListing)
+                                                    startActivity(intent)
+                                                    finish()
                                                 }
                                                 .addOnFailureListener { e ->
                                                     // Handle the batch update failure
