@@ -31,6 +31,7 @@ class AddListingActivity : AppCompatActivity() {
     private lateinit var btnNext: Button
     private lateinit var addListingFormAdapter: AddListingFormAdapter
     private lateinit var progressBar: ProgressBar
+    private lateinit var loadingBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +48,7 @@ class AddListingActivity : AppCompatActivity() {
         btnBack = findViewById(R.id.btnBack)
         btnNext = findViewById(R.id.btnNext)
         progressBar = findViewById(R.id.progressBar)
+        loadingBar = findViewById(R.id.loadingBar)
     }
 
     private fun init(){
@@ -77,6 +79,9 @@ class AddListingActivity : AppCompatActivity() {
                 viewPager.setCurrentItem(viewPager.currentItem + 1, true)
             } else {
                 // user clicks next on the last page
+                btnBack.isEnabled = false
+                loadingBar.visibility = ProgressBar.VISIBLE
+                btnNext.visibility = ProgressBar.INVISIBLE
                 saveListingToFirestore()
             }
             updateProgressBar()
