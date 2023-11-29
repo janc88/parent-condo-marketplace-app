@@ -92,7 +92,7 @@ class ListingAdapter(private var listings:ArrayList<Listing>, private val fragme
         holder.btnHeartBorder.setOnClickListener{
             if(firebaseHelper.isUserLoggedIn()){
                 likesHelper.handleLikeButtonClick(listing.id){
-                    if (isLiked) {
+                    if (!isLiked) {
                         holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_unliked)
                     } else {
                         holder.btnHeart.setBackgroundResource(R.drawable.ic_heart_liked)

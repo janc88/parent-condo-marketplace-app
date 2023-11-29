@@ -63,30 +63,6 @@ class ListingsActivity : AppCompatActivity() {
 
     }
 
-//    private fun getListingsFromFirestore(propertyId: String, onListingsReceived: (List<Listing>) -> Unit) {
-//        val db = Firebase.firestore
-//        val listingsRef = db.collection("listings")
-//
-//        listingsRef
-//            .whereEqualTo("propertyId", propertyId)
-//            .get()
-//            .addOnSuccessListener { querySnapshot ->
-//                val matchingListings = mutableListOf<Listing>()
-//
-//                for (document in querySnapshot.documents) {
-//                    val listingData = document.toObject(Listing::class.java)
-//                    if (listingData != null) {
-//                        matchingListings.add(listingData)
-//                    }
-//                }
-//
-//                onListingsReceived(matchingListings)
-//            }
-//            .addOnFailureListener { e ->
-//                onListingsReceived(emptyList())
-//            }
-//    }
-
 
 
 }

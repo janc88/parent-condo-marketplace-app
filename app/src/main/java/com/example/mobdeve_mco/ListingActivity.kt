@@ -147,7 +147,7 @@ class ListingActivity : AppCompatActivity() {
         cvHeart.setOnClickListener{
             if(firebaseHelper.isUserLoggedIn()){
                 likesHelper.handleLikeButtonClick(listing.id){
-                    if (isLiked) {
+                    if (!isLiked) {
                         btnHeart.setImageResource(R.drawable.ic_heart)
                     } else {
                         btnHeart.setImageResource(R.drawable.ic_heart_liked)
