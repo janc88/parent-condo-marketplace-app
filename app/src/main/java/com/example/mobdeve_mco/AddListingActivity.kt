@@ -143,7 +143,18 @@ class AddListingActivity : AppCompatActivity() {
                             listingsRef.add(newListing)
                                 .addOnSuccessListener { documentReference ->
                                     val documentId = documentReference.id
-                                    newListing.id = documentId
+                                    val updatedData = mapOf("id" to documentId)
+
+                                    // Update the Firestore document with the new data
+                                    listingsRef.document(documentId)
+                                        .update(updatedData)
+                                        .addOnSuccessListener {
+                                            // Handle success if needed
+                                        }
+                                        .addOnFailureListener { e ->
+                                            // Handle failure if needed
+
+                                        }
 
                                     // Update the properties collection
                                     val propertiesRef = db.collection("properties")
