@@ -36,7 +36,7 @@ class ExploreFragment : Fragment() {
     private var selectedUniversity: String? = null
 
     private val firebaseHelper = FirebaseHelper.getInstance()
-
+    private var allProperties : ArrayList<Property> = ArrayList()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,7 +61,7 @@ class ExploreFragment : Fragment() {
             if(properties != null){
                 propertyAdapter = PropertyAdapter(properties as ArrayList<Property>)
                 rvSearchResults.adapter = propertyAdapter
-
+                allProperties = properties
                 propertyAdapter.onItemClick = {
                     val intent = Intent(this.activity, PropertyActivity::class.java)
                     intent.putExtra("property", it)
@@ -134,7 +134,7 @@ class ExploreFragment : Fragment() {
     private fun searchAndFilterList(query: String?) {
         val filteredList = ArrayList<Property>()
 
-        for (i in DummyData.propertyList) {
+        for (i in allProperties) {
             val universityFilterPassed = selectedUniversity == null || i.university.contains(selectedUniversity!!)
             val searchQueryPassed = query.isNullOrBlank() || i.name.lowercase(Locale.ROOT).contains(query)
 
