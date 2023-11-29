@@ -36,7 +36,7 @@ class WishlistLoggedIn : Fragment() {
 
         getWishlistFromFirestore(){ listings ->
 
-            if(listings.isNotEmpty()){
+            if(listings.isNotEmpty() && isAdded()){
                 rvWishlist.setHasFixedSize(true)
                 rvWishlist.layoutManager = LinearLayoutManager(this.activity)
 
