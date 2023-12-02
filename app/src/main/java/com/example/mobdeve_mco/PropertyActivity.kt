@@ -221,7 +221,11 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         btnShowMore.paintFlags = btnShowMore.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         btnSeeAll.paintFlags = btnSeeAll.paintFlags or Paint.UNDERLINE_TEXT_FLAG
         tvPriceRange.text = "${property.lowestPrice.formatPrice()} - ${property.highestPrice.formatPrice()}"
-        tvNumListings.text = "${property.numListings.toString()} Listings available"
+        if(property.numListings == 1){
+            tvNumListings.text = "${property.numListings.toString()} Listing available"
+        }else{
+            tvNumListings.text = "${property.numListings.toString()} Listings available"
+        }
         tvAddress.text = property.address
     }
 

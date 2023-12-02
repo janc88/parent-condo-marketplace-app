@@ -61,7 +61,12 @@ class PropertyAdapter(private var properties:ArrayList<Property>) :RecyclerView.
 
         holder.tvPriceRange.text = formattedPriceRange
         holder.tvAddress.text = property.address
-        holder.tvNumListings.text = "${property.numListings} listings available"
+        if(property.numListings == 1){
+            holder.tvNumListings.text = "${property.numListings} listing available"
+        }else{
+            holder.tvNumListings.text = "${property.numListings} listings available"
+        }
+
         holder.tvUniversity.text = property.university
         holder.tvUniversity.setUniversityStyle(property.university)
 
