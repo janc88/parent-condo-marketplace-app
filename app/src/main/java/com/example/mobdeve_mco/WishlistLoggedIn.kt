@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +20,7 @@ class WishlistLoggedIn : Fragment() {
     private val binding: FragmentWishlistLoggedInBinding get() = _binding!!
 
     private lateinit var rvWishlist : RecyclerView
+    private lateinit var tvNoFound : TextView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,10 +32,16 @@ class WishlistLoggedIn : Fragment() {
         return _binding?.root
     }
 
+    private fun showResults(show: Boolean){
+        tvNoFound.isVisible = !show
+        rvWishlist.isVisible = show
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         rvWishlist = view.findViewById(R.id.rvMyListings)
+        tvNoFound = view.findViewById(R.id.tvNoFound)
 
         getWishlistFromFirestore(){ listings ->
 
@@ -48,6 +57,9 @@ class WishlistLoggedIn : Fragment() {
                     intent.putExtra("listing", it)
                     startActivity(intent)
                 }
+                showResults(true)
+            }else{
+                showResults(false)
             }
         }
     }
