@@ -98,7 +98,9 @@ class SignUpActivity : AppCompatActivity() {
 
             if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || contactNum.isEmpty()) {
                 Toast.makeText(this, "You have missing fields, please fill them up.", Toast.LENGTH_SHORT).show()
-            } else {
+            } else if (password.length < 8){
+                Toast.makeText(this, "Password must be 8 characters or more.", Toast.LENGTH_SHORT).show()
+            } else{
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
