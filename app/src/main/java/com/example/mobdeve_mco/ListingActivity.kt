@@ -36,6 +36,7 @@ class ListingActivity : AppCompatActivity() {
     private lateinit var tvBathroom : TextView
     private lateinit var tvBalcony : TextView
     private lateinit var tvDescription : TextView
+    private lateinit var tvNoFound : TextView
 
     private lateinit var tvOwner : TextView
     private lateinit var tvDateJoined : TextView
@@ -111,6 +112,7 @@ class ListingActivity : AppCompatActivity() {
         btnContact = findViewById(R.id.btnContact)
         btnMessage = findViewById(R.id.btnMessage)
         btnCall = findViewById(R.id.btnCall)
+        tvNoFound = findViewById(R.id.tvNoFound)
     }
 
     private fun init(){
@@ -275,6 +277,11 @@ class ListingActivity : AppCompatActivity() {
                     intent.putExtra("listing", it)
                     startActivity(intent)
                 }
+                rvSimilarListings.isVisible = true
+                tvNoFound.isVisible = false
+            } else{
+                tvNoFound.isVisible = true
+                rvSimilarListings.isVisible = false
             }
         }
 

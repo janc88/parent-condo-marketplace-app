@@ -652,7 +652,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
-                        android:text="Be the first one to list a unit for this condo!"
+                        android:text="There are no similar listings for this unit."
                         android:visibility="gone" />
 
                 </LinearLayout>
