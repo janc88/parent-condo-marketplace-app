@@ -22,7 +22,7 @@ class AddListingStep6Fragment : Fragment() {
     private lateinit var etDescription : EditText
     private lateinit var tvCharactersAvailable : TextView
 
-    private val characterLimit = 430
+    private val characterLimit = 730
     private lateinit var sharedPreferences: SharedPreferences
 
     private var description : String = ""

@@ -188,7 +188,7 @@ class ListingActivity : AppCompatActivity() {
             tvBedroom.text = "1 Bedroom"
         }
 
-        tvFloor.text = formatFloor(listing.floor)
+        tvFloor.text = "${formatFloor(listing.floor)} floor"
 
         if(listing.numBathroom > 1){
             tvBathroom.text = "${listing.numBathroom} Bathrooms"
