@@ -80,8 +80,8 @@ class AddListingActivity : AppCompatActivity() {
             } else {
                 // user clicks next on the last page
                 btnBack.isEnabled = false
-                loadingBar.visibility = ProgressBar.VISIBLE
-                btnNext.visibility = ProgressBar.INVISIBLE
+                //loadingBar.visibility = ProgressBar.VISIBLE
+                btnNext.isEnabled = false
                 saveListingToFirestore()
             }
             updateProgressBar()
