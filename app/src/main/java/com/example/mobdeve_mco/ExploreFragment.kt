@@ -59,9 +59,10 @@ class ExploreFragment : Fragment() {
 
         firebaseHelper.getProperties { properties ->
             if(properties != null){
-                propertyAdapter = PropertyAdapter(properties as ArrayList<Property>)
+                val shuffledProperties = properties.shuffled()
+                propertyAdapter = PropertyAdapter(shuffledProperties as ArrayList<Property>)
                 rvSearchResults.adapter = propertyAdapter
-                allProperties = properties
+                allProperties = shuffledProperties
                 propertyAdapter.onItemClick = {
                     val intent = Intent(this.activity, PropertyActivity::class.java)
                     intent.putExtra("property", it)
