@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textSize="@dimen/addListing_sm"
-            android:text="Don't see your condo? Add a condo here"
+            android:text=""
             />
 
         <androidx.recyclerview.widget.RecyclerView
