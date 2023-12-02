@@ -146,6 +146,11 @@ class PropertyActivity : AppCompatActivity(), OnMapReadyCallback {
         }
 
 
+        if(property.numListings == 0){
+            btnSeeListings.isEnabled = false
+            btnSeeAll.isEnabled = false
+        }
+
     }
 
 
