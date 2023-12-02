@@ -69,7 +69,7 @@ class MyListingAdapter(private var listings:ArrayList<Listing>) :RecyclerView.Ad
         holder.tvFloor.text = formatFloor(listing.floor)
 
         holder.btnMarkAsRented.setOnClickListener{
-            firebaseHelper.toggleRentedStatus(listing.id){rented ->
+            firebaseHelper.toggleRentedStatus(listing.id, listing.propertyId){rented ->
                 if(rented != null){
                     holder.tvIsRented.isVisible = rented
                     if(rented){

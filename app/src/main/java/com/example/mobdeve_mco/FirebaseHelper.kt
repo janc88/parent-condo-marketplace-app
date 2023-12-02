@@ -56,11 +56,12 @@ class FirebaseHelper {
             }
     }
 
-    fun toggleRentedStatus(listingId: String, onComplete: (Boolean?) -> Unit) {
-        val db = FirebaseFirestore.getInstance()
+    fun toggleRentedStatus(listingId: String, propertyId: String, onComplete: (Boolean?) -> Unit) {
         val listingsCollection = db.collection("listings")
+        val propertiesCollection = db.collection("properties")
 
         val listingRef: DocumentReference = listingsCollection.document(listingId)
+        val propertyRef: DocumentReference = propertiesCollection.document(propertyId)
 
         listingRef.get().addOnSuccessListener { listingSnapshot ->
             if (listingSnapshot.exists()) {
@@ -70,16 +71,35 @@ class FirebaseHelper {
                 // Update the 'rented' field in the listing document
                 listingRef.update("rented", updatedRentedStatus)
                     .addOnSuccessListener {
-                        onComplete(updatedRentedStatus) // Return the new 'rented' status
+                        // Update numListings in the properties collection based on rented status
+                        propertyRef.get().addOnSuccessListener { propertySnapshot ->
+                            if (propertySnapshot.exists()) {
+                                val currentNumListings = propertySnapshot.getLong("numListings") ?: 0
+                                val updatedNumListings =
+                                    if (updatedRentedStatus) currentNumListings - 1 else currentNumListings + 1
+
+                                // Update the 'numListings' field in the property document
+                                propertyRef.update("numListings", updatedNumListings)
+                                    .addOnSuccessListener {
+                                        onComplete(updatedRentedStatus) // Return the new 'rented' status
+                                    }
+                                    .addOnFailureListener { e ->
+                                        onComplete(null) // Update 'numListings' failed, return null
+                                    }
+                            } else {
+                                onComplete(null) // Property not found, return null
+                            }
+                        }
                     }
                     .addOnFailureListener { e ->
-                        onComplete(null) // Update failed, return null
+                        onComplete(null) // Update 'rented' failed, return null
                     }
             } else {
                 onComplete(null) // Listing not found, return null
             }
         }
     }
+
 
     fun getProperties(onComplete: (List<Property>) -> Unit) {
         db.collection("properties")
