@@ -96,10 +96,8 @@ class SignUpActivity : AppCompatActivity() {
             val contactNum = etContactNum.text.toString()
             val bio = etBio.text.toString()
 
-            if (email.isEmpty()) {
-                Toast.makeText(this, "Email is required", Toast.LENGTH_SHORT).show()
-            } else if (password.isEmpty()) {
-                Toast.makeText(this, "Password is required", Toast.LENGTH_SHORT).show()
+            if (firstName.isEmpty() || lastName.isEmpty() || email.isEmpty() || password.isEmpty() || contactNum.isEmpty()) {
+                Toast.makeText(this, "You have missing fields, please fill them up.", Toast.LENGTH_SHORT).show()
             } else {
                 auth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this) { task ->
