@@ -52,6 +52,7 @@ class AddListingStep5Fragment : Fragment() {
     private fun bindViews(view: View){
         etTitle = view.findViewById(R.id.etTitle)
         tvCharactersAvailable = view.findViewById(R.id.tvCharactersAvailable)
+        tvCharactersAvailable.text = characterLimit.toString()
     }
 
     private fun setupTextWatcher() {

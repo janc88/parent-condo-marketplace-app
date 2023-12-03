@@ -103,6 +103,7 @@ class AddListingStep6Fragment : Fragment() {
     private fun bindViews(view: View){
         etDescription = view.findViewById(R.id.etDescription)
         tvCharactersAvailable = view.findViewById(R.id.tvCharactersAvailable)
+        tvCharactersAvailable.text = characterLimit.toString()
     }
 
     override fun onDestroyView() {
